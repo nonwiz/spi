@@ -1,0 +1,167 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  role           String         @default("customer")
+  department     Department?    @relation(fields: [department_id], references: [id])
+  location       Location?      @relation(fields: [location_id], references: [id])
+  order_requests OrderRequest[]
+  department_id  Int?
+  location_id    Int?
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Location {
+  id          Int        @id @default(autoincrement())
+  building    String
+  floor       Int
+  room_number Int
+  description String?
+  inventory   Inventory?
+  User        User[]
+}
+
+model Department {
+  id     Int    @id @default(autoincrement())
+  name   String
+  User   User[]
+  budget Float
+}
+
+
+model ApprovalBy {
+  id            Int          @id @default(autoincrement())
+  order_request OrderRequest @relation(fields: [orderId], references: [id])
+  orderId       Int
+  approval_user String
+}
+
+model PurchasingAction {
+  id               Int          @id @default(autoincrement())
+  description      String?
+  status           Boolean      @default(false)
+  order_request    OrderRequest @relation(fields: [order_request_id], references: [id])
+  order_request_id Int          @unique
+}
+
+model OrderType {
+  id         Int         @id @default(autoincrement())
+  type       String      @db.VarChar(100)
+  order_item OrderItem[]
+}
+
+model OrderItem {
+  id               Int          @id @default(autoincrement())
+  name             String
+  type             OrderType    @relation(fields: [type_id], references: [id])
+  type_id          Int
+  description      String
+  picture          String?
+  link_reference   String
+  price            Float
+  quantity         Float        @default(1.0)
+  remark           String?
+  order_request    OrderRequest @relation(fields: [order_request_id], references: [id])
+  order_request_id Int
+}
+
+model OrderRequest {
+  id              Int               @id @default(autoincrement())
+  order_status    String
+  approval_status Boolean           @default(false)
+  approval_by     ApprovalBy[]
+  total_price     Float?
+  order_date      DateTime?
+  action_number   PurchasingAction?
+  order_items     OrderItem[]
+  user            User              @relation(fields: [user_id], references: [id])
+  user_id         String
+}
+
+model Inventory {
+  id                       Int                   @id @default(autoincrement())
+  location                 Location              @relation(fields: [location_id], references: [id])
+  location_id              Int                   @unique
+  total_quantity           Float
+  update_date              DateTime
+  items                    Item[]
+  inventory_moving_request InventoryMoveRequest?
+}
+
+model Item {
+  id                          Int                  @id @default(autoincrement())
+  name                        String
+  description                 String
+  price                       Float
+  order_date                  DateTime
+  depreciation                DateTime
+  quantity                    Float
+  quantity_unit               String               @db.VarChar(10)
+  inventory                   Inventory            @relation(fields: [inventory_id], references: [id])
+  inventory_id                Int
+  target_inventory_request    InventoryMoveRequest @relation(fields: [target_inventory_request_id], references: [id])
+  target_inventory_request_id Int
+}
+
+model InventoryMoveRequest {
+  id               Int       @id @default(autoincrement())
+  items            Item[]
+  target_inventory Inventory @relation(fields: [inventory_id], references: [id])
+  inventory_id     Int       @unique
+}
+
+
+
+
+
+

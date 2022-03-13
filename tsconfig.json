@@ -1,11 +1,8 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -17,8 +14,22 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/styles/*": ["styles/*"],
+      "@/auth": ["pages/api/auth/[...nextauth].js"],
+      "@/utils/*": ["utils/*"]
+    }
   },
-  "include": ["process.d.ts", "next-env.d.ts", "next-auth.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "process.d.ts",
+    "next-env.d.ts",
+    "next-auth.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+, "lib/fetcher.js"  ],
   "exclude": ["node_modules"]
 }
+

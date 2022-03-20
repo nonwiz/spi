@@ -29,7 +29,7 @@
     "next-auth.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "lib/fetcher.js"  ],
+, "lib/fetcher.ts"  ],
   "exclude": ["node_modules"]
 }
 

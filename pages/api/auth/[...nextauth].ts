@@ -1,10 +1,9 @@
 import NextAuth from "next-auth"
-import Auth0Provider from "next-auth/providers/auth0"
 import EmailProvider from "next-auth/providers/email"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import { PrismaClient } from "@prisma/client"
+import { prisma } from "db"
 
-const prisma = new PrismaClient()
+// const prisma = new PrismaClient()
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options

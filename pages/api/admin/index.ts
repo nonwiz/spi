@@ -10,6 +10,7 @@ type Data = {
   roles?: string[],
   zones: string[],
   error?: string,
+  orderTypes?: object[],
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
@@ -19,7 +20,8 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     const users = await prisma.user.findMany();
     const departments = await prisma.department.findMany({include: {users: true}});
     const locations = await prisma.location.findMany();
-    return res.status(200).json({  users, departments, locations, roles: Object.keys(Role), zones: Object.keys(Zone) })
+    const orderTypes = await prisma.orderType.findMany();
+    return res.status(200).json({  users, departments, locations, roles: Object.keys(Role), zones: Object.keys(Zone), orderTypes })
   }
   res.status(500).json({error: "not authorized"})
 }

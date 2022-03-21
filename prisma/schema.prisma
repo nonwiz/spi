@@ -64,6 +64,12 @@ enum Zone {
   New
 }
 
+enum OrderStatus {
+  Pending
+  Approved
+  Rejected
+}
+
 model User {
   id             String         @id @default(cuid())
   name           String?

@@ -7,6 +7,7 @@ import FormCreateDepartment from "@/components/admin/createDepartment";
 import FormUpdateLocation from "@/components/admin/updateLocation";
 import FormUpdateDepartment from "@/components/admin/updateDepartment";
 import FormAddUserToDepartment from "@/components/admin/addUserToDepartment";
+import FormCreateOrderType from "@/components/admin/createOrderType";
 
 
 export default function Page() {
@@ -53,6 +54,8 @@ export default function Page() {
         <h2> Update Department Budget </h2>
         <FormUpdateDepartment departments={data.departments} />
         <FormAddUserToDepartment users={data.users} departments={data.departments} />
+        <hr />
+        <FormCreateOrderType orderTypes={data.orderTypes} />
         
 
 

@@ -10,14 +10,16 @@ type Data = {
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const reqSession = await getSession({req});
   if (reqSession && reqSession?.user?.role == "admin") {
-    const { name, budget } = req.body
-    const department = await prisma.department.create({
-      data: {
-        name,
-        budget: Number(budget)
-      }
-    })
-     return res.status(200).json({  department })
+    const { email, role } = req.body;
+    const user = await prisma.user.update({
+      where: {
+        email
+      }, data:
+      {
+        role
+      }});
+    // console.log(users, typeof(users))
+    return res.status(200).json({  user })
   }
   res.status(500).json({error: "not authorized"})
 }

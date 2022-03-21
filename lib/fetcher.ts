@@ -15,11 +15,20 @@ export const fetcher = (url: RequestInfo, data = undefined) =>
 
   export const getFetcher = (...args: any[]) => fetch(...args).then((res) => res.json());
 
-  export const adminUse = () => {
-    const { data, error } = useSWR("/api/logtree", getFetcher);
+  export const useAdmin = () => {
+    const { data, error } = useSWR("/api/admin", getFetcher);
     return {
       data,
       isLoading: !error && !data,
       isError: error,
     };
   };
+
+export const getFieldsValues = (event, fields) => {
+  const data = {};
+  fields.forEach((item) => {
+    data[item] = event.target.querySelector(`[name=${item}]`).value;
+  });
+  return data;
+};
+

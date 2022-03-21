@@ -1,17 +1,53 @@
-import Layout from "../../components/layout"
+import Layout from "@/components/layout"
+import { useAdmin } from "lib/fetcher";
+import { useSession } from "next-auth/react";
+import FormUpdateRole from "@/components/admin/updateRole";
+import FormCreateLocation from "@/components/admin/createLocation";
+import FormCreateDepartment from "@/components/admin/createDepartment";
+
 
 export default function Page() {
-  return (
+  const { data: session } = useSession();
+  const { data, isLoading } = useAdmin();
+
+  if (isLoading) return <p> Loading ... </p>
+  if (session?.user?.role != "admin") return <p> Unauthorized </p>
+
+   return (
     <Layout>
-      <h1>This page is protected by Middleware</h1>
-      <p>Only admin users can see this page.</p>
-      <p>
-        To learn more about the NextAuth middleware see&nbsp;
-        <a href="https://docs-git-misc-docs-nextauthjs.vercel.app/configuration/nextjs#middleware">
-          the docs
-        </a>
-        .
-      </p>
+      <div className="p-4">
+        <h1> Admin Dashboard </h1>
+        <h2> List of User </h2>
+        {data && <div>
+          <ul>
+            {data.users.map((user, id) => <li key={id}>{user.email} | {user.role} </li>)}
+          </ul>
+        </div>}
+        <hr />
+          <FormUpdateRole roles={data.roles} users={data.users}/>
+ <hr />
+        <h2> List of Location </h2>
+        {data && <div>
+          <ul>
+            {data.locations.map((item, id) => <li key={id}>Room: {item.room_number} | {item.zone} - {item.description} </li>)}
+          </ul>
+        </div>}
+        <hr />
+        <FormCreateLocation zones={data.zones} />
+
+
+        <hr />
+        <h2> List of Department</h2>
+        {data && <div>
+          <ul>
+            {data.departments.map((item, id) => <li key={id}>Department: {item.name} | {item.budget} </li>)}
+          </ul>
+        </div>}
+        <hr />
+        <FormCreateDepartment />
+
+      </div>
+
     </Layout>
   )
 }

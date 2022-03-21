@@ -27,16 +27,17 @@ export default NextAuth({
     colorScheme: "light",
   },
   callbacks: {
+    async jwt({ token, user }) {
+      return token
+    },
     async session({session, token, user}) {
-      // console.log({session, token, user} );
+      if (user?.role) {
+        session.user.role = user.role;
+      }
       if (user.email.split("@")[0] == process.env.ADMIN_USER) {
         session["user"]["role"] = "admin";
       }
       return session;
-    },
-    async jwt({ token }) {
-      token.userRole = "admin"
-      return token
     },
   },
 })

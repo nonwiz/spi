@@ -3,7 +3,7 @@ import { useSession, signOut } from "next-auth/react";
 
 const SideNav = () => {
   const { data: session } = useSession();
-  console.log(session);
+  // console.log(session);
   return (
     <div class="fixed flex flex-col items-center w-16 sm:w-48 h-screen overflow-hidden text-gray-700 bg-gray-100 rounded ">
       <a class="flex items-center w-full p-4 " href="#">

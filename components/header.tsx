@@ -3,7 +3,9 @@ import { useSession, signOut } from "next-auth/react"
 
 const Header = () => {
   const pages = [
-    {label: "Admin", refer: "/admin"}
+    {label: "Admin", refer: "/admin"},
+    {label: "Customer", refer: "/customer"},
+
   ]
 
   const { data: session } = useSession()
@@ -17,8 +19,10 @@ const Header = () => {
         </div>
         <div className="flex flex-row gap-8">
 
-          <div>
-            <Link href="/admin"> Admin </Link>
+          <div className="flex flex-row gap-2">
+    {pages.map((item, id) => 
+            <Link href={item.refer} key={id}>{item.label}</Link>
+            )}
 
     </div>
           {!session ? (

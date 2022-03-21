@@ -4,6 +4,8 @@ import { useSession } from "next-auth/react";
 import FormUpdateRole from "@/components/admin/updateRole";
 import FormCreateLocation from "@/components/admin/createLocation";
 import FormCreateDepartment from "@/components/admin/createDepartment";
+import FormUpdateLocation from "@/components/admin/updateLocation";
+import FormUpdateDepartment from "@/components/admin/updateDepartment";
 
 
 export default function Page() {
@@ -35,9 +37,10 @@ export default function Page() {
         <hr />
         <FormCreateLocation zones={data.zones} />
 
+        <FormUpdateLocation zones={data.zones} locations={data.locations} />
 
         <hr />
-        <h2> List of Department</h2>
+        <h2 className="mt-10"> List of Department</h2>
         {data && <div>
           <ul>
             {data.departments.map((item, id) => <li key={id}>Department: {item.name} | {item.budget} </li>)}
@@ -45,6 +48,7 @@ export default function Page() {
         </div>}
         <hr />
         <FormCreateDepartment />
+        <FormUpdateDepartment departments={data.departments} />
 
       </div>
 

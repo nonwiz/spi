@@ -14,6 +14,7 @@
 ## Questioning
 - Should floor and room number be int only?
 - Should floor be automate base on room_number?
+- shuld admin role be able to assign it to other?
 
 ## Updates
 - March 21: view / update user role, crud location, department

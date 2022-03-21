@@ -8,6 +8,7 @@ type Data = {
   department?: object,
   location?: object,
   error?: string,
+  orderTypes?: object[]
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
@@ -22,7 +23,8 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         }
       },
     }})
-    return res.status(200).json({ user })
+    const orderTypes = await prisma.orderType.findMany();
+    return res.status(200).json({ user, orderTypes})
   }
   res.status(500).json({error: "not authorized"})
 }

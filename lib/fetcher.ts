@@ -24,6 +24,17 @@ export const fetcher = (url: RequestInfo, data = undefined) =>
     };
   };
 
+  export const useCustomer = () => {
+    const { data, error } = useSWR("/api/customer", getFetcher);
+    return {
+      data,
+      isLoading: !error && !data,
+      isError: error,
+    };
+  };
+
+
+
 export const getFieldsValues = (event, fields) => {
   const data = {};
   fields.forEach((item) => {

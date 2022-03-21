@@ -3,7 +3,7 @@ import { useSWRConfig } from "swr";
 
 
 
-const FormCreateOrderRequest = () => {
+const FormCreateOrderRequest = ({orderTypes}: {orderTypes: object[]}) => {
   const { mutate } = useSWRConfig();
 
   const handleCreateOrderRequest = async event => {
@@ -20,6 +20,14 @@ const FormCreateOrderRequest = () => {
   return <>
         <h2> Form create order request</h2>
         <form onSubmit={handleCreateOrderRequest}>
+      
+        <input type="text" placeholder="name" name="name" />
+      <select name="type">
+{orderTypes.map((item, id) => (
+          <option value={item.id}> {item.type} </option>
+      ))}
+  </select>
+        <input type="text" placeholder="name" name="name" />
 
            <input type="submit" value="Request" className="p-2 border-2 border-solid m-2" />
 

@@ -5,6 +5,7 @@ import { prisma } from "db"
 type Data = {
   users?: object[],
   error?: string,
+  orderTypes?: object[]
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {

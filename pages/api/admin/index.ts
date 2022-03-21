@@ -17,7 +17,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const reqSession = await getSession({req});
   if (reqSession && reqSession?.user?.role == "admin") {
     const users = await prisma.user.findMany();
-    const departments = await prisma.department.findMany();
+    const departments = await prisma.department.findMany({include: {users: true}});
     const locations = await prisma.location.findMany();
     return res.status(200).json({  users, departments, locations, roles: Object.keys(Role), zones: Object.keys(Zone) })
   }

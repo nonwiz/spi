@@ -134,14 +134,15 @@ model OrderType {
 
 model OrderItem {
   id               Int          @id @default(autoincrement())
-  name             String
+  description      String
+  size             String?
+  quantity         Float?       @default(1.0)
+  unit_price       Float?
+  amount           Float?
   type             OrderType    @relation(fields: [type_id], references: [id])
   type_id          Int
-  description      String
   picture          String?
-  link_reference   String
-  price            Float
-  quantity         Float        @default(1.0)
+  link_reference   String?
   remark           String?
   order_request    OrderRequest @relation(fields: [order_request_id], references: [id])
   order_request_id Int
@@ -149,10 +150,12 @@ model OrderItem {
 
 model OrderRequest {
   id              Int               @id @default(autoincrement())
+  purchase_reason String?
   order_status    String
   approval_status Boolean           @default(false)
   approval_by     ApprovalBy[]
   total_price     Float?
+  vat             Float?
   order_date      DateTime?
   action_number   PurchasingAction?
   order_items     OrderItem[]

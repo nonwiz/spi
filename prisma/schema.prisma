@@ -151,7 +151,7 @@ model OrderItem {
 model OrderRequest {
   id              Int               @id @default(autoincrement())
   purchase_reason String?
-  order_status    String
+  order_status    OrderStatus       @default(Pending)
   approval_status Boolean           @default(false)
   approval_by     ApprovalBy[]
   total_price     Float?

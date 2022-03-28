@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const FormCreateOrderRequest = ({orderTypes}: {orderTypes: object[]}) => {
   const { mutate } = useSWRConfig();
-  const orderItemProperty = ["description", "size", "quantity", "unit_price", "amount"]
+  const orderItemProperty = ["description", "size", "quantity", "unit_price", "amount", "type"]
 
   const [orderItem, setOrderItem] = useState([1, 1]);
 
@@ -19,16 +19,28 @@ const FormCreateOrderRequest = ({orderTypes}: {orderTypes: object[]}) => {
         return [...all, ...curr]
       }, [])
 
-    const datas =  [...flatItems, "purchase_reason", "type"];
+    const datas =  [...flatItems, "purchase_reason"];
     console.log({datas})
     const formData = getFieldsValues(event, datas );
-    formData["orderItem"] = orderItem;
+    const cleanData = {
+      items: [],
+      purchase_reason: formData["purchase_reason"],
+    }
+    for (let i = 0; i < orderItem.length; i++) {
+      const item = {};
+      orderItemProperty.forEach(f => {
+        item[f] = formData[`${f}-${i}`];
+      })
+      cleanData.items.push(item)
+    }
 
-    console.log({formData})
-    // fetcher("/api/admin/department/addUser", formData).then(d => {
-    //   console.log(d)
-    //   mutate("/api/admin")
-    // })
+    const formatedData = JSON.stringify(cleanData)
+
+    console.log({formatedData});
+    fetcher("/api/customer/order/createOrderRequest", formatedData).then(d => {
+      console.log(d)
+      mutate("/api/admin")
+    })
 
   }
 
@@ -38,22 +50,22 @@ const FormCreateOrderRequest = ({orderTypes}: {orderTypes: object[]}) => {
 
     <form onSubmit={handleCreateOrderRequest}>
       {orderItem.map((item, num) => 
-        <div className="flex flex-row" key={num}> 
+        <div className="" key={num}> 
           <textarea placeholder="description" name={`description-${num}`} />
           <input type="text" placeholder="size" name={`size-${num}`}/>
           <input type="text" placeholder="quantity" name={`quantity-${num}`}/>
           <input type="text" placeholder="unit_price" name={`unit_price-${num}`}/>
           <input type="text" placeholder="amount" name={`amount-${num}`}/>
+      <select name={`type-${num}`}>
+        {orderTypes.map((item, id) => (
+          <option key={id} value={item.id}> {item.type} </option>
+        ))}
+      </select>
         </div>
       )}
 
       <textarea placeholder="purchase_reason" name="purchase_reason" />
 
-      <select name="type">
-        {orderTypes.map((item, id) => (
-          <option key={id} value={item.id}> {item.type} </option>
-        ))}
-      </select>
 
 
       <input type="submit" value="Request" className="p-2 border-2 border-solid m-2" />

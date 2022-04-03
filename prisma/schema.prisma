@@ -112,10 +112,10 @@ model Department {
 }
 
 model ApprovalBy {
-  id            Int          @id @default(autoincrement())
-  order_request OrderRequest @relation(fields: [orderId], references: [id])
-  orderId       Int
-  approval_user String
+  id             Int          @id @default(autoincrement())
+  order_request  OrderRequest @relation(fields: [orderId], references: [id])
+  orderId        Int
+  approval_users String
 }
 
 model PurchasingAction {
@@ -127,8 +127,8 @@ model PurchasingAction {
 }
 
 model OrderType {
-  id         Int         @id @default(autoincrement())
-  type       String      @db.VarChar(100)
+  id   Int    @id @default(autoincrement())
+  type String @db.VarChar(100)
 }
 
 model OrderItem {

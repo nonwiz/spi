@@ -14,6 +14,13 @@ export default function Page() {
   return (
     <Layout>
       <div className="p-4">
+        <div className="p-2 my-4">
+          <h1> Order Status </h1>
+          <hr />
+          {data.user.order_requests.map((item, id) => <li key={id}>
+            {item.purchase_reason} | {item.order_status}
+          </li>)}
+        </div>
         <FormCreateOrderRequest orderTypes={data.orderTypes} />
       </div>
     </Layout>

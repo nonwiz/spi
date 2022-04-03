@@ -13,25 +13,25 @@ export const fetcher = (url: RequestInfo, data = undefined) =>
     }
   ).then((r) => r.json());
 
-  export const getFetcher = (...args: any[]) => fetch(...args).then((res) => res.json());
+export const getFetcher = (...args: any[]) => fetch(...args).then((res) => res.json());
 
-  export const useAdmin = () => {
-    const { data, error } = useSWR("/api/admin", getFetcher);
-    return {
-      data,
-      isLoading: !error && !data,
-      isError: error,
-    };
+export const useAdmin = () => {
+  const { data, error } = useSWR("/api/admin", getFetcher);
+  return {
+    data,
+    isLoading: !error && !data,
+    isError: error,
   };
+};
 
-  export const useCustomer = () => {
-    const { data, error } = useSWR("/api/customer", getFetcher);
-    return {
-      data,
-      isLoading: !error && !data,
-      isError: error,
-    };
+export const useCustomer = () => {
+  const { data, error } = useSWR("/api/customer", getFetcher);
+  return {
+    data,
+    isLoading: !error && !data,
+    isError: error,
   };
+};
 
 
 

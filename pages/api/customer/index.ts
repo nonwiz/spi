@@ -12,21 +12,24 @@ type Data = {
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
-  const reqSession = await getSession({req});
-  if (reqSession ) {
-    const user = await prisma.user.findUnique({where: {email: reqSession.user.email}, include: {
-      department: true,
-      location: true,
-      order_requests: {
-        include: {
-          order_items: true
-        }
-      },
-    }})
+  const reqSession = await getSession({ req });
+  if (reqSession) {
+    const user = await prisma.user.findUnique({
+      where: { email: reqSession.user.email }, include: {
+        department: true,
+        location: true,
+        order_requests: {
+          include: {
+            order_items: true,
+            approval_by: true,
+          }
+        },
+      }
+    })
     const orderTypes = await prisma.orderType.findMany();
-    return res.status(200).json({ user, orderTypes})
+    return res.status(200).json({ user, orderTypes })
   }
-  res.status(500).json({error: "not authorized"})
+  res.status(500).json({ error: "not authorized" })
 }
 
 

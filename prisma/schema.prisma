@@ -112,10 +112,10 @@ model Department {
 }
 
 model ApprovalBy {
-  id             Int          @id @default(autoincrement())
-  order_request  OrderRequest @relation(fields: [orderId], references: [id])
-  orderId        Int
-  approval_users String
+  id            Int          @id @default(autoincrement())
+  order_request OrderRequest @relation(fields: [orderId], references: [id])
+  orderId       Int
+  user          String
 }
 
 model PurchasingAction {
@@ -141,7 +141,6 @@ model OrderItem {
   type             String
   picture          String?
   link_reference   String?
-  remark           String?
   order_request    OrderRequest @relation(fields: [order_request_id], references: [id])
   order_request_id Int
 }
@@ -159,6 +158,7 @@ model OrderRequest {
   order_items     OrderItem[]
   user            User              @relation(fields: [user_id], references: [id])
   user_id         String
+  remark          String?
 }
 
 model Inventory {

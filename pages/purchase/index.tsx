@@ -14,6 +14,10 @@ export default function Page() {
 
   console.log(data, ors[sItem]);
 
+  const handleApprove = (item) => {
+    console.log("approved item", item)
+  }
+
   return (
     <Layout>
       <div className="p-4">
@@ -33,10 +37,11 @@ export default function Page() {
             </ul>
           </li>
           <li> Total cost: {ors[sItem].total_price} baht </li>
-          <button> Approve </button>
+          <button onClick={handleApprove(ors[sItem])}> Approve </button>
           <br />
+          <p> Remark: {ors[sItem].remark ? ors[sItem].remark : "No remark"} </p>
 
-          <textarea name="reason">Rejected reason</textarea>
+          <textarea name="reason">Rejected reason:</textarea>
           <button> Reject </button>
 
         </div>

@@ -15,8 +15,8 @@ export const fetcher = (url: RequestInfo, data = undefined) =>
 
 export const getFetcher = (...args: any[]) => fetch(...args).then((res) => res.json());
 
-export const useAdmin = () => {
-  const { data, error } = useSWR("/api/admin", getFetcher);
+export const getData = (url: string) => {
+  const { data, error } = useSWR(url, getFetcher);
   return {
     data,
     isLoading: !error && !data,
@@ -24,13 +24,16 @@ export const useAdmin = () => {
   };
 };
 
+export const useAdmin = () => {
+  return getData("/api/admin");
+};
+
+export const usePurchase = () => {
+  return getData("/api/purchase");
+};
+
 export const useCustomer = () => {
-  const { data, error } = useSWR("/api/customer", getFetcher);
-  return {
-    data,
-    isLoading: !error && !data,
-    isError: error,
-  };
+  return getData("/api/customer");
 };
 
 

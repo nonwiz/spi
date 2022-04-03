@@ -4,7 +4,7 @@ import { useState } from "react";
 
 
 
-const FormCreateOrderRequest = ({orderTypes}: {orderTypes: object[]}) => {
+const FormCreateOrderRequest = ({ orderTypes }: { orderTypes: object[] }) => {
   const { mutate } = useSWRConfig();
   const orderItemProperty = ["description", "size", "quantity", "unit_price", "amount", "type"]
 
@@ -13,15 +13,15 @@ const FormCreateOrderRequest = ({orderTypes}: {orderTypes: object[]}) => {
 
   const handleCreateOrderRequest = async event => {
     event.preventDefault();
-    const items = orderItem.map((item, i) => 
-     orderItemProperty.map((prop, num) => `${orderItemProperty[num]}-${i}`))
-  const flatItems = items.reduce((all, curr) => {
-        return [...all, ...curr]
-      }, [])
+    const items = orderItem.map((item, i) =>
+      orderItemProperty.map((prop, num) => `${orderItemProperty[num]}-${i}`))
+    const flatItems = items.reduce((all, curr) => {
+      return [...all, ...curr]
+    }, [])
 
-    const datas =  [...flatItems, "purchase_reason"];
-    console.log({datas})
-    const formData = getFieldsValues(event, datas );
+    const datas = [...flatItems, "purchase_reason"];
+    console.log({ datas })
+    const formData = getFieldsValues(event, datas);
     const cleanData = {
       items: [],
       purchase_reason: formData["purchase_reason"],
@@ -36,7 +36,7 @@ const FormCreateOrderRequest = ({orderTypes}: {orderTypes: object[]}) => {
 
     const formatedData = JSON.stringify(cleanData)
 
-    console.log({formatedData});
+    console.log({ formatedData });
     fetcher("/api/customer/order/createOrderRequest", formatedData).then(d => {
       console.log(d)
       mutate("/api/admin")
@@ -49,18 +49,18 @@ const FormCreateOrderRequest = ({orderTypes}: {orderTypes: object[]}) => {
     <h2> Form create order request </h2>
 
     <form onSubmit={handleCreateOrderRequest}>
-      {orderItem.map((item, num) => 
-        <div className="" key={num}> 
+      {orderItem.map((item, num) =>
+        <div className="" key={num}>
           <textarea placeholder="description" name={`description-${num}`} />
-          <input type="text" placeholder="size" name={`size-${num}`}/>
-          <input type="text" placeholder="quantity" name={`quantity-${num}`}/>
-          <input type="text" placeholder="unit_price" name={`unit_price-${num}`}/>
-          <input type="text" placeholder="amount" name={`amount-${num}`}/>
-      <select name={`type-${num}`}>
-        {orderTypes.map((item, id) => (
-          <option key={id} value={item.id}> {item.type} </option>
-        ))}
-      </select>
+          <input type="text" placeholder="size" name={`size-${num}`} />
+          <input type="text" placeholder="quantity" name={`quantity-${num}`} />
+          <input type="text" placeholder="unit_price" name={`unit_price-${num}`} />
+          <input type="text" placeholder="amount" name={`amount-${num}`} />
+          <select name={`type-${num}`}>
+            {orderTypes.map((item, id) => (
+              <option key={id} value={item.type}> {item.type} </option>
+            ))}
+          </select>
         </div>
       )}
 
@@ -77,7 +77,7 @@ const FormCreateOrderRequest = ({orderTypes}: {orderTypes: object[]}) => {
 
 
 
-    </>
+  </>
 }
 
 export default FormCreateOrderRequest;

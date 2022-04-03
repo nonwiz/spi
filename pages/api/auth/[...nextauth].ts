@@ -12,16 +12,16 @@ export default NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
     EmailProvider({
-       server: {
-            host: process.env.EMAIL_SERVER_HOST,
-            port: process.env.EMAIL_SERVER_PORT,
-            auth: {
-              user: process.env.EMAIL_SERVER_USER,
-              pass: process.env.EMAIL_SERVER_PASSWORD
-            }
-       },
-       from: process.env.EMAIL_FROM,
-       }),
+      server: {
+        host: process.env.EMAIL_SERVER_HOST,
+        port: process.env.EMAIL_SERVER_PORT,
+        auth: {
+          user: process.env.EMAIL_SERVER_USER,
+          pass: process.env.EMAIL_SERVER_PASSWORD
+        }
+      },
+      from: process.env.EMAIL_FROM,
+    }),
   ],
   theme: {
     colorScheme: "light",
@@ -30,7 +30,7 @@ export default NextAuth({
     async jwt({ token, user }) {
       return token
     },
-    async session({session, token, user}) {
+    async session({ session, token, user }) {
       if (user?.role) {
         session.user.role = user.role;
       }

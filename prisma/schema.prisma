@@ -129,7 +129,6 @@ model PurchasingAction {
 model OrderType {
   id         Int         @id @default(autoincrement())
   type       String      @db.VarChar(100)
-  order_item OrderItem[]
 }
 
 model OrderItem {
@@ -139,8 +138,7 @@ model OrderItem {
   quantity         Float?       @default(1.0)
   unit_price       Float?
   amount           Float?
-  type             OrderType    @relation(fields: [type_id], references: [id])
-  type_id          Int
+  type             String
   picture          String?
   link_reference   String?
   remark           String?

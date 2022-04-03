@@ -1,11 +1,11 @@
 import Layout from "@/components/layout"
-import { usePurchase } from "lib/fetcher";
+import { useInventory } from "lib/fetcher";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 export default function Page() {
   const { data: session } = useSession();
-  const { data, isLoading } = usePurchase();
+  const { data, isLoading } = useInventory();
   const [sItem, setSelected] = useState(0)
 
   if (isLoading) return <p> Loading ... </p>
@@ -31,14 +31,10 @@ export default function Page() {
           <h2> Order Request Information </h2>
           {ors && ors[sItem] &&
             <div>
-              <li> Purchase Reason: {ors[sItem].purchase_reason} | {ors[sItem].order_status} </li>
               <li> Items:
                 <ul>
-                  {ors[sItem].order_items.map((item, i) =>
-                    <li key={i}> {item.description} | {item.size} | {item.quantity} | {item.unit_price} | Type: {item.type} | Total: {item.amount} </li>)}
                 </ul>
               </li>
-              <li> Total cost: {ors[sItem].total_price} baht </li>
               <button onClick={handleApprove(ors[sItem])}> Approve </button>
               <br />
               <p> Remark: {ors[sItem].remark ? ors[sItem].remark : "No remark"} </p>

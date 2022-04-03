@@ -28,6 +28,10 @@ export const useAdmin = () => {
   return getData("/api/admin");
 };
 
+export const useInventory = () => {
+  return getData("/api/inventory");
+};
+
 export const usePurchase = () => {
   return getData("/api/purchase");
 };

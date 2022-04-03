@@ -1,14 +1,18 @@
 import Layout from "@/components/layout"
 import { usePurchase } from "lib/fetcher";
 import { useSession } from "next-auth/react";
+import { useState } from "react";
 
 export default function Page() {
   const { data: session } = useSession();
   const { data, isLoading } = usePurchase();
+  const [sItem, setSelected] = useState(0)
 
   if (isLoading) return <p> Loading ... </p>
 
-  console.log(data);
+  const { orderRequests: ors } = data;
+
+  console.log(data, ors[sItem]);
 
   return (
     <Layout>
@@ -17,8 +21,24 @@ export default function Page() {
           <h1> Order Status </h1>
           <hr />
           {data.orderRequests.map((item, id) => <li key={id}>
-            <button onClick={() => console.log("test")}>{item.purchase_reason}</button> | {item.order_status} | Approve by | Approve
+            <button onClick={() => setSelected(id)}>{item.purchase_reason}</button> | {item.order_status} | requested by: {item.user.email} ...
           </li>)}
+          <hr />
+          <h2> Order Request Information </h2>
+          <li> Purchase Reason: {ors[sItem].purchase_reason} | {ors[sItem].order_status} </li>
+          <li> Items:
+            <ul>
+              {ors[sItem].order_items.map((item, i) =>
+                <li key={i}> {item.description} | {item.size} | {item.quantity} | {item.unit_price} | Type: {item.type} | Total: {item.amount} </li>)}
+            </ul>
+          </li>
+          <li> Total cost: {ors[sItem].total_price} baht </li>
+          <button> Approve </button>
+          <br />
+
+          <textarea name="reason">Rejected reason</textarea>
+          <button> Reject </button>
+
         </div>
       </div>
     </Layout>

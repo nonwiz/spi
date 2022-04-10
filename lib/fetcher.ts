@@ -43,6 +43,7 @@ export const useCustomer = () => {
 
 
 export const getFieldsValues = (event, fields) => {
+  console.log(event, fields)
   const data = {};
   fields.forEach((item) => {
     data[item] = event.target.querySelector(`[name=${item}]`).value;

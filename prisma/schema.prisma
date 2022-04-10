@@ -40,7 +40,7 @@ model Session {
 enum Role {
   customer
   department_head
-  inventory_officer
+  location_officer
   finance_officer
   purchasing_officer
   admin
@@ -95,13 +95,16 @@ model VerificationToken {
 }
 
 model Location {
-  id          Int        @id @default(autoincrement())
-  zone        Zone       @default(New)
-  floor       Int
-  room_number Int
-  description String?
-  inventory   Inventory?
-  User        User[]
+  id                      Int                  @id @default(autoincrement())
+  zone                    Zone                 @default(New)
+  floor                   Int
+  room_number             String
+  description             String?
+  User                    User[]
+  total_quantity          Float?               @default(0)
+  update_date             DateTime?            @default(now())
+  items                   Item[]
+  location_moving_request LocationMoveRequest?
 }
 
 model Department {
@@ -161,34 +164,25 @@ model OrderRequest {
   remark          String?
 }
 
-model Inventory {
-  id                       Int                   @id @default(autoincrement())
-  location                 Location              @relation(fields: [location_id], references: [id])
-  location_id              Int                   @unique
-  total_quantity           Float                 @default(0)
-  update_date              DateTime              @default(now())
-  items                    Item[]
-  inventory_moving_request InventoryMoveRequest?
-}
-
 model Item {
-  id                          Int                  @id @default(autoincrement())
-  name                        String
-  description                 String
-  price                       Float
-  order_date                  DateTime
-  depreciation                DateTime
-  quantity                    Float
-  quantity_unit               String               @db.VarChar(10)
-  inventory                   Inventory            @relation(fields: [inventory_id], references: [id])
-  inventory_id                Int
-  target_inventory_request    InventoryMoveRequest @relation(fields: [target_inventory_request_id], references: [id])
-  target_inventory_request_id Int
+  id                         Int                  @id @default(autoincrement())
+  name                       String
+  description                String?
+  price                      Float?
+  order_date                 DateTime?
+  depreciation               DateTime?
+  quantity                   Float?
+  quantity_unit              String?              @db.VarChar(10)
+  location                   Location             @relation(fields: [location_id], references: [id])
+  location_id                Int
+  target_location_request    LocationMoveRequest? @relation(fields: [target_location_request_id], references: [id])
+  target_location_request_id Int?
 }
 
-model InventoryMoveRequest {
-  id               Int       @id @default(autoincrement())
-  items            Item[]
-  target_inventory Inventory @relation(fields: [inventory_id], references: [id])
-  inventory_id     Int       @unique
+model LocationMoveRequest {
+  id                Int      @id @default(autoincrement())
+  items             Item[]
+  previous_location String
+  target_location   Location @relation(fields: [location_id], references: [id])
+  location_id       Int      @unique
 }

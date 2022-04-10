@@ -14,15 +14,9 @@ type Data = {
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const reqSession = await getSession({ req });
   if (reqSession) {
-    const locations = await prisma.location.findMany({
-      include: {
-        inventory: {
-          include: {
-            items: true
-          }
-        }
-      }
-    })
+    const locations = await prisma.location.findMany({include: {
+      items: true
+    }})
     const user = await prisma.user.findUnique({
       where: { email: reqSession.user.email }, include: {
         department: true,
@@ -36,7 +30,8 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       }
     })
     const orderTypes = await prisma.orderType.findMany();
-    return res.status(200).json({ user, orderTypes, locations })
+    const items = locations.map(item => item.items).flat()
+    return res.status(200).json({ user, items, orderTypes, locations })
   }
   res.status(500).json({ error: "not authorized" })
 }

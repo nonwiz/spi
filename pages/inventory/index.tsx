@@ -18,6 +18,11 @@ export default function Page() {
 
   console.log(data.locations)
 
+  const returnRoom = (locations, id) => {
+    const tmp = locations.find(ele => ele.id == id);
+    return (`${zones[tmp.zone]}${tmp.room_number}`);
+  }
+
 
   return (
     <Layout>
@@ -48,7 +53,8 @@ export default function Page() {
             <hr />
           <ul>
             {data && data.items.map((item, id)  => (
-              <li key={id}> {item.name} {data.locations.find(ele => ele.id == item.location_id).room_number} </li>
+              <li key={id}> {item.name} {returnRoom(data.locations, item.location_id) 
+               } </li>
             ))}
             </ul>
             <br />

@@ -15,7 +15,8 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const reqSession = await getSession({ req });
   if (reqSession) {
     const locations = await prisma.location.findMany({include: {
-      items: true
+      items: true,
+      users: true,
     }})
     const user = await prisma.user.findUnique({
       where: { email: reqSession.user.email }, include: {

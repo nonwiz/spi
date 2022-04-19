@@ -100,7 +100,7 @@ model Location {
   floor                   Int
   room_number             String
   description             String?
-  User                    User[]
+  users                    User[]
   total_quantity          Float?               @default(0)
   update_date             DateTime?            @default(now())
   items                   Item[]

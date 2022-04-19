@@ -3,11 +3,11 @@ import { useSWRConfig } from "swr"
 
 const FormAddInventory = ({ props }) => {
   const { mutate } = useSWRConfig()
-  const { zones, locations } = props;
+  const { location } = props;
 
   const handleAddInventory = async (event) => {
     event.preventDefault()
-    const formData = getFieldsValues(event, ["name", "location"])
+    const formData = getFieldsValues(event, ["name", "location", "description", "price", "order_date", "depreciation", "quantity", "quantity_unit"])
     fetcher("/api/inventory/addItem", formData).then((d) => {
       console.log(d)
       mutate("/api/inventory")
@@ -16,17 +16,20 @@ const FormAddInventory = ({ props }) => {
 
   return (
     <>
-      <h2> Inventory List  </h2>
-     <h2> Creating Inventory </h2>
       <form onSubmit={handleAddInventory}>
         <input type="text" name="name" placeholder="Item Name" />
-        <select name="location" id="locations">
-          {locations.map((item, id) => (
-            <option key={id} value={item.id}>
-              {`${zones[item.zone]}${item.room_number}`}
-            </option>
-          ))}
-        </select>
+ <label> Order date </label>
+        <input type="date" name="order_date" />
+        <label> Depreciation date </label>
+        <input type="date" name="depreciation" />
+
+        <input type="number" step="0.01" name="price" placeholder="Item price" />
+        <input type="number" step="0.01" name="quantity" placeholder="Item Quantity" />
+        <input type="text" name="quantity_unit" placeholder="Item Quantity Unit" />
+        <textarea name="description" placeholder="item description" />
+
+        <input type="hidden" name="location" value={location} />
+
         <input
           type="submit"
           value="Add"

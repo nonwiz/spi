@@ -55,8 +55,8 @@ export default function Page() {
           <br />
           <h2> Selected Location </h2>
           <hr />
-         <li> {data.locations[sLocation].zone} {data.locations[sLocation].room_number}</li>
-  <FormAddInventory
+          <li> {data.locations[sLocation].zone} {data.locations[sLocation].room_number}</li>
+          <FormAddInventory
             props={{ location: data.locations[sLocation].id }}
           />
 
@@ -74,9 +74,7 @@ export default function Page() {
           </ul>
           <br />
 
-          <h2> Add Item </h2>
-          <hr />
-         
+
         </div>
       </div>
     </Layout>

@@ -7,7 +7,9 @@ const FormAddInventory = ({ props }) => {
 
   const handleAddInventory = async (event) => {
     event.preventDefault()
+    console.log("Handle add inventory called")
     const formData = getFieldsValues(event, ["name", "location", "description", "price", "order_date", "depreciation", "quantity", "quantity_unit"])
+    console.log({ formData });
     fetcher("/api/inventory/addItem", formData).then((d) => {
       console.log(d)
       mutate("/api/inventory")
@@ -17,8 +19,9 @@ const FormAddInventory = ({ props }) => {
   return (
     <>
       <form onSubmit={handleAddInventory}>
+        <label> Item Name </label>
         <input type="text" name="name" placeholder="Item Name" />
- <label> Order date </label>
+        <label> Order date </label>
         <input type="date" name="order_date" />
         <label> Depreciation date </label>
         <input type="date" name="depreciation" />

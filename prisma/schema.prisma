@@ -100,7 +100,7 @@ model Location {
   floor                   Int
   room_number             String
   description             String?
-  users                    User[]
+  users                   User[]
   total_quantity          Float?               @default(0)
   update_date             DateTime?            @default(now())
   items                   Item[]
@@ -171,6 +171,7 @@ model Item {
   price                      Float?
   order_date                 DateTime?
   depreciation               DateTime?
+  type                       String?
   quantity                   Float?
   quantity_unit              String?              @db.VarChar(10)
   location                   Location             @relation(fields: [location_id], references: [id])

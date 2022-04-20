@@ -3,6 +3,7 @@ import FormAddInventory from "@/components/inventory/addItem"
 import { useInventory } from "lib/fetcher"
 import { useSession } from "next-auth/react"
 import { useState } from "react"
+import FormMoveUser from "@/components/inventory/moveUser"
 
 export default function Page() {
   const { data: session } = useSession()
@@ -16,7 +17,7 @@ export default function Page() {
 
   if (isLoading) return <p> Loading ... </p>
 
-  console.log(data.locations)
+  console.log({ data })
 
   const returnRoom = (locations, id) => {
     const tmp = locations.find((ele) => ele.id == id)
@@ -59,6 +60,16 @@ export default function Page() {
           <FormAddInventory
             props={{ location: data.locations[sLocation].id }}
           />
+          <hr />
+          <h2> Moving user </h2>
+
+          <FormMoveUser
+            props={{ location: data.locations[sLocation].id }}
+          />
+
+
+
+
 
           <br />
 

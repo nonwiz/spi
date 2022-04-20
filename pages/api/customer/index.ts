@@ -17,7 +17,11 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     const user = await prisma.user.findUnique({
       where: { email: reqSession.user.email }, include: {
         department: true,
-        location: true,
+        location: {
+          include: {
+            items: true,
+          }
+        },
         order_requests: {
           include: {
             order_items: true,

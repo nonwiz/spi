@@ -23,8 +23,8 @@ export default function Page() {
 
    return (
 
-    
-    <Layout>
+    <>
+
      <PageHeader page_name="Dashboard" />
      <section className="w-full p-8 bg-slate-100 flex flex-col md:flex-row gap-16">
 
@@ -145,7 +145,7 @@ export default function Page() {
 
 
       </div>
+</>
 
-    </Layout>
   )
 }

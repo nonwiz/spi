@@ -20,11 +20,12 @@ const PaginatedTable = ({users}) => {
 
   const closeHandler = () => {
     setVisible(false);
-   
-    // console.log("closed");
   };
+
+ 
     const columns = [
         { name: "NAME", uid: "name" },
+        { name: "EMAIL", uid: "email" },
         { name: "ROLE", uid: "role" },
         { name: "DEPARTMENT", uid: "department" },
         { name: "LOCATION", uid: "location" },
@@ -36,28 +37,10 @@ const PaginatedTable = ({users}) => {
         switch (columnKey) {
           case "name":
             return (
-              <User squared src={user.avatar} name={cellValue} className="text-sm capitalize text-gray-700">
-                {user.email}
-              </User>
+              <User squared zoomed src="https://i.pravatar.cc/150?u=a04258114e29026702d" name={cellValue} className="text-sm capitalize text-gray-700" />
+       
             );
-          case "role":
-            return (
-              <Col>
-                <Row>
-                  <Text size={14} className="text-sm capitalize text-gray-700">
-                    {cellValue}
-                  </Text>
-                </Row>
-                <Row>
-                  <Text size={13}  className="text-sm text-gray-500 font-normal">
-                    {user.team}
-                  </Text>
-                </Row>
-              </Col>
-            );
-          case "status":
-            return <StyledBadge type={user.status}>{cellValue}</StyledBadge>;
-
+          
           case "department":
             return <span>{user.department ? user.department.name : "Not assigned"}</span>;
  
@@ -97,30 +80,28 @@ const PaginatedTable = ({users}) => {
             shadow={false}
             aria-label={"recently added users"}
             sticked={true}
+            selectionMode="single"
             css={{
               height: "auto",
               minWidth: "auto",
-            
             }}
             containerCss={{
               borderRadius: "8px",
               padding:"8px",
             }}
-            selectionMode="none"
+           
           >
         
             <Table.Header columns={columns}>
               {(column) => (
                 <Table.Column
                   key={column.uid}
-                  hideHeader={column.uid === "actions"}
-                  align={column.uid === "actions" ? "center" : "start"}
                 >
                   {column.name}
                 </Table.Column>
               )}
             </Table.Header>
-            <Table.Body items={users}>
+            <Table.Body items={users}> 
               {(item) => (
                 <Table.Row>
                   {(columnKey) => (
@@ -133,8 +114,8 @@ const PaginatedTable = ({users}) => {
             <Table.Pagination
               noMargin
               align="center"
-              rowsPerPage={7}
-              total={10}
+              rowsPerPage={5}
+              total={2}
               onPageChange={(page) => console.log({ page })}
             />
             </Table>

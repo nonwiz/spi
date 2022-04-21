@@ -40,7 +40,6 @@ model Session {
 enum Role {
   customer
   department_head
-  location_officer
   finance_officer
   purchasing_officer
   admin

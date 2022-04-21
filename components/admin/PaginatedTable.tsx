@@ -5,21 +5,31 @@ import { IconButton } from "@/components/admin/icons/IconButton";
 import { EyeIcon } from "@/components/admin/icons/EyeIcon";
 import { EditIcon } from "@/components/admin/icons/EditIcon";
 import { DeleteIcon } from "@/components/admin/icons/DeleteIcon";
-import PopupModal from "./PopupModal";
+import ChangeRoleModal from "./ChangeRoleModal";
+
 
 const PaginatedTable = ({users}) => {
 
   const [visible, setVisible] = useState(false);
-
-  const detailHandler = () => {
+  const [userInfo, setUserInfo] = useState([]);
+  const [type, setType] = useState("viewDetails");
+  
+  const detailHandler = (user) =>{
     setVisible(true);
+    setUserInfo(user);
   }
-  const updateHandler = () => {
+
+  const updateHandler = (user) => {
     setVisible(true);
+    setUserInfo(user);
+    setType("updateDetails")
+
   }
 
   const closeHandler = () => {
     setVisible(false);
+    setUserInfo([])
+    setType("viewDetails")
   };
 
  
@@ -36,51 +46,55 @@ const PaginatedTable = ({users}) => {
         const cellValue = user[columnKey];
         switch (columnKey) {
           case "name":
-            return (
-              <User squared zoomed src="https://i.pravatar.cc/150?u=a04258114e29026702d" name={cellValue} className="text-sm capitalize text-gray-700" />
-       
-            );
-          
+            return <User squared  src="https://i.pravatar.cc/150?u=a04258114e29026702d" name={cellValue} className="text-sm capitalize text-gray-700 text-wrap" />;
+
+          case "email":
+              return <p className="text-lg md:mr-8">{user.email}</p>;
+
+          case "role":
+            return <p className="text-lg md:mr-8">{user.role}</p>;
+
           case "department":
-            return <span>{user.department ? user.department.name : "Not assigned"}</span>;
- 
+            return <p className="text-lg md:mr-8">{user.department ? user.department.name : "Not assigned"}</p>;
+
           case "location":
-            return <span>{user.location ? `${user.location.zone} ${user.location.room_number}` : "Not assigned"}</span>;
-    
+            return <p className="text-lg md:mr-8">{user.location ? `${user.location.zone} ${user.location.room_number}` : "Not assigned"}</p>;
+
           case "actions":
             return (
               <Row justify="center" align="center">
-                <Col css={{ d: "flex" }}>
-                  <Tooltip content="Details">
-                    <IconButton value={"hello"} onClick={detailHandler}>
-                      <EyeIcon size={20} fill="#979797" />
-                    </IconButton>
-                  </Tooltip>
-                </Col>
-                <Col css={{ d: "flex" }}>
-                  <Tooltip content="Edit user">
-                    <IconButton onClick={updateHandler}>
-                      <EditIcon size={20} fill="#979797" />
-                    </IconButton>
-                  </Tooltip>
-                </Col>
-           
-              </Row>
+              <Col css={{ d: "flex" }}>
+                <Tooltip content="Details">
+                  <IconButton value={user} onClick={() => detailHandler(user)}>
+                    <EyeIcon size={20} fill="#979797" />
+                  </IconButton>
+                </Tooltip>
+              </Col>
+              <Col css={{ d: "flex" }}>
+                <Tooltip content="Edit user">
+                  <IconButton onClick={() => updateHandler(user)}>
+                    <EditIcon size={20} fill="#979797" />
+                  </IconButton>
+                </Tooltip>
+              </Col>
+            </Row>
             );
           default:
             return cellValue;
         }
       };
+
+
     return ( 
       <>
-          <PopupModal visible={visible} closeHandler={closeHandler} />
+          <ChangeRoleModal visible={visible} closeHandler={closeHandler} user={userInfo} type={type} />
           
             <Table 
             headerLined
             shadow={false}
-            aria-label={"recently added users"}
+            aria-label={"user details table"}
             sticked={true}
-            selectionMode="single"
+            selectionMode="none"
             css={{
               height: "auto",
               minWidth: "auto",
@@ -103,9 +117,9 @@ const PaginatedTable = ({users}) => {
             </Table.Header>
             <Table.Body items={users}> 
               {(item) => (
-                <Table.Row>
+                <Table.Row >
                   {(columnKey) => (
-                    <Table.Cell>{renderCell(item, columnKey)}</Table.Cell>
+                    <Table.Cell >{renderCell(item, columnKey)}</Table.Cell>
                   )}
                 </Table.Row>
               )}

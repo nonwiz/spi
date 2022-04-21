@@ -19,7 +19,6 @@ export default function Page() {
   }
 
   return (
-    <Layout>
       <div className="p-4">
         <div className="p-2 my-4">
           <h1> Order Status </h1>
@@ -50,7 +49,6 @@ export default function Page() {
 
         </div>
       </div>
-    </Layout>
   )
 }
 

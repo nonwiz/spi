@@ -13,7 +13,7 @@ export default function Layout({ children }: Props) {
     <>
       <Header />
       <main>
-        <div className="flex gap-8 w-full">
+  
 
         <div className="relative min-h-screen md:flex">
             <SideNav />
@@ -23,7 +23,7 @@ export default function Layout({ children }: Props) {
             </div>
         </div>
           
-        </div>
+
       </main>
       <Footer />
     </>

@@ -1,6 +1,7 @@
 import Header from "./header"
 import Footer from "./footer"
 import SideNav from "./sideNav";
+import PageHeader from "./pageHeader";
 // import type { ReactChildren } from "react"
 
 interface Props {
@@ -14,13 +15,13 @@ export default function Layout({ children }: Props) {
       <main>
         <div className="flex gap-8 w-full">
 
-          <div className="mr-16 sm:mr-48">
-              <SideNav />
-          </div>
-
-          <div className="w-full mr-8">
-            {children}
-          </div>
+        <div className="relative min-h-screen md:flex">
+            <SideNav />
+            <div className="flex-1 p-10 text-2xl font-bold">
+                <PageHeader />
+                {children}
+            </div>
+        </div>
           
         </div>
       </main>

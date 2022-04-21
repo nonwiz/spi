@@ -9,6 +9,7 @@ import FormUpdateDepartment from "@/components/admin/updateDepartment";
 import FormAddUserToDepartment from "@/components/admin/addUserToDepartment";
 import FormCreateOrderType from "@/components/admin/createOrderType";
 import PageHeader from "@/components/pageHeader";
+import PaginatedTable from "@/components/admin/PaginatedTable";
 
 
 
@@ -96,14 +97,15 @@ export default function Page() {
 </section>
 
 
-  
-
- 
-
 
 
       <div className="p-4">
         <h1> Admin Dashboard </h1>
+        <section>
+          {data.users && 
+          <PaginatedTable users={data.users} />
+}
+          </section>
         <h2> List of User </h2>
         {data && <div>
           <ul>

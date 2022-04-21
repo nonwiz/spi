@@ -17,7 +17,12 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   console.log("test", Role);
   const reqSession = await getSession({req});
   if (reqSession && reqSession?.user?.role == "admin") {
-    const users = await prisma.user.findMany();
+    const users = await prisma.user.findMany({
+      include: {
+        department: true,
+        location: true
+      }
+    });
     const departments = await prisma.department.findMany({include: {users: true}});
     const locations = await prisma.location.findMany();
     const orderTypes = await prisma.orderType.findMany();

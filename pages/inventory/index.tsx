@@ -25,69 +25,67 @@ export default function Page() {
   }
 
   return (
-    <Layout>
-      <div className="p-4">
-        <div className="p-2 my-4">
-          <h1>Inventory Master </h1>
-          <br />
+    <div className="p-4">
+      <div className="p-2 my-4">
+        <h1>Inventory Master </h1>
+        <br />
 
-          <h2> Order Types </h2>
-          <hr />
-          <ul>
-            {data &&
-              data.orderTypes.map((item, id) => (
-                <li key={id}> {item.type} </li>
-              ))}
-          </ul>
+        <h2> Order Types </h2>
+        <hr />
+        <ul>
+          {data &&
+            data.orderTypes.map((item, id) => (
+              <li key={id}> {item.type} </li>
+            ))}
+        </ul>
 
-          <br />
-          <h2> Location List </h2>
-          <hr />
-          <ul>
-            {data &&
-              data.locations.map((item, id) => (
-                <li key={id}>
-                  <button onClick={() => setSelectedL(id)}>{zones[item.zone]}{item.room_number}
-                  </button>
+        <br />
+        <h2> Location List </h2>
+        <hr />
+        <ul>
+          {data &&
+            data.locations.map((item, id) => (
+              <li key={id}>
+                <button onClick={() => setSelectedL(id)}>{zones[item.zone]}{item.room_number}
+                </button>
 
-                </li>
-              ))}
-          </ul>
-          <br />
-          <h2> Selected Location </h2>
-          <hr />
-          <li> {data.locations[sLocation].zone} {data.locations[sLocation].room_number}</li>
-          <FormAddInventory
-            props={{ location: data.locations[sLocation].id }}
-          />
-          <hr />
-          <h2> Moving user </h2>
+              </li>
+            ))}
+        </ul>
+        <br />
+        <h2> Selected Location </h2>
+        <hr />
+        <li> {data.locations[sLocation].zone} {data.locations[sLocation].room_number}</li>
+        <FormAddInventory
+          props={{ location: data.locations[sLocation].id }}
+        />
+        <hr />
+        <h2> Moving user </h2>
 
-          <FormMoveUser
-            props={{ location: data.locations[sLocation].id }}
-          />
-
+        <FormMoveUser
+          props={{ location: data.locations[sLocation].id }}
+        />
 
 
 
 
-          <br />
 
-          <h2> List of item </h2>
-          <hr />
-          <ul>
-            {data &&
-              data.items.map((item, id) => (
-                <li key={id}>
-                  {" "}
-                  {item.name} {returnRoom(data.locations, item.location_id)}{" "}
-                </li>))}
-          </ul>
-          <br />
+        <br />
+
+        <h2> List of item </h2>
+        <hr />
+        <ul>
+          {data &&
+            data.items.map((item, id) => (
+              <li key={id}>
+                {" "}
+                {item.name} {returnRoom(data.locations, item.location_id)}{" "}
+              </li>))}
+        </ul>
+        <br />
 
 
-        </div>
       </div>
-    </Layout>
+    </div>
   )
 }

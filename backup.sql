@@ -34,10 +34,10 @@ DROP TABLE IF EXISTS `columns_priv`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `columns_priv` (
   `Host` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '',
-  `Db` char(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `User` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `Table_name` char(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `Column_name` char(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Db` char(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `User` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Table_name` char(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Column_name` char(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `Column_priv` set('Select','Insert','Update','References') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`Host`,`Db`,`User`,`Table_name`,`Column_name`)
@@ -87,8 +87,8 @@ DROP TABLE IF EXISTS `db`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `db` (
   `Host` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '',
-  `Db` char(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `User` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Db` char(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `User` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `Select_priv` enum('N','Y') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
   `Insert_priv` enum('N','Y') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
   `Update_priv` enum('N','Y') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
@@ -132,9 +132,9 @@ DROP TABLE IF EXISTS `default_roles`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `default_roles` (
   `HOST` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '',
-  `USER` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `USER` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `DEFAULT_ROLE_HOST` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '%',
-  `DEFAULT_ROLE_USER` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `DEFAULT_ROLE_USER` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   PRIMARY KEY (`HOST`,`USER`,`DEFAULT_ROLE_HOST`,`DEFAULT_ROLE_USER`)
 ) /*!50100 TABLESPACE `mysql` */ ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin STATS_PERSISTENT=0 ROW_FORMAT=DYNAMIC COMMENT='Default roles';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -185,9 +185,9 @@ DROP TABLE IF EXISTS `func`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `func` (
-  `name` char(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `name` char(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `ret` tinyint NOT NULL DEFAULT '0',
-  `dl` char(128) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `dl` char(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `type` enum('function','aggregate') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`name`)
 ) /*!50100 TABLESPACE `mysql` */ ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin STATS_PERSISTENT=0 ROW_FORMAT=DYNAMIC COMMENT='User defined functions';
@@ -210,7 +210,7 @@ DROP TABLE IF EXISTS `global_grants`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `global_grants` (
-  `USER` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `USER` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `HOST` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '',
   `PRIV` char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `WITH_GRANT_OPTION` enum('N','Y') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
@@ -353,7 +353,7 @@ UNLOCK TABLES;
 --
 
 /*!40000 ALTER TABLE `innodb_index_stats` DISABLE KEYS */;
-INSERT  IGNORE INTO `innodb_index_stats` VALUES ('SPI','Account','Account_provider_providerAccountId_key','2022-04-03 11:42:40','n_diff_pfx01',0,1,'provider'),('SPI','Account','Account_provider_providerAccountId_key','2022-04-03 11:42:40','n_diff_pfx02',0,1,'provider,providerAccountId'),('SPI','Account','Account_provider_providerAccountId_key','2022-04-03 11:42:40','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','Account','Account_provider_providerAccountId_key','2022-04-03 11:42:40','size',1,NULL,'Number of pages in the index'),('SPI','Account','Account_userId_fkey','2022-04-03 11:42:40','n_diff_pfx01',0,1,'userId'),('SPI','Account','Account_userId_fkey','2022-04-03 11:42:40','n_diff_pfx02',0,1,'userId,id'),('SPI','Account','Account_userId_fkey','2022-04-03 11:42:40','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','Account','Account_userId_fkey','2022-04-03 11:42:40','size',1,NULL,'Number of pages in the index'),('SPI','Account','PRIMARY','2022-04-03 11:42:40','n_diff_pfx01',0,1,'id'),('SPI','Account','PRIMARY','2022-04-03 11:42:40','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','Account','PRIMARY','2022-04-03 11:42:40','size',1,NULL,'Number of pages in the index'),('SPI','ApprovalBy','ApprovalBy_orderId_fkey','2022-04-03 11:42:40','n_diff_pfx01',0,1,'orderId'),('SPI','ApprovalBy','ApprovalBy_orderId_fkey','2022-04-03 11:42:40','n_diff_pfx02',0,1,'orderId,id'),('SPI','ApprovalBy','ApprovalBy_orderId_fkey','2022-04-03 11:42:40','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','ApprovalBy','ApprovalBy_orderId_fkey','2022-04-03 11:42:40','size',1,NULL,'Number of pages in the index'),('SPI','ApprovalBy','PRIMARY','2022-04-03 11:42:40','n_diff_pfx01',0,1,'id'),('SPI','ApprovalBy','PRIMARY','2022-04-03 11:42:40','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','ApprovalBy','PRIMARY','2022-04-03 11:42:40','size',1,NULL,'Number of pages in the index'),('SPI','Department','PRIMARY','2022-04-03 11:44:50','n_diff_pfx01',6,1,'id'),('SPI','Department','PRIMARY','2022-04-03 11:44:50','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','Department','PRIMARY','2022-04-03 11:44:50','size',1,NULL,'Number of pages in the index'),('SPI','Inventory','Inventory_location_id_key','2022-04-03 14:41:04','n_diff_pfx01',16,1,'location_id'),('SPI','Inventory','Inventory_location_id_key','2022-04-03 14:41:04','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','Inventory','Inventory_location_id_key','2022-04-03 14:41:04','size',1,NULL,'Number of pages in the index'),('SPI','Inventory','PRIMARY','2022-04-03 14:41:04','n_diff_pfx01',16,1,'id'),('SPI','Inventory','PRIMARY','2022-04-03 14:41:04','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','Inventory','PRIMARY','2022-04-03 14:41:04','size',1,NULL,'Number of pages in the index'),('SPI','InventoryMoveRequest','InventoryMoveRequest_inventory_id_key','2022-04-03 11:42:41','n_diff_pfx01',0,1,'inventory_id'),('SPI','InventoryMoveRequest','InventoryMoveRequest_inventory_id_key','2022-04-03 11:42:41','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','InventoryMoveRequest','InventoryMoveRequest_inventory_id_key','2022-04-03 11:42:41','size',1,NULL,'Number of pages in the index'),('SPI','InventoryMoveRequest','PRIMARY','2022-04-03 11:42:41','n_diff_pfx01',0,1,'id'),('SPI','InventoryMoveRequest','PRIMARY','2022-04-03 11:42:41','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','InventoryMoveRequest','PRIMARY','2022-04-03 11:42:41','size',1,NULL,'Number of pages in the index'),('SPI','Item','Item_inventory_id_fkey','2022-04-03 11:42:41','n_diff_pfx01',0,1,'inventory_id'),('SPI','Item','Item_inventory_id_fkey','2022-04-03 11:42:41','n_diff_pfx02',0,1,'inventory_id,id'),('SPI','Item','Item_inventory_id_fkey','2022-04-03 11:42:41','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','Item','Item_inventory_id_fkey','2022-04-03 11:42:41','size',1,NULL,'Number of pages in the index'),('SPI','Item','Item_target_inventory_request_id_fkey','2022-04-03 11:42:41','n_diff_pfx01',0,1,'target_inventory_request_id'),('SPI','Item','Item_target_inventory_request_id_fkey','2022-04-03 11:42:41','n_diff_pfx02',0,1,'target_inventory_request_id,id'),('SPI','Item','Item_target_inventory_request_id_fkey','2022-04-03 11:42:41','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','Item','Item_target_inventory_request_id_fkey','2022-04-03 11:42:41','size',1,NULL,'Number of pages in the index'),('SPI','Item','PRIMARY','2022-04-03 11:42:41','n_diff_pfx01',0,1,'id'),('SPI','Item','PRIMARY','2022-04-03 11:42:41','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','Item','PRIMARY','2022-04-03 11:42:41','size',1,NULL,'Number of pages in the index'),('SPI','Location','PRIMARY','2022-04-03 14:41:14','n_diff_pfx01',17,1,'id'),('SPI','Location','PRIMARY','2022-04-03 14:41:14','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','Location','PRIMARY','2022-04-03 14:41:14','size',1,NULL,'Number of pages in the index'),('SPI','OrderItem','OrderItem_order_request_id_fkey','2022-04-07 08:16:46','n_diff_pfx01',1,1,'order_request_id'),('SPI','OrderItem','OrderItem_order_request_id_fkey','2022-04-07 08:16:46','n_diff_pfx02',3,1,'order_request_id,id'),('SPI','OrderItem','OrderItem_order_request_id_fkey','2022-04-07 08:16:46','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','OrderItem','OrderItem_order_request_id_fkey','2022-04-07 08:16:46','size',1,NULL,'Number of pages in the index'),('SPI','OrderItem','PRIMARY','2022-04-07 08:16:46','n_diff_pfx01',3,1,'id'),('SPI','OrderItem','PRIMARY','2022-04-07 08:16:46','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','OrderItem','PRIMARY','2022-04-07 08:16:46','size',1,NULL,'Number of pages in the index'),('SPI','OrderRequest','OrderRequest_user_id_fkey','2022-04-03 11:42:41','n_diff_pfx01',0,1,'user_id'),('SPI','OrderRequest','OrderRequest_user_id_fkey','2022-04-03 11:42:41','n_diff_pfx02',0,1,'user_id,id'),('SPI','OrderRequest','OrderRequest_user_id_fkey','2022-04-03 11:42:41','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','OrderRequest','OrderRequest_user_id_fkey','2022-04-03 11:42:41','size',1,NULL,'Number of pages in the index'),('SPI','OrderRequest','PRIMARY','2022-04-03 11:42:41','n_diff_pfx01',0,1,'id'),('SPI','OrderRequest','PRIMARY','2022-04-03 11:42:41','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','OrderRequest','PRIMARY','2022-04-03 11:42:41','size',1,NULL,'Number of pages in the index'),('SPI','OrderType','PRIMARY','2022-04-07 08:11:31','n_diff_pfx01',4,1,'id'),('SPI','OrderType','PRIMARY','2022-04-07 08:11:31','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','OrderType','PRIMARY','2022-04-07 08:11:31','size',1,NULL,'Number of pages in the index'),('SPI','PurchasingAction','PRIMARY','2022-04-03 11:42:40','n_diff_pfx01',0,1,'id'),('SPI','PurchasingAction','PRIMARY','2022-04-03 11:42:40','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','PurchasingAction','PRIMARY','2022-04-03 11:42:40','size',1,NULL,'Number of pages in the index'),('SPI','PurchasingAction','PurchasingAction_order_request_id_key','2022-04-03 11:42:40','n_diff_pfx01',0,1,'order_request_id'),('SPI','PurchasingAction','PurchasingAction_order_request_id_key','2022-04-03 11:42:40','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','PurchasingAction','PurchasingAction_order_request_id_key','2022-04-03 11:42:40','size',1,NULL,'Number of pages in the index'),('SPI','Session','PRIMARY','2022-04-03 11:42:40','n_diff_pfx01',0,1,'id'),('SPI','Session','PRIMARY','2022-04-03 11:42:40','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','Session','PRIMARY','2022-04-03 11:42:40','size',1,NULL,'Number of pages in the index'),('SPI','Session','Session_sessionToken_key','2022-04-03 11:42:40','n_diff_pfx01',0,1,'sessionToken'),('SPI','Session','Session_sessionToken_key','2022-04-03 11:42:40','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','Session','Session_sessionToken_key','2022-04-03 11:42:40','size',1,NULL,'Number of pages in the index'),('SPI','Session','Session_userId_fkey','2022-04-03 11:42:40','n_diff_pfx01',0,1,'userId'),('SPI','Session','Session_userId_fkey','2022-04-03 11:42:40','n_diff_pfx02',0,1,'userId,id'),('SPI','Session','Session_userId_fkey','2022-04-03 11:42:40','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','Session','Session_userId_fkey','2022-04-03 11:42:40','size',1,NULL,'Number of pages in the index'),('SPI','User','PRIMARY','2022-04-07 08:13:48','n_diff_pfx01',2,1,'id'),('SPI','User','PRIMARY','2022-04-07 08:13:48','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','User','PRIMARY','2022-04-07 08:13:48','size',1,NULL,'Number of pages in the index'),('SPI','User','User_department_id_fkey','2022-04-07 08:13:48','n_diff_pfx01',2,1,'department_id'),('SPI','User','User_department_id_fkey','2022-04-07 08:13:48','n_diff_pfx02',2,1,'department_id,id'),('SPI','User','User_department_id_fkey','2022-04-07 08:13:48','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','User','User_department_id_fkey','2022-04-07 08:13:48','size',1,NULL,'Number of pages in the index'),('SPI','User','User_email_key','2022-04-07 08:13:48','n_diff_pfx01',2,1,'email'),('SPI','User','User_email_key','2022-04-07 08:13:48','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','User','User_email_key','2022-04-07 08:13:48','size',1,NULL,'Number of pages in the index'),('SPI','User','User_location_id_fkey','2022-04-07 08:13:48','n_diff_pfx01',1,1,'location_id'),('SPI','User','User_location_id_fkey','2022-04-07 08:13:48','n_diff_pfx02',2,1,'location_id,id'),('SPI','User','User_location_id_fkey','2022-04-07 08:13:48','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','User','User_location_id_fkey','2022-04-07 08:13:48','size',1,NULL,'Number of pages in the index'),('SPI','VerificationToken','VerificationToken_identifier_token_key','2022-04-03 14:35:23','n_diff_pfx01',0,1,'identifier'),('SPI','VerificationToken','VerificationToken_identifier_token_key','2022-04-03 14:35:23','n_diff_pfx02',0,1,'identifier,token'),('SPI','VerificationToken','VerificationToken_identifier_token_key','2022-04-03 14:35:23','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','VerificationToken','VerificationToken_identifier_token_key','2022-04-03 14:35:23','size',1,NULL,'Number of pages in the index'),('SPI','VerificationToken','VerificationToken_token_key','2022-04-03 14:35:23','n_diff_pfx01',0,1,'token'),('SPI','VerificationToken','VerificationToken_token_key','2022-04-03 14:35:23','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','VerificationToken','VerificationToken_token_key','2022-04-03 14:35:23','size',1,NULL,'Number of pages in the index'),('mysql','component','PRIMARY','2022-04-02 15:30:39','n_diff_pfx01',0,1,'component_id'),('mysql','component','PRIMARY','2022-04-02 15:30:39','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('mysql','component','PRIMARY','2022-04-02 15:30:39','size',1,NULL,'Number of pages in the index'),('sys','sys_config','PRIMARY','2022-04-02 15:30:40','n_diff_pfx01',6,1,'variable'),('sys','sys_config','PRIMARY','2022-04-02 15:30:40','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('sys','sys_config','PRIMARY','2022-04-02 15:30:40','size',1,NULL,'Number of pages in the index');
+INSERT  IGNORE INTO `innodb_index_stats` VALUES ('SPI','Account','Account_provider_providerAccountId_key','2022-04-19 15:52:38','n_diff_pfx01',0,1,'provider'),('SPI','Account','Account_provider_providerAccountId_key','2022-04-19 15:52:38','n_diff_pfx02',0,1,'provider,providerAccountId'),('SPI','Account','Account_provider_providerAccountId_key','2022-04-19 15:52:38','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','Account','Account_provider_providerAccountId_key','2022-04-19 15:52:38','size',1,NULL,'Number of pages in the index'),('SPI','Account','Account_userId_fkey','2022-04-19 15:52:38','n_diff_pfx01',0,1,'userId'),('SPI','Account','Account_userId_fkey','2022-04-19 15:52:38','n_diff_pfx02',0,1,'userId,id'),('SPI','Account','Account_userId_fkey','2022-04-19 15:52:38','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','Account','Account_userId_fkey','2022-04-19 15:52:38','size',1,NULL,'Number of pages in the index'),('SPI','Account','PRIMARY','2022-04-19 15:52:38','n_diff_pfx01',0,1,'id'),('SPI','Account','PRIMARY','2022-04-19 15:52:38','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','Account','PRIMARY','2022-04-19 15:52:38','size',1,NULL,'Number of pages in the index'),('SPI','ApprovalBy','ApprovalBy_orderId_fkey','2022-04-21 16:23:29','n_diff_pfx01',0,1,'orderId'),('SPI','ApprovalBy','ApprovalBy_orderId_fkey','2022-04-21 16:23:29','n_diff_pfx02',0,1,'orderId,id'),('SPI','ApprovalBy','ApprovalBy_orderId_fkey','2022-04-21 16:23:29','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','ApprovalBy','ApprovalBy_orderId_fkey','2022-04-21 16:23:29','size',1,NULL,'Number of pages in the index'),('SPI','ApprovalBy','PRIMARY','2022-04-21 16:23:29','n_diff_pfx01',0,1,'id'),('SPI','ApprovalBy','PRIMARY','2022-04-21 16:23:29','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','ApprovalBy','PRIMARY','2022-04-21 16:23:29','size',1,NULL,'Number of pages in the index'),('SPI','Department','PRIMARY','2022-04-19 15:52:38','n_diff_pfx01',0,1,'id'),('SPI','Department','PRIMARY','2022-04-19 15:52:38','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','Department','PRIMARY','2022-04-19 15:52:38','size',1,NULL,'Number of pages in the index'),('SPI','Item','Item_location_id_fkey','2022-04-19 23:54:50','n_diff_pfx01',3,1,'location_id'),('SPI','Item','Item_location_id_fkey','2022-04-19 23:54:50','n_diff_pfx02',8,1,'location_id,id'),('SPI','Item','Item_location_id_fkey','2022-04-19 23:54:50','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','Item','Item_location_id_fkey','2022-04-19 23:54:50','size',1,NULL,'Number of pages in the index'),('SPI','Item','Item_target_location_request_id_fkey','2022-04-19 23:54:50','n_diff_pfx01',1,1,'target_location_request_id'),('SPI','Item','Item_target_location_request_id_fkey','2022-04-19 23:54:50','n_diff_pfx02',8,1,'target_location_request_id,id'),('SPI','Item','Item_target_location_request_id_fkey','2022-04-19 23:54:50','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','Item','Item_target_location_request_id_fkey','2022-04-19 23:54:50','size',1,NULL,'Number of pages in the index'),('SPI','Item','PRIMARY','2022-04-19 23:54:50','n_diff_pfx01',8,1,'id'),('SPI','Item','PRIMARY','2022-04-19 23:54:50','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','Item','PRIMARY','2022-04-19 23:54:50','size',1,NULL,'Number of pages in the index'),('SPI','Location','PRIMARY','2022-04-19 15:52:39','n_diff_pfx01',0,1,'id'),('SPI','Location','PRIMARY','2022-04-19 15:52:39','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','Location','PRIMARY','2022-04-19 15:52:39','size',1,NULL,'Number of pages in the index'),('SPI','LocationMoveRequest','LocationMoveRequest_location_id_key','2022-04-19 15:52:39','n_diff_pfx01',0,1,'location_id'),('SPI','LocationMoveRequest','LocationMoveRequest_location_id_key','2022-04-19 15:52:39','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','LocationMoveRequest','LocationMoveRequest_location_id_key','2022-04-19 15:52:39','size',1,NULL,'Number of pages in the index'),('SPI','LocationMoveRequest','PRIMARY','2022-04-19 15:52:39','n_diff_pfx01',0,1,'id'),('SPI','LocationMoveRequest','PRIMARY','2022-04-19 15:52:39','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','LocationMoveRequest','PRIMARY','2022-04-19 15:52:39','size',1,NULL,'Number of pages in the index'),('SPI','OrderItem','OrderItem_order_request_id_fkey','2022-04-19 15:52:39','n_diff_pfx01',0,1,'order_request_id'),('SPI','OrderItem','OrderItem_order_request_id_fkey','2022-04-19 15:52:39','n_diff_pfx02',0,1,'order_request_id,id'),('SPI','OrderItem','OrderItem_order_request_id_fkey','2022-04-19 15:52:39','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','OrderItem','OrderItem_order_request_id_fkey','2022-04-19 15:52:39','size',1,NULL,'Number of pages in the index'),('SPI','OrderItem','PRIMARY','2022-04-19 15:52:39','n_diff_pfx01',0,1,'id'),('SPI','OrderItem','PRIMARY','2022-04-19 15:52:39','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','OrderItem','PRIMARY','2022-04-19 15:52:39','size',1,NULL,'Number of pages in the index'),('SPI','OrderRequest','OrderRequest_user_id_fkey','2022-04-19 15:52:39','n_diff_pfx01',0,1,'user_id'),('SPI','OrderRequest','OrderRequest_user_id_fkey','2022-04-19 15:52:39','n_diff_pfx02',0,1,'user_id,id'),('SPI','OrderRequest','OrderRequest_user_id_fkey','2022-04-19 15:52:39','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','OrderRequest','OrderRequest_user_id_fkey','2022-04-19 15:52:39','size',1,NULL,'Number of pages in the index'),('SPI','OrderRequest','PRIMARY','2022-04-19 15:52:39','n_diff_pfx01',0,1,'id'),('SPI','OrderRequest','PRIMARY','2022-04-19 15:52:39','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','OrderRequest','PRIMARY','2022-04-19 15:52:39','size',1,NULL,'Number of pages in the index'),('SPI','OrderType','PRIMARY','2022-04-19 15:52:39','n_diff_pfx01',0,1,'id'),('SPI','OrderType','PRIMARY','2022-04-19 15:52:39','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','OrderType','PRIMARY','2022-04-19 15:52:39','size',1,NULL,'Number of pages in the index'),('SPI','PurchasingAction','PRIMARY','2022-04-19 15:52:39','n_diff_pfx01',0,1,'id'),('SPI','PurchasingAction','PRIMARY','2022-04-19 15:52:39','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','PurchasingAction','PRIMARY','2022-04-19 15:52:39','size',1,NULL,'Number of pages in the index'),('SPI','PurchasingAction','PurchasingAction_order_request_id_key','2022-04-19 15:52:39','n_diff_pfx01',0,1,'order_request_id'),('SPI','PurchasingAction','PurchasingAction_order_request_id_key','2022-04-19 15:52:39','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','PurchasingAction','PurchasingAction_order_request_id_key','2022-04-19 15:52:39','size',1,NULL,'Number of pages in the index'),('SPI','Session','PRIMARY','2022-04-21 13:27:32','n_diff_pfx01',9,1,'id'),('SPI','Session','PRIMARY','2022-04-21 13:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','Session','PRIMARY','2022-04-21 13:27:32','size',1,NULL,'Number of pages in the index'),('SPI','Session','Session_sessionToken_key','2022-04-21 13:27:32','n_diff_pfx01',9,1,'sessionToken'),('SPI','Session','Session_sessionToken_key','2022-04-21 13:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','Session','Session_sessionToken_key','2022-04-21 13:27:32','size',1,NULL,'Number of pages in the index'),('SPI','Session','Session_userId_fkey','2022-04-21 13:27:32','n_diff_pfx01',4,1,'userId'),('SPI','Session','Session_userId_fkey','2022-04-21 13:27:32','n_diff_pfx02',9,1,'userId,id'),('SPI','Session','Session_userId_fkey','2022-04-21 13:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','Session','Session_userId_fkey','2022-04-21 13:27:32','size',1,NULL,'Number of pages in the index'),('SPI','User','PRIMARY','2022-04-21 16:23:39','n_diff_pfx01',4,1,'id'),('SPI','User','PRIMARY','2022-04-21 16:23:39','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','User','PRIMARY','2022-04-21 16:23:39','size',1,NULL,'Number of pages in the index'),('SPI','User','User_department_id_fkey','2022-04-21 16:23:39','n_diff_pfx01',2,1,'department_id'),('SPI','User','User_department_id_fkey','2022-04-21 16:23:39','n_diff_pfx02',4,1,'department_id,id'),('SPI','User','User_department_id_fkey','2022-04-21 16:23:39','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','User','User_department_id_fkey','2022-04-21 16:23:39','size',1,NULL,'Number of pages in the index'),('SPI','User','User_email_key','2022-04-21 16:23:39','n_diff_pfx01',4,1,'email'),('SPI','User','User_email_key','2022-04-21 16:23:39','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','User','User_email_key','2022-04-21 16:23:39','size',1,NULL,'Number of pages in the index'),('SPI','User','User_location_id_fkey','2022-04-21 16:23:39','n_diff_pfx01',2,1,'location_id'),('SPI','User','User_location_id_fkey','2022-04-21 16:23:39','n_diff_pfx02',4,1,'location_id,id'),('SPI','User','User_location_id_fkey','2022-04-21 16:23:39','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','User','User_location_id_fkey','2022-04-21 16:23:39','size',1,NULL,'Number of pages in the index'),('SPI','VerificationToken','VerificationToken_identifier_token_key','2022-04-21 13:27:32','n_diff_pfx01',0,1,'identifier'),('SPI','VerificationToken','VerificationToken_identifier_token_key','2022-04-21 13:27:32','n_diff_pfx02',0,1,'identifier,token'),('SPI','VerificationToken','VerificationToken_identifier_token_key','2022-04-21 13:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','VerificationToken','VerificationToken_identifier_token_key','2022-04-21 13:27:32','size',1,NULL,'Number of pages in the index'),('SPI','VerificationToken','VerificationToken_token_key','2022-04-21 13:27:32','n_diff_pfx01',0,1,'token'),('SPI','VerificationToken','VerificationToken_token_key','2022-04-21 13:27:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('SPI','VerificationToken','VerificationToken_token_key','2022-04-21 13:27:32','size',1,NULL,'Number of pages in the index'),('mysql','component','PRIMARY','2022-04-19 15:52:37','n_diff_pfx01',0,1,'component_id'),('mysql','component','PRIMARY','2022-04-19 15:52:37','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('mysql','component','PRIMARY','2022-04-19 15:52:37','size',1,NULL,'Number of pages in the index'),('sys','sys_config','PRIMARY','2022-04-02 15:30:40','n_diff_pfx01',6,1,'variable'),('sys','sys_config','PRIMARY','2022-04-02 15:30:40','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('sys','sys_config','PRIMARY','2022-04-02 15:30:40','size',1,NULL,'Number of pages in the index');
 /*!40000 ALTER TABLE `innodb_index_stats` ENABLE KEYS */;
 
 --
@@ -361,7 +361,7 @@ INSERT  IGNORE INTO `innodb_index_stats` VALUES ('SPI','Account','Account_provid
 --
 
 /*!40000 ALTER TABLE `innodb_table_stats` DISABLE KEYS */;
-INSERT  IGNORE INTO `innodb_table_stats` VALUES ('SPI','Account','2022-04-03 11:42:40',0,1,2),('SPI','ApprovalBy','2022-04-03 11:42:40',0,1,1),('SPI','Department','2022-04-03 11:44:50',6,1,0),('SPI','Inventory','2022-04-03 14:41:04',16,1,1),('SPI','InventoryMoveRequest','2022-04-03 11:42:41',0,1,1),('SPI','Item','2022-04-03 11:42:41',0,1,2),('SPI','Location','2022-04-03 14:41:14',17,1,0),('SPI','OrderItem','2022-04-07 08:16:46',3,1,1),('SPI','OrderRequest','2022-04-03 11:42:41',0,1,1),('SPI','OrderType','2022-04-07 08:11:31',4,1,0),('SPI','PurchasingAction','2022-04-03 11:42:40',0,1,1),('SPI','Session','2022-04-03 11:42:40',0,1,2),('SPI','User','2022-04-07 08:13:48',2,1,3),('SPI','VerificationToken','2022-04-03 14:35:23',0,1,1),('mysql','component','2022-04-02 15:30:39',0,1,0),('sys','sys_config','2022-04-02 15:30:40',6,1,0);
+INSERT  IGNORE INTO `innodb_table_stats` VALUES ('SPI','Account','2022-04-19 15:52:38',0,1,2),('SPI','ApprovalBy','2022-04-21 16:23:29',0,1,1),('SPI','Department','2022-04-19 15:52:38',0,1,0),('SPI','Item','2022-04-19 23:54:50',8,1,2),('SPI','Location','2022-04-19 15:52:39',0,1,0),('SPI','LocationMoveRequest','2022-04-19 15:52:39',0,1,1),('SPI','OrderItem','2022-04-19 15:52:39',0,1,1),('SPI','OrderRequest','2022-04-19 15:52:39',0,1,1),('SPI','OrderType','2022-04-19 15:52:39',0,1,0),('SPI','PurchasingAction','2022-04-19 15:52:39',0,1,1),('SPI','Session','2022-04-21 13:27:32',9,1,2),('SPI','User','2022-04-21 16:23:39',4,1,3),('SPI','VerificationToken','2022-04-21 13:27:32',0,1,1),('mysql','component','2022-04-19 15:52:37',0,1,0),('sys','sys_config','2022-04-02 15:30:40',6,1,0);
 /*!40000 ALTER TABLE `innodb_table_stats` ENABLE KEYS */;
 
 --
@@ -373,9 +373,9 @@ DROP TABLE IF EXISTS `password_history`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `password_history` (
   `Host` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '',
-  `User` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `User` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `Password_timestamp` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `Password` text COLLATE utf8_bin,
+  `Password` text CHARACTER SET utf8 COLLATE utf8_bin,
   PRIMARY KEY (`Host`,`User`,`Password_timestamp` DESC)
 ) /*!50100 TABLESPACE `mysql` */ ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin STATS_PERSISTENT=0 ROW_FORMAT=DYNAMIC COMMENT='Password history for user accounts';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -422,11 +422,11 @@ DROP TABLE IF EXISTS `procs_priv`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `procs_priv` (
   `Host` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '',
-  `Db` char(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `User` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Db` char(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `User` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `Routine_name` char(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
-  `Routine_type` enum('FUNCTION','PROCEDURE') COLLATE utf8_bin NOT NULL,
-  `Grantor` varchar(288) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Routine_type` enum('FUNCTION','PROCEDURE') CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `Grantor` varchar(288) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `Proc_priv` set('Execute','Alter Routine','Grant') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`Host`,`Db`,`User`,`Routine_name`,`Routine_type`),
@@ -452,11 +452,11 @@ DROP TABLE IF EXISTS `proxies_priv`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `proxies_priv` (
   `Host` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '',
-  `User` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `User` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `Proxied_host` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '',
-  `Proxied_user` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Proxied_user` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `With_grant` tinyint(1) NOT NULL DEFAULT '0',
-  `Grantor` varchar(288) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Grantor` varchar(288) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`Host`,`User`,`Proxied_host`,`Proxied_user`),
   KEY `Grantor` (`Grantor`)
@@ -588,9 +588,9 @@ DROP TABLE IF EXISTS `role_edges`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `role_edges` (
   `FROM_HOST` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '',
-  `FROM_USER` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `FROM_USER` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `TO_HOST` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '',
-  `TO_USER` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `TO_USER` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `WITH_ADMIN_OPTION` enum('N','Y') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
   PRIMARY KEY (`FROM_HOST`,`FROM_USER`,`TO_HOST`,`TO_USER`)
 ) /*!50100 TABLESPACE `mysql` */ ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin STATS_PERSISTENT=0 ROW_FORMAT=DYNAMIC COMMENT='Role hierarchy and role grants';
@@ -775,10 +775,10 @@ DROP TABLE IF EXISTS `tables_priv`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tables_priv` (
   `Host` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '',
-  `Db` char(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `User` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `Table_name` char(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `Grantor` varchar(288) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Db` char(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `User` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Table_name` char(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
+  `Grantor` varchar(288) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `Table_priv` set('Select','Insert','Update','Delete','Create','Drop','Grant','References','Index','Alter','Create View','Show view','Trigger') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `Column_priv` set('Select','Insert','Update','References') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
@@ -925,7 +925,7 @@ DROP TABLE IF EXISTS `user`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `Host` char(255) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL DEFAULT '',
-  `User` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `User` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   `Select_priv` enum('N','Y') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
   `Insert_priv` enum('N','Y') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
   `Update_priv` enum('N','Y') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
@@ -963,8 +963,8 @@ CREATE TABLE `user` (
   `max_updates` int unsigned NOT NULL DEFAULT '0',
   `max_connections` int unsigned NOT NULL DEFAULT '0',
   `max_user_connections` int unsigned NOT NULL DEFAULT '0',
-  `plugin` char(64) COLLATE utf8_bin NOT NULL DEFAULT 'caching_sha2_password',
-  `authentication_string` text COLLATE utf8_bin,
+  `plugin` char(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'caching_sha2_password',
+  `authentication_string` text CHARACTER SET utf8 COLLATE utf8_bin,
   `password_expired` enum('N','Y') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'N',
   `password_last_changed` timestamp NULL DEFAULT NULL,
   `password_lifetime` smallint unsigned DEFAULT NULL,
@@ -988,6 +988,10 @@ LOCK TABLES `user` WRITE;
 INSERT INTO `user` VALUES ('localhost','debian-sys-maint','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','','','','',0,0,0,0,'caching_sha2_password','$A$005$1S>VZS\rqmL [[?\"s.ev3H8SDozn7tL9EO.E8vJxEHwB9fSw6vZuvnhjPrU1','N','2022-04-02 15:30:41',NULL,'N','Y','Y',NULL,NULL,NULL,NULL),('localhost','mysql.infoschema','Y','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','','','','',0,0,0,0,'caching_sha2_password','$A$005$THISISACOMBINATIONOFINVALIDSALTANDPASSWORDTHATMUSTNEVERBRBEUSED','N','2022-04-02 15:30:40',NULL,'Y','N','N',NULL,NULL,NULL,NULL),('localhost','mysql.session','N','N','N','N','N','N','N','Y','N','N','N','N','N','N','N','Y','N','N','N','N','N','N','N','N','N','N','N','N','N','','','','',0,0,0,0,'caching_sha2_password','$A$005$THISISACOMBINATIONOFINVALIDSALTANDPASSWORDTHATMUSTNEVERBRBEUSED','N','2022-04-02 15:30:40',NULL,'Y','N','N',NULL,NULL,NULL,NULL),('localhost','mysql.sys','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','','','','',0,0,0,0,'caching_sha2_password','$A$005$THISISACOMBINATIONOFINVALIDSALTANDPASSWORDTHATMUSTNEVERBRBEUSED','N','2022-04-02 15:30:40',NULL,'Y','N','N',NULL,NULL,NULL,NULL),('localhost','nonwiz','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','N','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','','','','',0,0,0,0,'caching_sha2_password','$A$005$%\r9 *aW[8vb-EqKlMk8pbfyF/UXbr/ZuKlkqVrdiDZcgeBfmvpGzwdB','N','2022-04-02 15:34:50',NULL,'N','Y','Y',NULL,NULL,NULL,NULL),('localhost','root','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','','','','',0,0,0,0,'auth_socket','','N','2022-04-02 15:30:39',NULL,'N','Y','Y',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'mysql'
+--
 
 --
 -- Table structure for table `general_log`
@@ -1043,18 +1047,18 @@ DROP TABLE IF EXISTS `Account`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Account` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `userId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `provider` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `providerAccountId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `refresh_token` text COLLATE utf8mb4_unicode_ci,
-  `access_token` text COLLATE utf8mb4_unicode_ci,
+  `id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `userId` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `provider` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `providerAccountId` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `refresh_token` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `access_token` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `expires_at` int DEFAULT NULL,
-  `token_type` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `scope` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `id_token` text COLLATE utf8mb4_unicode_ci,
-  `session_state` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `token_type` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `scope` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id_token` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `session_state` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `Account_provider_providerAccountId_key` (`provider`,`providerAccountId`),
   KEY `Account_userId_fkey` (`userId`),
@@ -1081,7 +1085,8 @@ DROP TABLE IF EXISTS `ApprovalBy`;
 CREATE TABLE `ApprovalBy` (
   `id` int NOT NULL AUTO_INCREMENT,
   `orderId` int NOT NULL,
-  `user` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `ApprovalBy_orderId_fkey` (`orderId`),
   CONSTRAINT `ApprovalBy_orderId_fkey` FOREIGN KEY (`orderId`) REFERENCES `OrderRequest` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -1106,7 +1111,7 @@ DROP TABLE IF EXISTS `Department`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Department` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `budget` double NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1123,59 +1128,6 @@ INSERT INTO `Department` VALUES (1,'Information Technology',8000),(2,'Science',8
 UNLOCK TABLES;
 
 --
--- Table structure for table `Inventory`
---
-
-DROP TABLE IF EXISTS `Inventory`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Inventory` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `location_id` int NOT NULL,
-  `total_quantity` double NOT NULL DEFAULT '0',
-  `update_date` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `Inventory_location_id_key` (`location_id`),
-  CONSTRAINT `Inventory_location_id_fkey` FOREIGN KEY (`location_id`) REFERENCES `Location` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Inventory`
---
-
-LOCK TABLES `Inventory` WRITE;
-/*!40000 ALTER TABLE `Inventory` DISABLE KEYS */;
-INSERT INTO `Inventory` VALUES (1,1,0,'2022-04-03 14:39:04.013'),(2,2,0,'2022-04-03 14:39:12.151'),(3,3,0,'2022-04-03 14:39:15.882'),(4,4,0,'2022-04-03 14:39:19.537'),(5,5,0,'2022-04-03 14:39:22.841'),(6,6,0,'2022-04-03 14:39:26.675'),(7,7,0,'2022-04-03 14:39:31.113'),(8,8,0,'2022-04-03 14:39:34.261'),(9,9,0,'2022-04-03 14:39:35.970'),(10,10,0,'2022-04-03 14:39:37.696'),(11,11,0,'2022-04-03 14:40:32.181'),(12,12,0,'2022-04-03 14:40:35.140'),(13,13,0,'2022-04-03 14:40:53.043'),(14,14,0,'2022-04-03 14:40:57.418'),(15,15,0,'2022-04-03 14:41:00.078'),(16,16,0,'2022-04-03 14:41:02.055'),(17,17,0,'2022-04-03 14:41:04.254'),(18,18,0,'2022-04-03 14:41:43.698');
-/*!40000 ALTER TABLE `Inventory` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `InventoryMoveRequest`
---
-
-DROP TABLE IF EXISTS `InventoryMoveRequest`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `InventoryMoveRequest` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `inventory_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `InventoryMoveRequest_inventory_id_key` (`inventory_id`),
-  CONSTRAINT `InventoryMoveRequest_inventory_id_fkey` FOREIGN KEY (`inventory_id`) REFERENCES `Inventory` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `InventoryMoveRequest`
---
-
-LOCK TABLES `InventoryMoveRequest` WRITE;
-/*!40000 ALTER TABLE `InventoryMoveRequest` DISABLE KEYS */;
-/*!40000 ALTER TABLE `InventoryMoveRequest` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `Item`
 --
 
@@ -1184,21 +1136,22 @@ DROP TABLE IF EXISTS `Item`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Item` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `price` double NOT NULL,
-  `order_date` datetime(3) NOT NULL,
-  `depreciation` datetime(3) NOT NULL,
-  `quantity` double NOT NULL,
-  `quantity_unit` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `inventory_id` int NOT NULL,
-  `target_inventory_request_id` int NOT NULL,
+  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `order_date` datetime(3) DEFAULT NULL,
+  `depreciation` datetime(3) DEFAULT NULL,
+  `quantity` double DEFAULT NULL,
+  `quantity_unit` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `location_id` int NOT NULL,
+  `target_location_request_id` int DEFAULT NULL,
+  `type` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `Item_inventory_id_fkey` (`inventory_id`),
-  KEY `Item_target_inventory_request_id_fkey` (`target_inventory_request_id`),
-  CONSTRAINT `Item_inventory_id_fkey` FOREIGN KEY (`inventory_id`) REFERENCES `Inventory` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `Item_target_inventory_request_id_fkey` FOREIGN KEY (`target_inventory_request_id`) REFERENCES `InventoryMoveRequest` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `Item_location_id_fkey` (`location_id`),
+  KEY `Item_target_location_request_id_fkey` (`target_location_request_id`),
+  CONSTRAINT `Item_location_id_fkey` FOREIGN KEY (`location_id`) REFERENCES `Location` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `Item_target_location_request_id_fkey` FOREIGN KEY (`target_location_request_id`) REFERENCES `LocationMoveRequest` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1207,6 +1160,7 @@ CREATE TABLE `Item` (
 
 LOCK TABLES `Item` WRITE;
 /*!40000 ALTER TABLE `Item` DISABLE KEYS */;
+INSERT INTO `Item` VALUES (1,'power bank',NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL),(2,'Water bottle',NULL,NULL,NULL,NULL,NULL,NULL,10,NULL,NULL),(3,'Tea Cup',NULL,NULL,NULL,NULL,NULL,NULL,17,NULL,NULL),(4,'Mirror','Mirror for toilet',24,NULL,NULL,1,'unit',1,NULL,NULL),(5,'Soap','Soap for toilet',24,NULL,NULL,1,'unit',1,NULL,NULL),(6,'Hand Sanitizer','Soap for toilet',24,NULL,NULL,1,'unit',1,NULL,NULL),(7,'Spray Sanitizer','Soap for toilet',24,NULL,NULL,1,'unit',1,NULL,NULL),(8,'Spray Sanitizer','Soap for toilet',24,NULL,NULL,1,'unit',1,NULL,NULL);
 /*!40000 ALTER TABLE `Item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1219,10 +1173,12 @@ DROP TABLE IF EXISTS `Location`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Location` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `zone` enum('Administration','Science','Information_Technology','Elijah_hall','Solomon_hall','Sarah_hall','Ester_hall','Ruth_hall','Eve_hall','Student_Administration','Marriage_Student','Faculty_housing','Guestroom','Hope_Channel','New') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'New',
+  `zone` enum('Administration','Science','Information_Technology','Elijah_hall','Solomon_hall','Sarah_hall','Ester_hall','Ruth_hall','Eve_hall','Student_Administration','Marriage_Student','Faculty_housing','Guestroom','Hope_Channel','New') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'New',
   `floor` int NOT NULL,
-  `room_number` int NOT NULL,
-  `description` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `room_number` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `total_quantity` double DEFAULT '0',
+  `update_date` datetime(3) DEFAULT CURRENT_TIMESTAMP(3),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1233,8 +1189,34 @@ CREATE TABLE `Location` (
 
 LOCK TABLES `Location` WRITE;
 /*!40000 ALTER TABLE `Location` DISABLE KEYS */;
-INSERT INTO `Location` VALUES (1,'Administration',1,101,''),(2,'Administration',1,102,''),(3,'Administration',1,103,''),(4,'Administration',1,104,''),(5,'Administration',1,105,''),(6,'Administration',1,106,''),(7,'Administration',2,206,''),(8,'Administration',2,205,''),(9,'Administration',2,204,''),(10,'Administration',2,203,''),(11,'Administration',2,202,''),(12,'Administration',2,201,''),(13,'Information_Technology',2,101,''),(14,'Information_Technology',2,102,''),(15,'Information_Technology',2,103,''),(16,'Information_Technology',2,104,''),(17,'Information_Technology',2,105,''),(18,'Information_Technology',2,106,'');
+INSERT INTO `Location` VALUES (1,'Administration',1,'101','',0,'2022-04-10 15:42:17.432'),(2,'Administration',1,'102','',0,'2022-04-10 15:42:17.432'),(3,'Administration',1,'103','',0,'2022-04-10 15:42:17.432'),(4,'Administration',1,'104','',0,'2022-04-10 15:42:17.432'),(5,'Administration',1,'105','',0,'2022-04-10 15:42:17.432'),(6,'Administration',1,'106','',0,'2022-04-10 15:42:17.432'),(7,'Administration',2,'206','',0,'2022-04-10 15:42:17.432'),(8,'Administration',2,'205','',0,'2022-04-10 15:42:17.432'),(9,'Administration',2,'204','',0,'2022-04-10 15:42:17.432'),(10,'Administration',2,'203','',0,'2022-04-10 15:42:17.432'),(11,'Administration',2,'202','',0,'2022-04-10 15:42:17.432'),(12,'Administration',2,'201','',0,'2022-04-10 15:42:17.432'),(13,'Information_Technology',2,'101','',0,'2022-04-10 15:42:17.432'),(14,'Information_Technology',2,'102','',0,'2022-04-10 15:42:17.432'),(15,'Information_Technology',2,'103','',0,'2022-04-10 15:42:17.432'),(16,'Information_Technology',2,'104','',0,'2022-04-10 15:42:17.432'),(17,'Information_Technology',2,'105','',0,'2022-04-10 15:42:17.432'),(18,'Information_Technology',2,'106','',0,'2022-04-10 15:42:17.432');
 /*!40000 ALTER TABLE `Location` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `LocationMoveRequest`
+--
+
+DROP TABLE IF EXISTS `LocationMoveRequest`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `LocationMoveRequest` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `location_id` int NOT NULL,
+  `previous_location` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `LocationMoveRequest_location_id_key` (`location_id`),
+  CONSTRAINT `LocationMoveRequest_location_id_fkey` FOREIGN KEY (`location_id`) REFERENCES `Location` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `LocationMoveRequest`
+--
+
+LOCK TABLES `LocationMoveRequest` WRITE;
+/*!40000 ALTER TABLE `LocationMoveRequest` DISABLE KEYS */;
+/*!40000 ALTER TABLE `LocationMoveRequest` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1246,19 +1228,19 @@ DROP TABLE IF EXISTS `OrderItem`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `OrderItem` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `description` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `size` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `size` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `quantity` double DEFAULT '1',
   `unit_price` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
-  `type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `picture` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `link_reference` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `type` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `picture` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `link_reference` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `order_request_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `OrderItem_order_request_id_fkey` (`order_request_id`),
   CONSTRAINT `OrderItem_order_request_id_fkey` FOREIGN KEY (`order_request_id`) REFERENCES `OrderRequest` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1267,7 +1249,7 @@ CREATE TABLE `OrderItem` (
 
 LOCK TABLES `OrderItem` WRITE;
 /*!40000 ALTER TABLE `OrderItem` DISABLE KEYS */;
-INSERT INTO `OrderItem` VALUES (1,'Alcohol Spray','sm',10,23,230,'Office',NULL,NULL,1),(2,'Screen tower','sm',2,50,100,'Office',NULL,NULL,1),(3,'Marker','sm',1,70,70,'Office',NULL,NULL,1);
+INSERT INTO `OrderItem` VALUES (1,'Alcohol Spray','sm',10,23,230,'Office',NULL,NULL,1),(2,'Screen tower','sm',2,50,100,'Office',NULL,NULL,1),(3,'Marker','sm',1,70,70,'Office',NULL,NULL,1),(4,'Laptop Desk','50cm',1,0,0,'Electronic',NULL,NULL,2),(5,'MSI Gf72 8ure','normal',1,40000,40000,'Electronic',NULL,NULL,3);
 /*!40000 ALTER TABLE `OrderItem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1280,18 +1262,18 @@ DROP TABLE IF EXISTS `OrderRequest`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `OrderRequest` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `purchase_reason` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `order_status` enum('Pending','Approved','Rejected') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Pending',
+  `purchase_reason` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `order_status` enum('Pending','Approved','Rejected') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Pending',
   `approval_status` tinyint(1) NOT NULL DEFAULT '0',
   `total_price` double DEFAULT NULL,
   `vat` double DEFAULT NULL,
   `order_date` datetime(3) DEFAULT NULL,
-  `user_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remark` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remark` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `OrderRequest_user_id_fkey` (`user_id`),
   CONSTRAINT `OrderRequest_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1300,7 +1282,7 @@ CREATE TABLE `OrderRequest` (
 
 LOCK TABLES `OrderRequest` WRITE;
 /*!40000 ALTER TABLE `OrderRequest` DISABLE KEYS */;
-INSERT INTO `OrderRequest` VALUES (1,'For cleaning the office and equipment.','Pending',0,NULL,NULL,NULL,'cl1jdycxa0121p4aeehgejxta',NULL);
+INSERT INTO `OrderRequest` VALUES (1,'For cleaning the office and equipment.','Pending',0,NULL,NULL,NULL,'cl1jdycxa0121p4aeehgejxta',NULL),(2,'For officedesk','Pending',0,NULL,NULL,NULL,'cl1j7tmd90008iaaejznprqyh',NULL),(3,'Buy for office decoration.','Pending',0,NULL,NULL,NULL,'cl1j7tmd90008iaaejznprqyh',NULL);
 /*!40000 ALTER TABLE `OrderRequest` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1313,7 +1295,7 @@ DROP TABLE IF EXISTS `OrderType`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `OrderType` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1337,7 +1319,7 @@ DROP TABLE IF EXISTS `PurchasingAction`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `PurchasingAction` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `description` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `order_request_id` int NOT NULL,
   PRIMARY KEY (`id`),
@@ -1363,9 +1345,9 @@ DROP TABLE IF EXISTS `Session`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Session` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `sessionToken` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `userId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sessionToken` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `userId` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `expires` datetime(3) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `Session_sessionToken_key` (`sessionToken`),
@@ -1380,7 +1362,7 @@ CREATE TABLE `Session` (
 
 LOCK TABLES `Session` WRITE;
 /*!40000 ALTER TABLE `Session` DISABLE KEYS */;
-INSERT INTO `Session` VALUES ('cl1j7tmdh0015iaaeicwg2u3o','1c2a2d73-55a9-4db7-afc4-7829a1934da5','cl1j7tmd90008iaaejznprqyh','2022-05-07 08:09:00.177'),('cl1jdycxf0128p4ae5js44pqx','f2fbf41c-fd5b-4c3b-8973-25926f8f7ea6','cl1jdycxa0121p4aeehgejxta','2022-05-07 08:15:27.547');
+INSERT INTO `Session` VALUES ('cl1j7tmdh0015iaaeicwg2u3o','1c2a2d73-55a9-4db7-afc4-7829a1934da5','cl1j7tmd90008iaaejznprqyh','2022-05-21 06:03:39.927'),('cl1jdycxf0128p4ae5js44pqx','f2fbf41c-fd5b-4c3b-8973-25926f8f7ea6','cl1jdycxa0121p4aeehgejxta','2022-05-21 14:31:11.592'),('cl1ssc3z20013f0sesgu1sjk3','7d5e25f7-13b7-4d70-8d89-46a9d5a64e8c','cl1ssc3yj0006f0se8f3g5xpq','2022-05-10 04:27:55.541'),('cl1svmn2i0389q5se45tyskvk','e9115430-3067-4150-8da2-1591373a316c','cl1svmn200382q5sex3hp3xrh','2022-05-10 06:00:05.699'),('cl1szyddv0836q5seijimrsj9','63c507b1-3afc-4573-8e4e-7304ebe88250','cl1j7tmd90008iaaejznprqyh','2022-05-10 08:01:11.489'),('cl28tpmyr0015cbaehzjb2qlg','a9959e33-f775-40b5-af39-6ade43cfaac5','cl1j7tmd90008iaaejznprqyh','2022-05-21 09:50:45.122'),('cl28xb9q31086cbae25gsf90p','083770d6-549b-4926-86b1-6d412317c8ec','cl1svmn200382q5sex3hp3xrh','2022-05-21 11:31:33.240'),('cl290884j1344cbaez8txd35y','74c67179-7ccd-402c-b12f-42b2779f0e9c','cl1svmn200382q5sex3hp3xrh','2022-05-21 12:53:10.047'),('cl291gfp80139psae1fvuxky9','e2454dd5-2365-47ad-9fd7-c98a4ebf5064','cl1j7tmd90008iaaejznprqyh','2022-05-21 13:27:32.726');
 /*!40000 ALTER TABLE `Session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1392,12 +1374,12 @@ DROP TABLE IF EXISTS `User`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `User` (
-  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `emailVerified` datetime(3) DEFAULT NULL,
-  `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `role` enum('customer','department_head','inventory_officer','finance_officer','purchasing_officer','admin') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'customer',
+  `image` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `role` enum('customer','department_head','finance_officer','purchasing_officer','admin') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'customer',
   `department_id` int DEFAULT NULL,
   `location_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -1415,7 +1397,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES ('cl1j7tmd90008iaaejznprqyh',NULL,'bdchanbroset@gmail.com','2022-04-03 11:43:45.021',NULL,'admin',NULL,NULL),('cl1jdycxa0121p4aeehgejxta',NULL,'201800157@my.apiu.edu','2022-04-03 14:35:23.757',NULL,'customer',2,NULL);
+INSERT INTO `User` VALUES ('cl1j7tmd90008iaaejznprqyh','Chanbroset Prach','bdchanbroset@gmail.com','2022-04-21 13:27:32.714',NULL,'admin',NULL,NULL),('cl1jdycxa0121p4aeehgejxta','Andreas Christian Mambu','201800157@my.apiu.edu','2022-04-03 14:35:23.757',NULL,'customer',2,1),('cl1ssc3yj0006f0se8f3g5xpq','SPI Admin','maginatorcloud@gmail.com','2022-04-10 04:27:55.524',NULL,'customer',NULL,NULL),('cl1svmn200382q5sex3hp3xrh','Dan Khazimoto','201900162@my.apiu.edu','2022-04-21 12:53:10.034',NULL,'admin',NULL,NULL);
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1427,8 +1409,8 @@ DROP TABLE IF EXISTS `VerificationToken`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `VerificationToken` (
-  `identifier` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `identifier` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `expires` datetime(3) NOT NULL,
   UNIQUE KEY `VerificationToken_token_key` (`token`),
   UNIQUE KEY `VerificationToken_identifier_token_key` (`identifier`,`token`)
@@ -1443,6 +1425,10 @@ LOCK TABLES `VerificationToken` WRITE;
 /*!40000 ALTER TABLE `VerificationToken` DISABLE KEYS */;
 /*!40000 ALTER TABLE `VerificationToken` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'SPI'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 /*!50606 SET GLOBAL INNODB_STATS_AUTO_RECALC=@OLD_INNODB_STATS_AUTO_RECALC */;
 
@@ -1454,4 +1440,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-10 10:59:02
+-- Dump completed on 2022-04-24 12:25:08

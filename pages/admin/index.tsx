@@ -1,7 +1,7 @@
 import Layout from "@/components/layout"
 import { useAdmin } from "lib/fetcher";
 import { useSession } from "next-auth/react";
-import FormUpdateRole from "@/components/admin/updateRole";
+
 import FormCreateLocation from "@/components/admin/createLocation";
 import FormCreateDepartment from "@/components/admin/createDepartment";
 import FormUpdateLocation from "@/components/admin/updateLocation";

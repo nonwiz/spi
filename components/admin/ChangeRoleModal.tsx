@@ -31,18 +31,18 @@ export default function ChangeRoleModal({visible, closeHandler, user, type, role
         onClose={closeHandler}
       >
         <Modal.Header>
-          <Text id="modal-title" size={18}> User Details </Text>
+          <Text id="modal-title" size={18}>{(type=="view_details")?"User Details":"User Details (Update)"} </Text>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={handleUpdateRole} className="flex flex-col gap-4">
             <Input
-              readOnly bordered fullWidth 
+              bordered fullWidth readOnly={(type=="view_details")?true:false}
               size="lg"
               label="Full Name"  
               color="primary" 
               initialValue={user?.name} contentLeft={<Mail fill="currentColor" />} className="bg-gray-100"
             />
-            <Input readOnly bordered fullWidth 
+            <Input bordered fullWidth readOnly={(type=="view_details")?true:false}
               color="primary" 
               size="lg"
               label="Email"  
@@ -52,7 +52,7 @@ export default function ChangeRoleModal({visible, closeHandler, user, type, role
 
             <div className="mb-3 xl:w-88">
                 <Text color="primary" className="mb-1">Role (click to change role)</Text>
-                  <select name="role" className="form-select appearance-none block w-full p-2.5 px-5 text-base font-normal text-gray-700 border-2 rounded-2xl transition ease-in-out m-0
+                  <select disabled={(type=="view_details")?true:false} name="role" className="form-select appearance-none block w-full p-2.5 px-5 text-base font-normal text-gray-700 border-2 rounded-2xl transition ease-in-out m-0
                   focus:text-gray-700 focus:bg-white focus:border-primary-color focus:outline-none" aria-label="Role selection">
                       <option defaultValue="Customer">{user?.role}</option>
                       {roles && roles.map((role, id) => <option key={id}>{role}</option>)}  

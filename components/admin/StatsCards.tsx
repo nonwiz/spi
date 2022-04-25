@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import Link from 'next/link'
+import SearchBox from "@/components/admin/SearchBox";
 import ChangeRoleModal from "./ChangeRoleModal";
 
 const StatsCards = ( {departments, users, locations} ) => {
@@ -31,7 +33,9 @@ const StatsCards = ( {departments, users, locations} ) => {
 
                 <div className="flex items-center gap-6">
                   <button onClick={addNew} className="flex py-3 px-4 text-sm rounded-lg border text-gray-700 border-gray-700 gap-x-2.5 hover:shadow-lg hover:shadow-gray-700/20">Add New</button>
+                  <Link href="/admin/userList">
                   <button className="flex py-3 px-4 text-sm rounded-lg border border-primary-color gap-x-2.5 bg-primary-color text-white hover:shadow-lg hover:shadow-blue-700/20">View All</button>
+                </Link>
                 </div>
             </div>
 
@@ -48,8 +52,10 @@ const StatsCards = ( {departments, users, locations} ) => {
 
               <div className="flex items-center gap-6 text-blue-700">
                 <button onClick={addNew} className="flex py-3 px-4 text-sm rounded-lg border text-gray-700 border-gray-700 gap-x-2.5 hover:shadow-lg hover:shadow-gray-700/20">Add New</button>
-                <button className="flex py-3 px-4 text-sm rounded-lg border border-primary-color gap-x-2.5 bg-primary-color text-white hover:shadow-lg hover:shadow-blue-700/20">View All</button>
-              </div>
+                <Link href="#">
+                  <button className="flex py-3 px-4 text-sm rounded-lg border border-primary-color gap-x-2.5 bg-primary-color text-white hover:shadow-lg hover:shadow-blue-700/20">View All</button>
+                </Link>              
+                </div>
           </div>
 
           <div className="flex flex-wrap lg:flex-row justify-between p-4 w-full lg:w-1/3  rounded-lg gap-y-3 text-black-700 border-2 border-gray-200">
@@ -66,8 +72,10 @@ const StatsCards = ( {departments, users, locations} ) => {
 
               <div className="flex items-center gap-6 text-blue-700">
                 <button onClick={addNew} className="flex py-3 px-4 text-sm rounded-lg border text-gray-700 border-gray-700 gap-x-2.5 hover:shadow-lg hover:shadow-gray-700/20">Add New</button>
-                <button className="flex py-3 px-4 text-sm rounded-lg border border-primary-color gap-x-2.5 bg-primary-color text-white hover:shadow-lg hover:shadow-blue-700/20">View All</button>
-              </div>
+                <Link href="/admin/locationList">
+                  <button className="flex py-3 px-4 text-sm rounded-lg border border-primary-color gap-x-2.5 bg-primary-color text-white hover:shadow-lg hover:shadow-blue-700/20">View All</button>
+                </Link>              
+                </div>
           </div>
         </div>
       </>

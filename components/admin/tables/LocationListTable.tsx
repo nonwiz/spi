@@ -13,23 +13,23 @@ const LocationListTable = ({location, zones}) => {
 
   const [visible, setVisible] = useState(false);
   const [locationInfo, setLocation] = useState([]);
-  const [type, setType] = useState("viewDetails");
+  const [type, setType] = useState("none");
   
   const detailHandler = (location) =>{
     setVisible(true);
     setLocation(location);
+    setType("view_details")
   }
 
   const updateHandler = (location) => {
     setVisible(true);
     setLocation(location);
-
-
   }
 
   const closeHandler = () => {
     setVisible(false);
     setLocation([])
+    setType("none")
   };
 
  
@@ -94,7 +94,8 @@ const LocationListTable = ({location, zones}) => {
 
     return ( 
       <>
-          <UpdateLocationModal 
+          <UpdateLocationModal
+          type={type}
           visible={visible} 
           closeHandler={closeHandler} 
           location={locationInfo} 

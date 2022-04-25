@@ -5,10 +5,10 @@ import { IconButton } from "@/components/admin/icons/IconButton";
 import { EyeIcon } from "@/components/admin/icons/EyeIcon";
 import { EditIcon } from "@/components/admin/icons/EditIcon";
 import { DeleteIcon } from "@/components/admin/icons/DeleteIcon";
-import ChangeRoleModal from "./ChangeRoleModal";
+import ChangeRoleModal from "@/components/admin/ChangeRoleModal";
 
 
-const PaginatedTable = ({users, roles}) => {
+const UserListTable = ({users, roles}) => {
 
   const [visible, setVisible] = useState(false);
   const [userInfo, setUserInfo] = useState([]);
@@ -138,4 +138,4 @@ const PaginatedTable = ({users, roles}) => {
      );
 }
  
-export default PaginatedTable;
+export default UserListTable;

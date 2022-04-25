@@ -12,7 +12,7 @@ const UserListTable = ({users, roles}) => {
 
   const [visible, setVisible] = useState(false);
   const [userInfo, setUserInfo] = useState([]);
-  const [type, setType] = useState("viewDetails");
+  const [type, setType] = useState("none");
   
   const detailHandler = (user) =>{
     setVisible(true);
@@ -22,14 +22,14 @@ const UserListTable = ({users, roles}) => {
   const updateHandler = (user) => {
     setVisible(true);
     setUserInfo(user);
-    setType("updateDetails")
+    setType("view_details")
 
   }
 
   const closeHandler = () => {
     setVisible(false);
     setUserInfo([])
-    setType("viewDetails")
+    setType("none")
   };
 
  
@@ -128,8 +128,8 @@ const UserListTable = ({users, roles}) => {
             <Table.Pagination
               noMargin
               align="center"
-              rowsPerPage={5}
-              total={2}
+              rowsPerPage={9}
+     
               onPageChange={(page) => console.log({ page })}
             />
             </Table>

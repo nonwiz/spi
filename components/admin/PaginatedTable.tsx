@@ -8,7 +8,7 @@ import { DeleteIcon } from "@/components/admin/icons/DeleteIcon";
 import ChangeRoleModal from "./ChangeRoleModal";
 
 
-const PaginatedTable = ({users}) => {
+const PaginatedTable = ({users, roles}) => {
 
   const [visible, setVisible] = useState(false);
   const [userInfo, setUserInfo] = useState([]);
@@ -87,7 +87,7 @@ const PaginatedTable = ({users}) => {
 
     return ( 
       <>
-          <ChangeRoleModal visible={visible} closeHandler={closeHandler} user={userInfo} type={type} />
+          <ChangeRoleModal visible={visible} closeHandler={closeHandler} user={userInfo} type={type} roles={roles} />
           
             <Table 
             headerLined

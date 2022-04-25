@@ -30,7 +30,7 @@ export default function Page() {
           <div className="flex flex-col lg:flex-row justify-between  mt-8 gap-8">
               <div className=" rounded-lg lg:w-2/3">
                 <h2>User Management</h2>
-                {data.users && <PaginatedTable users={data.users} />}
+                {data.users && data.roles && <PaginatedTable users={data.users} roles={data.roles} />}
               </div>
               <div className="lg:w-2/6">
                 <h2>Recently Activities</h2>

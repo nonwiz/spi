@@ -61,13 +61,17 @@ export default function ChangeRoleModal({visible, closeHandler, user, type, role
               </div>
 
               <div className="flex justify-center">
-                <Button auto flat color="error" onClick={closeHandler}>
-                  Cancel
-                </Button>
-                <Button auto className="bg-primary-color" type="submit">
-                  Update and Save
-                </Button>
-
+                {(type=="view_details")
+                  ?
+                    <div>
+                      <Button auto flat  onClick={closeHandler} className="bg-primary-color text-white">Close</Button>
+                    </div>
+                  :
+                    <div>
+                      <Button auto flat  onClick={closeHandler} className="text-red-500">Cancel</Button>
+                      <Button auto className="bg-primary-color" type="submit">Update and Save</Button>
+                    </div>
+                }
               </div>
           </form>
          

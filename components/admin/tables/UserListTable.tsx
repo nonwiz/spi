@@ -17,13 +17,12 @@ const UserListTable = ({users, roles}) => {
   const detailHandler = (user) =>{
     setVisible(true);
     setUserInfo(user);
+    setType("view_details")
   }
 
   const updateHandler = (user) => {
     setVisible(true);
     setUserInfo(user);
-    setType("view_details")
-
   }
 
   const closeHandler = () => {

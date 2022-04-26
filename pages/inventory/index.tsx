@@ -24,6 +24,13 @@ export default function Page() {
     return `${zones[tmp.zone]}${tmp.room_number}`
   }
 
+  const returnLocationItems = (location) => {
+    console.log("Return items within location", location);
+    const items = location.items.map(item =>
+      <li>{item.name}</li>);
+    return items.length > 0 ? items : "No items within this location!";
+  }
+
   return (
     <div className="p-4">
       <div className="p-2 my-4">
@@ -67,10 +74,16 @@ export default function Page() {
         />
 
 
-
-
-
         <br />
+        <h2> Current Location items </h2>
+        <hr />
+        <ul>
+          {data &&
+            returnLocationItems(data.locations[sLocation])
+          }
+        </ul>
+        <br />
+
 
         <h2> List of item </h2>
         <hr />

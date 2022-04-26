@@ -88,13 +88,17 @@ export default function UpdateLocationModal({type,visible, closeHandler, locatio
             />
 
               <div className="flex justify-center mt-3">
-                <Button auto flat color="error" onClick={closeHandler}>
-                  Cancel
-                </Button>
-                <Button auto className="bg-primary-color" type="submit">
-                {(type=="view_details")?"Close":(type=="create_location")?"Create Location":"Update and Save)"}
-                </Button>
-
+                {(type=="view_details")
+                  ?
+                    <div>
+                      <Button auto flat  onClick={closeHandler} className="bg-primary-color text-white">Close</Button>
+                    </div>
+                  :
+                    <div>
+                      <Button auto flat  onClick={closeHandler} className="text-red-500">Cancel</Button>
+                      <Button auto className="bg-primary-color" type="submit">{(type=="create_location")?"Create Location":"Update and Save)"}</Button>
+                    </div>
+                }
               </div>
           </form>
          

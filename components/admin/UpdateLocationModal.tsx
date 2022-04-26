@@ -15,7 +15,7 @@ export default function UpdateLocationModal({type,visible, closeHandler, locatio
   const handleUpdateLocation = async event => {
     event.preventDefault();
     const formData = getFieldsValues(event, ["floor", "description", "zone", "room_number"])
-    fetcher("/api/admin/location/updateDetail", formData).then(d => {
+    fetcher("/api/admin/location/update", formData).then(d => {
       console.log(d)
       mutate("/api/admin")
       console.log("hi from somewhere")
@@ -51,7 +51,7 @@ export default function UpdateLocationModal({type,visible, closeHandler, locatio
             <div className=" xl:w-88">
                 <Text color="primary" className="mb-1">Zone (click to change Zone)</Text>
                   <select disabled={(type=="view_details")?true:false} name="zone" className="form-select appearance-none block w-full p-2.5 px-5 text-base font-normal text-gray-700 border-2 rounded-2xl transition ease-in-out m-0
-                  focus:text-gray-700 focus:bg-white focus:border-primary-color focus:outline-none" aria-label="Role selection">
+                  focus:text-gray-700 focus:bg-white focus:border-primary-color focus:outline-none" aria-label="Zone selection">
                       <option defaultValue={location?.zone}>{location?.zone}</option>
                       {zones && zones.map((zone, id) => <option key={id}>{zone}</option>)}  
                

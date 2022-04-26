@@ -1,6 +1,6 @@
 import { Table, Row, Col, Tooltip, User, Text, Container } from "@nextui-org/react";
 import { useState } from 'react'
-import { StyledBadge } from "@/components/admin/icons/StyledBadge";
+import { StyledBadge } from "@/components/customer/StyledStatus";
 import { IconButton } from "@/components/admin/icons/IconButton";
 import { EyeIcon } from "@/components/admin/icons/EyeIcon";
 import { EditIcon } from "@/components/admin/icons/EditIcon";

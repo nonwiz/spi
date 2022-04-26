@@ -34,7 +34,7 @@ const UserListTable = ({users, roles}) => {
  
     const columns = [
         { name: "NAME", uid: "name" },
-        { name: "EMAIL", uid: "email" },
+        // { name: "EMAIL", uid: "email" },
         { name: "ROLE", uid: "role" },
         { name: "DEPARTMENT", uid: "department" },
         { name: "LOCATION", uid: "location" },
@@ -45,10 +45,12 @@ const UserListTable = ({users, roles}) => {
         const cellValue = user[columnKey];
         switch (columnKey) {
           case "name":
-            return <User squared  src="https://i.pravatar.cc/150?u=a04258114e29026702d" name={cellValue} className="text-sm capitalize text-gray-700 text-wrap" />;
+            return <User squared  src="https://i.pravatar.cc/150?u=a04258114e29026702d" name={cellValue} className="text-sm capitalize text-wrap">
+              <span className="text-gray-500 font-semibold">{user.email}</span>
+             </User>;
 
-          case "email":
-              return <p className="text-lg md:mr-8">{user.email}</p>;
+          // case "email":
+          //     return <p className="text-lg md:mr-8">{user.email}</p>;
 
           case "role":
             return <p className="text-lg md:mr-8">{user.role}</p>;

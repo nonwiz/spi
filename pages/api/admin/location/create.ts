@@ -14,12 +14,9 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     const location = await prisma.location.create({
       data: {
         floor: Number(floor),
-        room_number: Number(room_number),
+        room_number: room_number,
         description,
-        zone,
-        inventory: {
-          create: {}
-        }
+        zone
       }
     })
      return res.status(200).json({  location })

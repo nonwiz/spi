@@ -1,4 +1,5 @@
 import FormCreateOrderRequest from "@/components/customer/createOrderRequest";
+import OrderRequestTable from "@/components/customer/tables/OrderRequestTable";
 import Layout from "@/components/layout"
 import { useCustomer } from "lib/fetcher";
 import { useSession } from "next-auth/react";
@@ -12,6 +13,23 @@ export default function Page() {
   console.log(data);
 
   return (
+      <>
+      <div className="my-8 flex flex-row gap-6 w-full">
+        <button className="primary-btn"> Create Order Request</button>
+        <button className="primary-btn"> Create Moving Request</button>
+      </div>
+
+      <div className="">
+        <div className=" rounded-lg ">
+            <h2>Recent order Request</h2>
+            {data.user.order_requests && <OrderRequestTable orderRequest={data.user.order_requests} />}
+
+        </div>
+
+       
+      </div>
+
+
       <div className="p-4">
         <div className="p-2 my-4">
           <h1> Order Status </h1>
@@ -30,6 +48,11 @@ export default function Page() {
           <li key={id}> {item.name}</li>
         )}
       </div>
+      </>
+
+
+
+
   )
 }
 

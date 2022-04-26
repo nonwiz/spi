@@ -1,4 +1,5 @@
 import { Table, Row, Col, Tooltip, User, Text, Container } from "@nextui-org/react";
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { IconButton } from "@/components/admin/icons/IconButton";
 import { EyeIcon } from "@/components/admin/icons/EyeIcon";
@@ -11,7 +12,7 @@ import {DeleteIcon} from "../icons/DeleteIcon";
 
 
 const OrderRequestTable = ({orderRequest}) => {
-
+  const router = useRouter()
   const [visible, setVisible] = useState(false);
   const [orderRequestInfo, setOrderRequestt] = useState([]);
   const [type, setType] = useState("none");
@@ -32,8 +33,19 @@ const OrderRequestTable = ({orderRequest}) => {
     setOrderRequestt([])
     setType("none")
   };
-
-    const columns = [
+    
+  let columns;
+    if (router.pathname=="/customer") {
+      columns = [
+        { name: "#", uid: "id" },
+        { name: "ORDER DESCRIPTION", uid: "order_description" },
+        { name: "ORDER PRICE", uid: "order_price" },
+        { name: "ORDER DATE", uid: "order_date" },
+        { name: "ORDER STATUS", uid: "order_status" },
+       
+      ];
+    } else {
+      columns = [
         { name: "#", uid: "id" },
         { name: "ORDER DESCRIPTION", uid: "order_description" },
         { name: "ORDER ITEMS", uid: "order_items" },
@@ -42,6 +54,8 @@ const OrderRequestTable = ({orderRequest}) => {
         { name: "ORDER STATUS", uid: "order_status" },
         { name: "ACTIONS", uid: "actions" },
       ];
+    }
+    
       
       const renderCell = (orderRequest, columnKey) => {
         const cellValue = orderRequest[columnKey];

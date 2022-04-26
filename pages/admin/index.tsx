@@ -24,7 +24,7 @@ export default function Page() {
 
     <>
       <div>
-          <StatsCards users={data.users} departments={data.departments} locations={data.locations} />
+          <StatsCards users={data.users} departments={data.departments} locations={data.locations} zones={data.zones} />
           <div className="flex flex-col lg:flex-row justify-between  mt-8 gap-8">
               <div className=" rounded-lg lg:w-2/3">
                 <h2>User Management</h2>
@@ -41,19 +41,9 @@ export default function Page() {
 
       {/* <div className="p-4">
           
-
-        <h2> List of Location </h2>
-        {data && <div>
-          <ul>
-            {data.locations.map((item, id) => <li key={id}>Room: {item.room_number} | {item.zone} - {item.description} </li>)}
-          </ul>
-        </div>}
-        <hr />
-        <FormCreateLocation zones={data.zones} />
-
         <FormUpdateLocation zones={data.zones} locations={data.locations} />
 
-        <hr />
+
         <h2 className="mt-10"> List of Department</h2>
         {data && <div>
           <ul>

@@ -2,22 +2,47 @@ import { useState } from 'react'
 import Link from 'next/link'
 import SearchBox from "@/components/admin/SearchBox";
 import ChangeRoleModal from "./ChangeRoleModal";
+import UpdateLocationModal from './UpdateLocationModal';
+import UpdateDepartmentModal from './UpdateDepartmentModal';
 
-const StatsCards = ( {departments, users, locations} ) => {
-  const [visible, setVisible] = useState(false);
-  console.log({departments, users, locations})
+const StatsCards = ( {departments, users, locations, zones} ) => {
+  const [visible1, setVisible1] = useState(false);
+  const [visible2, setVisible2] = useState(false);
+  const [type, setType] = useState("none");
+  
 
-  const addNew = () => {
-    setVisible(true);
+
+  const addLocation = () => {
+    setVisible1(true);
+    setType("create_location")
+  }
+
+  const addDepartment = () => {
+    setVisible2(true);
+    setType("create_department")
   }
   const closeHandler = () => {
-    setVisible(false);
-   
-    // console.log("closed");
+    setVisible1(false);
+    setVisible2(false);
   };
     return ( 
       <>
-      <ChangeRoleModal visible={visible} closeHandler={closeHandler} />
+      
+
+      <UpdateLocationModal
+          type={type}
+          visible={visible1} 
+          closeHandler={closeHandler} 
+          location
+          zones={zones}/>
+          
+      <UpdateDepartmentModal
+          type={type}
+          visible={visible2} 
+          closeHandler={closeHandler} 
+          department={departments}/>
+
+          
         <div className="flex flex-wrap justify-center md:justify-start md:flex-row lg:flex-nowrap gap-6">
 
           <div className="flex flex-wrap lg:flex-row justify-between p-4 w-full lg:w-1/3  rounded-lg gap-y-3 text-black-700 border-2 border-gray-200 ">
@@ -28,11 +53,11 @@ const StatsCards = ( {departments, users, locations} ) => {
                       </div>
                     <p className="text-5xl font-semibold text-gray-700">{users.length}</p>
                   </div>
-                  <span className="p-2 text-base tracking-wide text-gray-500 font-medium">Total Users</span>
+                  <span className="p-2 text-base tracking-wide text-gray-500 font-medium">Users</span>
                 </div>
 
                 <div className="flex items-center gap-6">
-                  <button onClick={addNew} className="flex py-3 px-4 text-sm rounded-lg border text-gray-700 border-gray-700 gap-x-2.5 hover:shadow-lg hover:shadow-gray-700/20">Add New</button>
+                  <button type="button" disabled className="flex py-3 px-4 text-sm rounded-lg border text-gray-700 border-gray-700 gap-x-2.5 hover">Add New</button>
                   <Link href="/admin/userList">
                   <button className="flex py-3 px-4 text-sm rounded-lg border border-primary-color gap-x-2.5 bg-primary-color text-white hover:shadow-lg hover:shadow-blue-700/20">View All</button>
                 </Link>
@@ -47,12 +72,12 @@ const StatsCards = ( {departments, users, locations} ) => {
                     </div>
                   <p className="text-5xl font-semibold text-gray-700">{departments.length}</p>
                 </div>
-                <span className="p-2 text-base tracking-wide text-gray-500 font-medium">Total Department </span>
+                <span className="p-2 text-base tracking-wide text-gray-500 font-medium">Department </span>
               </div>
 
               <div className="flex items-center gap-6 text-blue-700">
-                <button onClick={addNew} className="flex py-3 px-4 text-sm rounded-lg border text-gray-700 border-gray-700 gap-x-2.5 hover:shadow-lg hover:shadow-gray-700/20">Add New</button>
-                <Link href="#">
+                <button onClick={addDepartment} className="flex py-3 px-4 text-sm rounded-lg border text-gray-700 border-gray-700 gap-x-2.5 hover:shadow-lg hover:shadow-gray-700/20">Add New</button>
+                <Link href="/admin/departmentList">
                   <button className="flex py-3 px-4 text-sm rounded-lg border border-primary-color gap-x-2.5 bg-primary-color text-white hover:shadow-lg hover:shadow-blue-700/20">View All</button>
                 </Link>              
                 </div>
@@ -67,11 +92,11 @@ const StatsCards = ( {departments, users, locations} ) => {
                     </div>
                   <p className="text-5xl font-semibold text-gray-700">{locations.length}</p>
                 </div>
-                <span className="p-2 text-base tracking-wide text-gray-500 font-medium">Total Locations </span>
+                <span className="p-2 text-base tracking-wide text-gray-500 font-medium">Locations </span>
               </div>
 
               <div className="flex items-center gap-6 text-blue-700">
-                <button onClick={addNew} className="flex py-3 px-4 text-sm rounded-lg border text-gray-700 border-gray-700 gap-x-2.5 hover:shadow-lg hover:shadow-gray-700/20">Add New</button>
+                <button onClick={addLocation} className="flex py-3 px-4 text-sm rounded-lg border text-gray-700 border-gray-700 gap-x-2.5 hover:shadow-lg hover:shadow-gray-700/20">Add New</button>
                 <Link href="/admin/locationList">
                   <button className="flex py-3 px-4 text-sm rounded-lg border border-primary-color gap-x-2.5 bg-primary-color text-white hover:shadow-lg hover:shadow-blue-700/20">View All</button>
                 </Link>              

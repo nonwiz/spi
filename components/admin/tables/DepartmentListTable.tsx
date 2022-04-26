@@ -5,73 +5,83 @@ import { IconButton } from "@/components/admin/icons/IconButton";
 import { EyeIcon } from "@/components/admin/icons/EyeIcon";
 import { EditIcon } from "@/components/admin/icons/EditIcon";
 import { DeleteIcon } from "@/components/admin/icons/DeleteIcon";
-import ChangeRoleModal from "@/components/admin/ChangeRoleModal";
+import UpdateDepartmentModal from "@/components/admin/UpdateDepartmentModal";
 
 
-const UserListTable = ({users, roles}) => {
+
+const DepartmentListTable = ({department}) => {
 
   const [visible, setVisible] = useState(false);
-  const [userInfo, setUserInfo] = useState([]);
+  const [departmentInfo, setDepartment] = useState([]);
   const [type, setType] = useState("none");
   
-  const detailHandler = (user) =>{
+  const detailHandler = (department) =>{
     setVisible(true);
-    setUserInfo(user);
+    setDepartment(department);
     setType("view_details")
   }
 
-  const updateHandler = (user) => {
+  const updateHandler = (department) => {
     setVisible(true);
-    setUserInfo(user);
+    setDepartment(department);
   }
 
   const closeHandler = () => {
     setVisible(false);
-    setUserInfo([])
+    setDepartment([])
     setType("none")
   };
 
- 
+  const getDeanName = (department, dean_id) =>{
+
+      if(department.users.length >0 ){
+        const dean_info = department.users.filter(user => user.id == dean_id)
+        if(dean_info.length != 0){
+            return (dean_info.at(0).name)
+        }
+      }else{
+        return "not defined"
+      }
+
+  }
     const columns = [
-        { name: "NAME", uid: "name" },
-        { name: "EMAIL", uid: "email" },
-        { name: "ROLE", uid: "role" },
-        { name: "DEPARTMENT", uid: "department" },
-        { name: "LOCATION", uid: "location" },
+        { name: "#", uid: "id" },
+        { name: "DEPARTMENT NAME", uid: "name" },
+        { name: "DEPARTMENT DEAN", uid: "dean" },
+        { name: "DEPARTMENT BUDGET", uid: "budget" },
         { name: "ACTIONS", uid: "actions" },
       ];
       
-      const renderCell = (user, columnKey) => {
-        const cellValue = user[columnKey];
+      const renderCell = (department, columnKey) => {
+        const cellValue = department[columnKey];
+
         switch (columnKey) {
+
+          case "id":
+              return <p className="text-lg ">{department.id}</p>;
+
           case "name":
-            return <User squared  src="https://i.pravatar.cc/150?u=a04258114e29026702d" name={cellValue} className="text-sm capitalize text-gray-700 text-wrap" />;
+            return <p className="text-lg md:mr-8">{department.name}</p>;
+          
+          case "dean":
+            return <p className="text-lg md:mr-8">{getDeanName(department, department.current_dean_user_id)}</p>;
 
-          case "email":
-              return <p className="text-lg md:mr-8">{user.email}</p>;
-
-          case "role":
-            return <p className="text-lg md:mr-8">{user.role}</p>;
-
-          case "department":
-            return <p className="text-lg md:mr-8">{user.department ? user.department.name : "Not assigned"}</p>;
-
-          case "location":
-            return <p className="text-lg md:mr-8">{user.location ? `${user.location.zone} ${user.location.room_number}` : "Not assigned"}</p>;
+          case "budget":
+            return <p className="text-lg md:mr-8">{department.budget}</p>;
 
           case "actions":
             return (
               <Row justify="center" align="center">
               <Col css={{ d: "flex" }}>
                 <Tooltip content="Details">
-                  <IconButton value={user} onClick={() => detailHandler(user)}>
+                  <IconButton value={department} onClick={() => detailHandler(department)}>
                     <EyeIcon size={20} fill="#979797" />
                   </IconButton>
                 </Tooltip>
               </Col>
               <Col css={{ d: "flex" }}>
                 <Tooltip content="Edit user">
-                  <IconButton onClick={() => updateHandler(user)}>
+                  <IconButton onClick={() => updateHandler(department)}>
                     <EditIcon size={20} fill="#979797" />
                   </IconButton>
                 </Tooltip>
@@ -86,8 +96,14 @@ const UserListTable = ({users, roles}) => {
 
     return ( 
       <>
-          <ChangeRoleModal visible={visible} closeHandler={closeHandler} user={userInfo} type={type} roles={roles} />
-          
+          <UpdateDepartmentModal
+          type={type}
+          visible={visible} 
+          closeHandler={closeHandler} 
+          department={departmentInfo} 
+          />
+
+         
             <Table 
             headerLined
             shadow={false}
@@ -114,7 +130,7 @@ const UserListTable = ({users, roles}) => {
                 </Table.Column>
               )}
             </Table.Header>
-            <Table.Body items={users}> 
+            <Table.Body items={department}> 
               {(item) => (
                 <Table.Row >
                   {(columnKey) => (
@@ -127,8 +143,8 @@ const UserListTable = ({users, roles}) => {
             <Table.Pagination
               noMargin
               align="center"
-              rowsPerPage={9}
-     
+              rowsPerPage={10}
+              
               onPageChange={(page) => console.log({ page })}
             />
             </Table>
@@ -137,4 +153,4 @@ const UserListTable = ({users, roles}) => {
      );
 }
  
-export default UserListTable;
+export default DepartmentListTable;

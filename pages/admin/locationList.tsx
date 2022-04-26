@@ -10,7 +10,6 @@ export default function locationList() {
   const { data: session } = useSession();
   const { data, isLoading } = useAdmin();
   const [visible, setVisible] = useState(false);
-  const [locationInfo, setLocation] = useState([]);
   const [type, setType] = useState("none");
 
   if (isLoading) return <p> Loading ... </p>
@@ -19,13 +18,12 @@ export default function locationList() {
   
   const handler = () =>{
     setVisible(true);
-    setType("create_location")
-
+    setType("create_location");
+    closeHandler();
   }
 
   const closeHandler = () => {
     setVisible(false);
-    setLocation([])
     setType("none")
   };
 

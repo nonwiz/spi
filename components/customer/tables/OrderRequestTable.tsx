@@ -80,14 +80,14 @@ const OrderRequestTable = ({orderRequest}) => {
             return (
               <Row justify="center" align="center">
               <Col css={{ d: "flex" }}>
-                <Tooltip content="Details">
+                <Tooltip content="View Order Details">
                   <IconButton  onClick={() => detailHandler(orderRequest)}>
                     <EyeIcon size={20} fill="#979797" />
                   </IconButton>
                 </Tooltip>
               </Col>
               <Col css={{ d: "flex" }}>
-                <Tooltip content="Edit user">
+                <Tooltip content="Cancel Order">
                   <IconButton onClick={() => updateHandler(orderRequest)}>
                     <DeleteIcon size={20} fill="#979797" />
                   </IconButton>
@@ -150,9 +150,7 @@ const OrderRequestTable = ({orderRequest}) => {
             <Table.Pagination
               noMargin
               align="center"
-              rowsPerPage={5}
-              
-              onPageChange={(page) => console.log({ page })}
+              rowsPerPage={(router.pathname=="/customer")?5:10}
             />
             </Table>
          

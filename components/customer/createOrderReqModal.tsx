@@ -1,5 +1,5 @@
 
-import { Modal, Button, Text, Input,  Radio, Spacer, Textarea  } from "@nextui-org/react";
+import { Modal, Button, Text, Input,Textarea, Collapse  } from "@nextui-org/react";
 import { Mail } from "@/components/admin/icons/Mail";
 import { Password } from "@/components/admin/icons/Password";
 import { getFieldsValues, fetcher } from "lib/fetcher";
@@ -34,6 +34,7 @@ export default function CreateOrderReq({type,visible, closeHandler, orderTypes})
         item[f] = formData[`${f}-${i}`];
       })
       cleanData.items.push(item)
+      closeHandler
     }
 
     const formatedData = JSON.stringify(cleanData)
@@ -61,51 +62,55 @@ export default function CreateOrderReq({type,visible, closeHandler, orderTypes})
         <Modal.Body>
 
           <form onSubmit={handleCreateOrderRequest} className="">
-          {orderItem.map((item, num) =>
+          <Collapse.Group>
+        {orderItem.map((item, num) =>
+
+        <Collapse title={`Order Item ${num+1}`}>
+
             <div key={num} className ="flex flex-col gap-4">
               
               <div className="flex flex-col gap-4">
-              <Input  bordered fullWidth
-                  color="primary" 
-                  size="lg"
-                  type="text"
-                  label="Description"  
-                  name={`description-${num}`}
-                />
-              <div className=" flex flew-row gap-4">
-
-              <Input  bordered fullWidth
-                  color="primary" 
-                  size="lg"
-                  type="text"
-                  label="Size"  
-                  name={`size-${num}`}
-                />
-
                 <Input  bordered fullWidth
-                  color="primary" 
-                  size="lg"
-                  type="number"
-                  label="Quantity"  
-                  name={`quantity-${num}`}
-                />
+                    color="primary" 
+                    size="lg"
+                    type="text"
+                    label="Description"  
+                    name={`description-${num}`}
+                    />
+                <div className=" flex flew-row gap-4">
 
-                <Input  bordered fullWidth
-                  color="primary" 
-                  size="lg"
-                  type="number"
-                  label="Unit Price"  
-                  name={`unit_price-${num}`}
-                />
+                    <Input  bordered fullWidth
+                        color="primary" 
+                        size="lg"
+                        type="text"
+                        label="Size"  
+                        name={`size-${num}`}
+                        />
 
-                <Input  bordered fullWidth
-                  color="primary" 
-                  size="lg"
-                  type="number"
-                  label="Amount"  
-                  name={`amount-${num}`}
-                />
-              </div>
+                        <Input  bordered fullWidth
+                        color="primary" 
+                        size="lg"
+                        type="number"
+                        label="Quantity"  
+                        name={`quantity-${num}`}
+                        />
+
+                        <Input  bordered fullWidth
+                        color="primary" 
+                        size="lg"
+                        type="number"
+                        label="Unit Price"  
+                        name={`unit_price-${num}`}
+                        />
+
+                        <Input  bordered fullWidth
+                        color="primary" 
+                        size="lg"
+                        type="number"
+                        label="Amount"  
+                        name={`amount-${num}`}
+                        />
+                </div>
               </div>
 
               <div className=" xl:w-88 mb-4" >
@@ -117,7 +122,9 @@ export default function CreateOrderReq({type,visible, closeHandler, orderTypes})
                     </select>
                 </div>
             </div>
-          )}
+            </Collapse>
+         )}
+    </Collapse.Group>
 
               <Textarea bordered fullWidth
                 color="primary"
@@ -136,8 +143,6 @@ export default function CreateOrderReq({type,visible, closeHandler, orderTypes})
           </form>
          
         </Modal.Body>
-        <Modal.Footer>
-        </Modal.Footer>
       </Modal>
     </>
   );

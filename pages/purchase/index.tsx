@@ -1,4 +1,5 @@
-import Layout from "@/components/layout"
+import StatsCardsPurchase from "@/components/purchase/StatsCardsPurchase";
+import PendingRequestTable from "@/components/purchase/table/PendingRequestTable";
 import { usePurchase } from "lib/fetcher";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
@@ -29,6 +30,15 @@ export default function Page() {
 
 
   return (
+
+        <>
+             <StatsCardsPurchase orders={data.orderRequests} purchases={data.orderRequests.filter((item) => item.order_status == "Approved")}/>
+      <div className="mt-4">
+        <div className="rounded-lg ">
+            <h2>Pending order Request</h2>
+            {data.user.order_requests && <PendingRequestTable orderRequest={data.user.order_requests.filter((item) => item.order_status == "Pending")} />}
+        </div>
+      </div>
     <div className="p-4">
       <div className="p-2 my-4">
         <h1> Order Status </h1>
@@ -61,6 +71,9 @@ export default function Page() {
 
       </div>
     </div>
+
+ 
+</>
   )
 }
 

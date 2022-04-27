@@ -22,35 +22,35 @@ export default function Page() {
   const handleApprove = async (item: Number) => {
     fetcher("/api/common/order/approve", { orderId: item }).then((d) => {
       console.log(d)
-      mutate("/api/departmentHead")
+      mutate("/api/finance")
     })
   }
 
   const handleDeleteComment = async (item: Number) => {
     fetcher("/api/common/order/deleteComment", { commentId: item }).then((d) => {
       console.log(d)
-      mutate("/api/departmentHead")
+      mutate("/api/finance")
     })
   }
 
   const handleReject = async (item: Number) => {
     fetcher("/api/common/order/reject", { orderId: item }).then((d) => {
       console.log(d)
-      mutate("/api/departmentHead")
+      mutate("/api/finance")
     })
   }
 
   const handleComment = async (comment: String, item: Number) => {
     fetcher("/api/common/order/comment", { comment, orderId: item }).then((d) => {
       console.log(d)
-      mutate("/api/departmentHead")
+      mutate("/api/finance")
     })
   }
 
   return (
     <div className="p-4">
       <div className="p-2 my-4">
-        <h1>Department Order Status </h1>
+        <h1>FInance: All Order Status </h1>
         <hr />
         {data.orderRequests.map((item, id) => <li key={id}>
           <button onClick={() => setSelected(id)}>{item.purchase_reason}</button> | {item.order_status} | requested by: {item.user.email} ...

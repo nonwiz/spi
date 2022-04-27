@@ -7,6 +7,7 @@ const Header = () => {
     { label: "Customer", refer: "/customer" },
     { label: "Purchase", refer: "/purchase" },
     { label: "Inventory", refer: "/inventory" },
+    { label: "Finance", refer: "/finance" },
     { label: "Department Head", refer: "/departmentHead" }
   ]
 

@@ -65,14 +65,14 @@ const UserListTable = ({users, roles}) => {
             return (
               <Row justify="center" align="center">
               <Col css={{ d: "flex" }}>
-                <Tooltip content="Details">
+                <Tooltip content="View User Details">
                   <IconButton value={user} onClick={() => detailHandler(user)}>
                     <EyeIcon size={20} fill="#979797" />
                   </IconButton>
                 </Tooltip>
               </Col>
               <Col css={{ d: "flex" }}>
-                <Tooltip content="Edit user">
+                <Tooltip content="Edit User Role">
                   <IconButton onClick={() => updateHandler(user)}>
                     <EditIcon size={20} fill="#979797" />
                   </IconButton>

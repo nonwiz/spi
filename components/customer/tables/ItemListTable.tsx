@@ -65,7 +65,7 @@ const ItemListTable = ({items}) => {
             return (
               <Row justify="center" align="center">
               <Col css={{ d: "flex" }}>
-                <Tooltip content="Details">
+                <Tooltip content="Item Details">
                   <IconButton  onClick={() => detailHandler(items)}>
                     <EyeIcon size={20} fill="#979797" />
                   </IconButton>

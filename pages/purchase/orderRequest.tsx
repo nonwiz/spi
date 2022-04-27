@@ -1,14 +1,13 @@
 import CreateOrderReq from "@/components/customer/createOrderReqModal";
 import FormCreateOrderRequest from "@/components/customer/createOrderRequest";
 import OrderRequestTable from "@/components/customer/tables/OrderRequestTable";
-import ItemListTable from "@/components/customer/tables/ItemListTable";
-
+import PendingRequestTable from "@/components/purchase/table/PendingRequestTable";
 
 import { useCustomer } from "lib/fetcher";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 
-export default function MyItems() {
+export default function OrderRequest() {
   const { data: session } = useSession();
   const { data, isLoading } = useCustomer();
   const [visible, setVisible] = useState(false);
@@ -34,18 +33,14 @@ export default function MyItems() {
           closeHandler={closeHandler} 
           orderTypes={data.orderTypes} 
           />
-
       <div className="my-8 flex flex-row gap-6 w-full">
-         <button className="primary-btn"> Create Moving Request</button>
-       
-
+        <button onClick={createOrder} className="primary-btn"> Create Order Request</button>
       </div>
 
       <div className="">
         <div className=" rounded-lg ">
-            <h2>List of items</h2>
-            {console.table(data.user.location)}
-             {data.user.location && data.user.location.items && <ItemListTable items={data.user.location.items} />} 
+            <h2>Recent order Request</h2>
+            {data.user.order_requests && <PendingRequestTable orderRequest={data.user.order_requests} />}
         </div>
       </div>
 

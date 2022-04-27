@@ -80,14 +80,14 @@ const OrderRequestTable = ({orderRequest}) => {
             return (
               <Row justify="center" align="center">
               <Col css={{ d: "flex" }}>
-                <Tooltip content="Details">
+                <Tooltip content="View Order Details">
                   <IconButton  onClick={() => detailHandler(orderRequest)}>
                     <EyeIcon size={20} fill="#979797" />
                   </IconButton>
                 </Tooltip>
               </Col>
               <Col css={{ d: "flex" }}>
-                <Tooltip content="Edit user">
+                <Tooltip content="Cancel Order">
                   <IconButton onClick={() => updateHandler(orderRequest)}>
                     <DeleteIcon size={20} fill="#979797" />
                   </IconButton>

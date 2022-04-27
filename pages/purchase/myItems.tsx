@@ -14,9 +14,6 @@ export default function MyItems() {
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState("none");
   if (isLoading) return <p> Loading ... </p>
-
-  
-  
   const createOrder = () =>{
     setVisible(true);
   }
@@ -28,32 +25,17 @@ export default function MyItems() {
 
   return (
       <>
-      <CreateOrderReq
-          type={type}
-          visible={visible} 
-          closeHandler={closeHandler} 
-          orderTypes={data.orderTypes} 
-          />
-
-      <div className="my-8 flex flex-row gap-6 w-full">
-         <button className="primary-btn"> Create Moving Request</button>
-       
-
+       <div className="my-8 flex flex-row gap-6 w-full">
+        <button className="primary-btn"> Create Moving Request</button> 
       </div>
 
       <div className="">
         <div className=" rounded-lg ">
             <h2>List of items</h2>
-            {console.table(data.user.location)}
-             {data.user.location && data.user.location.items && <ItemListTable items={data.user.location.items} />} 
-        </div>
+            {data.user.location && data.user.location.items && <ItemListTable items={data.user.location.items} />} 
+
+            </div>
       </div>
-
       </>
-
-
-
-
-  )
+   )
 }
-

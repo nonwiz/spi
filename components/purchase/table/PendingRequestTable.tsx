@@ -1,87 +1,94 @@
 import { Table, Row, Col, Tooltip, User, Text, Container } from "@nextui-org/react";
+import { useRouter } from 'next/router'
 import { useState } from 'react'
-
 import { IconButton } from "@/components/admin/icons/IconButton";
 import { EyeIcon } from "@/components/admin/icons/EyeIcon";
 import { EditIcon } from "@/components/admin/icons/EditIcon";
-import { DeleteIcon } from "@/components/admin/icons/DeleteIcon";
+
 import UpdateDepartmentModal from "@/components/admin/UpdateDepartmentModal";
+import StyledStatus from "@/components/customer/StyledStatus";
+import {DeleteIcon} from "@/components/customer//icons/DeleteIcon";
 
 
 
-const DepartmentListTable = ({department}) => {
-
+const PendingRequestTable = ({orderRequest}) => {
+  const router = useRouter()
   const [visible, setVisible] = useState(false);
-  const [departmentInfo, setDepartment] = useState([]);
+  const [orderRequestInfo, setOrderRequestt] = useState([]);
   const [type, setType] = useState("none");
   
-  const detailHandler = (department) =>{
+  const detailHandler = (orderRequest) =>{
     setVisible(true);
-    setDepartment(department);
+    setOrderRequestt(orderRequest);
     setType("view_details")
   }
 
-  const updateHandler = (department) => {
+  const updateHandler = (orderRequest) => {
     setVisible(true);
-    setDepartment(department);
+    setOrderRequestt(orderRequest);
   }
 
   const closeHandler = () => {
     setVisible(false);
-    setDepartment([])
+    setOrderRequestt([])
     setType("none")
   };
-
-  const getDeanName = (department, dean_id) =>{
-
-      if(department.users.length >0 ){
-        const dean_info = department.users.filter(user => user.id == dean_id)
-        if(dean_info.length != 0){
-            return (dean_info.at(0).name)
-        }
-      }else{
-        return "not defined"
-      }
-
-  }
-    const columns = [
+    
+  let columns;
+    if (router.pathname=="/purchase") {
+      columns = [
         { name: "#", uid: "id" },
-        { name: "DEPARTMENT NAME", uid: "name" },
-        { name: "DEPARTMENT DEAN", uid: "dean" },
-        { name: "DEPARTMENT BUDGET", uid: "budget" },
+        { name: "ORDER DESCRIPTION", uid: "order_description" },
+        { name: "ORDER PRICE", uid: "order_price" },
+        { name: "ORDER DATE", uid: "order_date" },
+        { name: "ORDER STATUS", uid: "order_status" },
+       
+      ];
+    } else {
+      columns = [
+        { name: "#", uid: "id" },
+        { name: "ORDER DESCRIPTION", uid: "order_description" },
+        { name: "ORDER ITEMS", uid: "order_items" },
+        { name: "ORDER PRICE", uid: "order_price" },
+        { name: "ORDER DATE", uid: "order_date" },
+        { name: "ORDER STATUS", uid: "order_status" },
         { name: "ACTIONS", uid: "actions" },
       ];
+    }
+    
       
-      const renderCell = (department, columnKey) => {
-        const cellValue = department[columnKey];
+      const renderCell = (orderRequest, columnKey) => {
+        const cellValue = orderRequest[columnKey];
 
         switch (columnKey) {
 
           case "id":
-              return <p className="text-lg ">{department.id}</p>;
-
-          case "name":
-            return <p className="text-lg md:mr-8">{department.name}</p>;
-          
-          case "dean":
-            return <p className="text-lg md:mr-8">{getDeanName(department, department.current_dean_user_id)}</p>;
-
-          case "budget":
-            return <p className="text-lg md:mr-8">{department.budget}</p>;
+              return <p className="text-lg ">{orderRequest.id}</p>;
+          case "order_description":
+            return <p className="text-lg ">{orderRequest.purchase_reason}</p>;
+          case "order_items":
+            return <p className="text-lg ">{orderRequest.id}</p>;
+          case "order_price":
+            return <p className="text-lg ">{orderRequest.total_price}</p>;
+          case "order_date":
+              return <p className="text-lg ">{orderRequest.order_date}</p>;
+          case "order_status":
+             return <StyledStatus status={orderRequest.order_status} />
+       
 
           case "actions":
             return (
               <Row justify="center" align="center">
               <Col css={{ d: "flex" }}>
-                <Tooltip content="View Details">
-                  <IconButton value={department} onClick={() => detailHandler(department)}>
+                <Tooltip content="Order Details">
+                  <IconButton  onClick={() => detailHandler(orderRequest)}>
                     <EyeIcon size={20} fill="#979797" />
                   </IconButton>
                 </Tooltip>
               </Col>
               <Col css={{ d: "flex" }}>
-                <Tooltip content="Edit Department">
-                  <IconButton onClick={() => updateHandler(department)}>
+                <Tooltip content="Update Order">
+                  <IconButton onClick={() => updateHandler(orderRequest)}>
                     <EditIcon size={20} fill="#979797" />
                   </IconButton>
                 </Tooltip>
@@ -100,7 +107,7 @@ const DepartmentListTable = ({department}) => {
           type={type}
           visible={visible} 
           closeHandler={closeHandler} 
-          department={departmentInfo} 
+          department={orderRequestInfo} 
           />
 
          
@@ -130,7 +137,7 @@ const DepartmentListTable = ({department}) => {
                 </Table.Column>
               )}
             </Table.Header>
-            <Table.Body items={department}> 
+            <Table.Body items={orderRequest}> 
               {(item) => (
                 <Table.Row >
                   {(columnKey) => (
@@ -143,9 +150,7 @@ const DepartmentListTable = ({department}) => {
             <Table.Pagination
               noMargin
               align="center"
-              rowsPerPage={10}
-              
-              onPageChange={(page) => console.log({ page })}
+              rowsPerPage={(router.pathname=="/customer")?5:10}
             />
             </Table>
          
@@ -153,4 +158,4 @@ const DepartmentListTable = ({department}) => {
      );
 }
  
-export default DepartmentListTable;
+export default PendingRequestTable;

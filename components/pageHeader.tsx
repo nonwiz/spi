@@ -53,17 +53,17 @@ const PageHeader = ({ page_name }:any) => {
             break;
         
 
-        case "/purchasing":
+        case "/purchase":
             currentPage ="Home"
             break;
-        case "/purchasing/orderRequest":
+        case "/purchase/orderRequest":
             currentPage ="Order Requests"
             break;
-        case "/purchasing/purchaseHistory":
+        case "/purchase/purchaseHistory":
             currentPage ="Purchase History"
             break;
 
-        case "/purchasing/myItems":
+        case "/purchase/myItems":
             currentPage ="My Items"
             break;
             

@@ -42,6 +42,8 @@ const PendingRequestTable = ({orderRequest}) => {
         { name: "ORDER PRICE", uid: "order_price" },
         { name: "ORDER DATE", uid: "order_date" },
         { name: "ORDER STATUS", uid: "order_status" },
+        { name: "ORDER STATUS", uid: "order_status" },
+        { name: "ACTIONS", uid: "actions" },
        
       ];
     } else {

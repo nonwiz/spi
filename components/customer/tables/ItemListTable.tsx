@@ -11,69 +11,54 @@ import {DeleteIcon} from "../icons/DeleteIcon";
 
 
 
-const OrderRequestTable = ({orderRequest}) => {
+const ItemListTable = ({items}) => {
   const router = useRouter()
   const [visible, setVisible] = useState(false);
-  const [orderRequestInfo, setOrderRequestt] = useState([]);
+  const [itemInfo, setItemInfo] = useState([]);
   const [type, setType] = useState("none");
   
-  const detailHandler = (orderRequest) =>{
+  const detailHandler = (item) =>{
     setVisible(true);
-    setOrderRequestt(orderRequest);
+    setItemInfo(item);
     setType("view_details")
-  }
-
-  const updateHandler = (orderRequest) => {
-    setVisible(true);
-    setOrderRequestt(orderRequest);
   }
 
   const closeHandler = () => {
     setVisible(false);
-    setOrderRequestt([])
+    setItemInfo([])
     setType("none")
   };
+
+  const columns = [
+    { name: "#", uid: "id" },
+    { name: "ITEM NAME", uid: "item_name" },
+    { name: "ITEM DESCRIPTION", uid: "item_description" },
+    { name: "ITEM ORDER DATE", uid: "item_date" },
+    { name: "ITEM DEPRECIATION DATE", uid: "item_depreciation" },
+    { name: "ITEM QUANTITY", uid: "item_quantity" },
+    { name: "ACTIONS", uid: "actions" },
+  ];
     
-  let columns;
-    if (router.pathname=="/customer") {
-      columns = [
-        { name: "#", uid: "id" },
-        { name: "ORDER DESCRIPTION", uid: "order_description" },
-        { name: "ORDER PRICE", uid: "order_price" },
-        { name: "ORDER DATE", uid: "order_date" },
-        { name: "ORDER STATUS", uid: "order_status" },
-       
-      ];
-    } else {
-      columns = [
-        { name: "#", uid: "id" },
-        { name: "ORDER DESCRIPTION", uid: "order_description" },
-        { name: "ORDER ITEMS", uid: "order_items" },
-        { name: "ORDER PRICE", uid: "order_price" },
-        { name: "ORDER DATE", uid: "order_date" },
-        { name: "ORDER STATUS", uid: "order_status" },
-        { name: "ACTIONS", uid: "actions" },
-      ];
-    }
     
       
-      const renderCell = (orderRequest, columnKey) => {
-        const cellValue = orderRequest[columnKey];
+      const renderCell = (items, columnKey) => {
+        const cellValue = items[columnKey];
 
         switch (columnKey) {
 
           case "id":
-              return <p className="text-lg ">{orderRequest.id}</p>;
-          case "order_description":
-            return <p className="text-lg ">{orderRequest.purchase_reason}</p>;
-          case "order_items":
-            return <p className="text-lg ">{orderRequest.id}</p>;
-          case "order_price":
-            return <p className="text-lg ">{orderRequest.total_price}</p>;
-          case "order_date":
-              return <p className="text-lg ">{orderRequest.order_date}</p>;
-          case "order_status":
-             return <StyledStatus status={orderRequest.order_status} />
+              return <p className="text-lg ">{items.id}</p>;
+          case "item_name":
+            return <p className="text-lg ">{items.name}</p>;
+          case "item_description":
+            return <p className="text-lg ">{items.description}</p>;
+          case "item_date":
+            return <p className="text-lg ">{items.order_date}</p>;
+          case "item_depreciation":
+            return <p className="text-lg ">{items.depriciation}</p>;
+          case "item_quantity":
+              return <p className="text-lg ">{items.quantity} {items.quantity_unit}</p>;
+    
        
 
           case "actions":
@@ -81,18 +66,18 @@ const OrderRequestTable = ({orderRequest}) => {
               <Row justify="center" align="center">
               <Col css={{ d: "flex" }}>
                 <Tooltip content="Details">
-                  <IconButton  onClick={() => detailHandler(orderRequest)}>
+                  <IconButton  onClick={() => detailHandler(items)}>
                     <EyeIcon size={20} fill="#979797" />
                   </IconButton>
                 </Tooltip>
               </Col>
-              <Col css={{ d: "flex" }}>
+              {/* <Col css={{ d: "flex" }}>
                 <Tooltip content="Edit user">
-                  <IconButton onClick={() => updateHandler(orderRequest)}>
+                  <IconButton onClick={() => updateHandler(items)}>
                     <DeleteIcon size={20} fill="#979797" />
                   </IconButton>
                 </Tooltip>
-              </Col>
+              </Col> */}
             </Row>
             );
           default:
@@ -103,12 +88,12 @@ const OrderRequestTable = ({orderRequest}) => {
 
     return ( 
       <>
-          <UpdateDepartmentModal
+          {/* <UpdateDepartmentModal
           type={type}
           visible={visible} 
           closeHandler={closeHandler} 
           department={orderRequestInfo} 
-          />
+          /> */}
 
          
             <Table 
@@ -137,7 +122,7 @@ const OrderRequestTable = ({orderRequest}) => {
                 </Table.Column>
               )}
             </Table.Header>
-            <Table.Body items={orderRequest}> 
+            <Table.Body items={items}> 
               {(item) => (
                 <Table.Row >
                   {(columnKey) => (
@@ -150,7 +135,7 @@ const OrderRequestTable = ({orderRequest}) => {
             <Table.Pagination
               noMargin
               align="center"
-              rowsPerPage={(router.pathname=="/customer")?5:10}
+              rowsPerPage={10}
             />
             </Table>
          
@@ -158,4 +143,4 @@ const OrderRequestTable = ({orderRequest}) => {
      );
 }
  
-export default OrderRequestTable;
+export default ItemListTable;

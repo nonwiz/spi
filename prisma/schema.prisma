@@ -67,6 +67,7 @@ enum OrderStatus {
   Pending
   Approved
   Rejected
+  Canceled
 }
 
 model User {
@@ -107,11 +108,20 @@ model Location {
 }
 
 model Department {
-  id     Int    @id @default(autoincrement())
-  name   String
-  users  User[]
-  budget Float
+  id                   Int     @id @default(autoincrement())
+  name                 String
+  users                User[]
+  budget               Float
   current_dean_user_id String?
+}
+
+model CommentBy {
+  id            Int          @id @default(autoincrement())
+  order_request OrderRequest @relation(fields: [orderId], references: [id])
+  orderId       Int
+  comment       String
+  user          String
+  role          String
 }
 
 model ApprovalBy {
@@ -163,6 +173,7 @@ model OrderRequest {
   user            User              @relation(fields: [user_id], references: [id])
   user_id         String
   remark          String?
+  comment_by      CommentBy[]
 }
 
 model Item {

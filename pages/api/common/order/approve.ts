@@ -24,6 +24,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         approval_by: true
       }
     })
+    // Check if this role already have approved or not yet
     if (order.approval_by.filter(approved => approved.role == user.role).length > 0) {
       console.log("Role, already approve")
       return res.status(200).json({ 'message': "already approved" })
@@ -39,6 +40,15 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         approval_by: true
       }
     })
+    // If 3 people have approved (purchase, finance, department head)
+    if (updatedOrder.approval_by.length >= 3) {
+      await prisma.orderRequest.update({
+        where: { id: orderId },
+        data: {
+          approval_status: true,
+        }
+      })
+    }
 
     console.log({ updatedOrder });
     return res.status(200).json({ "message": "approved order!", updatedOrder })

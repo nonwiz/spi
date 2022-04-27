@@ -115,6 +115,15 @@ model Department {
   current_dean_user_id String?
 }
 
+model CommentBy {
+  id            Int          @id @default(autoincrement())
+  order_request OrderRequest @relation(fields: [orderId], references: [id])
+  orderId       Int
+  comment       String
+  user          String
+  role          String
+}
+
 model ApprovalBy {
   id            Int          @id @default(autoincrement())
   order_request OrderRequest @relation(fields: [orderId], references: [id])
@@ -164,6 +173,7 @@ model OrderRequest {
   user            User              @relation(fields: [user_id], references: [id])
   user_id         String
   remark          String?
+  comment_by      CommentBy[]
 }
 
 model Item {

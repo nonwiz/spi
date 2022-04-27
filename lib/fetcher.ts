@@ -36,6 +36,11 @@ export const usePurchase = () => {
   return getData("/api/purchase");
 };
 
+export const useDepartmentHead = () => {
+  return getData("/api/departmentHead");
+};
+
+
 export const useCustomer = () => {
   return getData("/api/customer");
 };

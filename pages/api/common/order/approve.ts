@@ -32,7 +32,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       where: { id: orderId },
       data: {
         approval_by: {
-          create: [{ user: user.id, role: user.role }]
+          create: [{ user: user.email, role: user.role }]
         }
       },
       include: {

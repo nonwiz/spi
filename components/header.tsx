@@ -7,6 +7,7 @@ const Header = () => {
     { label: "Customer", refer: "/customer" },
     { label: "Purchase", refer: "/purchase" },
     { label: "Inventory", refer: "/inventory" },
+    { label: "Department Head", refer: "/departmentHead" }
   ]
 
   const { data: session } = useSession()

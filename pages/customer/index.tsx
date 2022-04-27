@@ -13,8 +13,8 @@ export default function Page() {
 
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState("none");
-  
-  const createOrder = () =>{
+
+  const createOrder = () => {
     setVisible(true);
   }
 
@@ -24,13 +24,13 @@ export default function Page() {
   };
 
   return (
-      <>
+    <>
       <CreateOrderReq
-          type={type}
-          visible={visible} 
-          closeHandler={closeHandler} 
-          orderTypes={data.orderTypes} 
-          />
+        type={type}
+        visible={visible}
+        closeHandler={closeHandler}
+        orderTypes={data.orderTypes}
+      />
       <div className="my-8 flex flex-row gap-6 w-full">
         <button onClick={createOrder} className="primary-btn"> Create Order Request</button>
         <button className="primary-btn"> Create Moving Request</button>
@@ -38,28 +38,28 @@ export default function Page() {
 
       <div className="">
         <div className=" rounded-lg ">
-            <h2>Recent order Request</h2>
-            {data.user.order_requests && <OrderRequestTable orderRequest={data.user.order_requests} />}
+          <h2>Recent order Request</h2>
+          {data.user.order_requests && <OrderRequestTable orderRequest={data.user.order_requests} />}
 
         </div>
 
-       
+
       </div>
 
 
       <div className="p-4">
-        
+
         <FormCreateOrderRequest orderTypes={data.orderTypes} />
         <hr />
         <h2> Personal Information </h2>
         <li> {data.user.name} | {data.user.location ? `${data.user.location.zone} ${data.user.location.room_number}` : "Not assigned"} | {data.user.department && data.user.department.name}</li>
         <h2> List of items within a room </h2>
-        {data.user.location && data.user.location.items && 
-        data.user.location.items.map((item, id) => 
-          <li key={id}> {item.name}</li>
-        )}
+        {data.user.location && data.user.location.items &&
+          data.user.location.items.map((item, id) =>
+            <li key={id}> {item.name}</li>
+          )}
       </div>
-      </>
+    </>
 
 
 

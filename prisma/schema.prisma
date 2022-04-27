@@ -67,6 +67,7 @@ enum OrderStatus {
   Pending
   Approved
   Rejected
+  Canceled
 }
 
 model User {
@@ -107,10 +108,10 @@ model Location {
 }
 
 model Department {
-  id     Int    @id @default(autoincrement())
-  name   String
-  users  User[]
-  budget Float
+  id                   Int     @id @default(autoincrement())
+  name                 String
+  users                User[]
+  budget               Float
   current_dean_user_id String?
 }
 

@@ -33,6 +33,13 @@ export default function Page() {
     })
   }
 
+  const handleReject = async (item: Number) => {
+    fetcher("/api/common/order/reject", { orderId: item }).then((d) => {
+      console.log(d)
+      mutate("/api/departmentHead")
+    })
+  }
+
   const handleComment = async (comment: String, item: Number) => {
     fetcher("/api/common/order/comment", { comment, orderId: item }).then((d) => {
       console.log(d)
@@ -73,6 +80,7 @@ export default function Page() {
 
             <textarea name="reason" placeholder="Comment" onChange={(e) => setComment(e.target.value)} />
             <button onClick={e => handleComment(comment, ors[sItem].id)}> Comment </button>
+            <button onClick={e => handleReject(ors[sItem].id)}> Reject</button>
           </div>
         }
 

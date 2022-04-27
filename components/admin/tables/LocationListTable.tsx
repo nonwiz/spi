@@ -71,14 +71,14 @@ const LocationListTable = ({location, zones}) => {
             return (
               <Row justify="center" align="center">
               <Col css={{ d: "flex" }}>
-                <Tooltip content="Details">
+                <Tooltip content="View Details">
                   <IconButton value={location} onClick={() => detailHandler(location)}>
                     <EyeIcon size={20} fill="#979797" />
                   </IconButton>
                 </Tooltip>
               </Col>
               <Col css={{ d: "flex" }}>
-                <Tooltip content="Edit user">
+                <Tooltip content="Edit Location">
                   <IconButton onClick={() => updateHandler(location)}>
                     <EditIcon size={20} fill="#979797" />
                   </IconButton>

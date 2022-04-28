@@ -68,7 +68,7 @@ export default function Page() {
         </div>
       </div>
 
-      <div className="p-4">
+      {/* <div className="p-4">
         <div className="p-2 my-4">
 
 
@@ -112,7 +112,7 @@ export default function Page() {
 
         </div>
       </div>
-      <br />
+      <br /> */}
 
     </>
   )

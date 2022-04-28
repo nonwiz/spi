@@ -6,6 +6,9 @@ import { getFieldsValues, fetcher } from "lib/fetcher";
 import { useSWRConfig } from "swr";
 import { useState } from "react";
 import StyledStatus from "../customer/StyledStatus";
+import { IconButton } from "../admin/icons/IconButton";
+import { EyeIcon } from "../admin/icons/EyeIcon";
+import { DeleteIcon } from "../admin/icons/DeleteIcon";
 
 
 export default function UpdateRegStatus({type,visible, closeHandler, orderRequest, email}) {
@@ -129,14 +132,26 @@ export default function UpdateRegStatus({type,visible, closeHandler, orderReques
          </fieldset>
 
          <p className="text-lg font-semibold">Total Cost: <span className="text-lg font-normal">{orderRequest.total_price} baht </span> </p>
-              <ul className="mt-2">
-              <li> <span className="font-semibold">Approved by:</span> {orderRequest.approval_by && orderRequest.approval_by.map((item, k) =>
-                  <span key={k}>{item.role}</span>)}</li>
+              
+              <p className="text-lg font-semibold"> Approved by:<span className="font-normal"> {orderRequest.approval_by && orderRequest.approval_by.map((item, k) =>
+                  <span key={k}>{item.role}</span>)} </span></p>
                 {console.log("hi")}
-                <li> <span className="font-semibold">Comment by:</span> {orderRequest.comment_by && orderRequest.comment_by.map((item, k) =>
+          
+                  <Collapse.Group className="-ml-3" >
+                  <Collapse title={"Comment (click to view comments)"} className="font-semibold">
+                    {orderRequest.comment_by && orderRequest.comment_by.map((item, k) =>
+                     
+                        <p key={k} > {item.user == email && 
+                          <IconButton  onClick={e => handleDeleteComment(item.id)}>{item.role}, {item.user}: {item.comment}, <DeleteIcon size={20} fill="#FF0080"/><span className="text-sm text-[#FF0080] pl-1">Delete</span></IconButton>}
+                        </p>
+                     
 
-                  <span key={k}>{item.role}, {item.user}: {item.comment}, {item.user == email && <button onClick={e => handleDeleteComment(item.id)}> Delete </button>} </span>)}</li>
-              </ul>
+              )}
+                  </Collapse>
+                  </Collapse.Group>
+               
+
+           
 
          {(type=="view_details")
             ?
@@ -157,6 +172,7 @@ export default function UpdateRegStatus({type,visible, closeHandler, orderReques
                 placeholder="Comment regarding the order request" 
                 onChange={(e) => setComment(e.target.value)}/>
               <div className="flex justify-center mt-3">
+              {/* <Button auto flat  onClick={closeHandler} className="text-error-color">Close</Button> */}
                   <Button auto className="bg-primary-color" onClick={e => handleComment(comment, orderRequest.id)}>Save Comment</Button>
               </div>
                 

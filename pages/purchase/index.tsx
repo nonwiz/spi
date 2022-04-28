@@ -59,6 +59,7 @@ export default function Page() {
           {data.user.order_requests && <PendingRequestTable orderRequest={data.user.order_requests.filter((item) => item.order_status == "Pending")} />}
         </div>
       </div>
+
       <div className="p-4">
         <div className="p-2 my-4">
           <h1> Order Status </h1>
@@ -87,6 +88,7 @@ export default function Page() {
               <button onClick={e => handleApprove(ors[sItem].id)}> Approve </button>
               <br />
               <p> Remark: {ors[sItem].remark ? ors[sItem].remark : "No remark"} </p>
+
 
               <textarea name="reason" placeholder="Comment" onChange={(e) => setComment(e.target.value)} />
               <button onClick={e => handleComment(comment, ors[sItem].id)}> Comment </button>

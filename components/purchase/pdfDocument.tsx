@@ -20,9 +20,6 @@ const styles = StyleSheet.create({
 // Create Document Component
 const PdfDocument = ({ props }) => {
   console.log(props);
-  const records = () => {
-    return <View> <Text>Test</Text> </View>
-  }
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -39,7 +36,6 @@ const PdfDocument = ({ props }) => {
           <Text style={{ fontSize: "11" }}>Order Date: ___/___/___ When needed: ____/____/___</Text>
           <Text style={{ fontSize: "11" }}>Requesting Personnel _________ Depart ___________</Text>
         </View>
-        {records()}
       </Page>
     </Document >)
 };

@@ -5,7 +5,8 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { fetcher } from "lib/fetcher"
 import { useSWRConfig } from "swr"
-
+import { PDFViewer } from '@react-pdf/renderer';
+import PdfDocument from "@/components/purchase/pdfDocument";
 
 export default function Page() {
   const { data: session } = useSession();
@@ -52,6 +53,12 @@ export default function Page() {
   return (
 
     <>
+      <div className="bg-rose-500">
+        <h2 > PDF </h2>
+        <PDFViewer>
+          <PdfDocument props={{ name: "Hesoyamyam", logo: "/assets/aiu_shield.png", order_items: ors[sItem] }} />
+        </PDFViewer>
+      </div>
       <StatsCardsPurchase orders={data.orderRequests} purchases={data.orderRequests.filter((item) => item.order_status == "Approved")} />
       <div className="mt-4">
         <div className="rounded-lg ">
@@ -61,6 +68,9 @@ export default function Page() {
       </div>
       <div className="p-4">
         <div className="p-2 my-4">
+
+
+
           <h1> Order Status </h1>
           <hr />
           {data.orderRequests.map((item, id) => <li key={id}>
@@ -95,10 +105,11 @@ export default function Page() {
 
             </div>
           }
+          <br />
 
         </div>
       </div>
-
+      <br />
 
     </>
   )

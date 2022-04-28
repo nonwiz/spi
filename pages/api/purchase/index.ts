@@ -30,6 +30,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
           include: {
             order_items: true,
             approval_by: true,
+            comment_by: true,
           }
         },
       }

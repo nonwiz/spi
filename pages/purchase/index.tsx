@@ -56,7 +56,8 @@ export default function Page() {
       <div className="mt-4">
         <div className="rounded-lg ">
           <h2>Pending order Request</h2>
-          {data.user.order_requests && <PendingRequestTable orderRequest={data.user.order_requests.filter((item) => item.order_status == "Pending")} />}
+          {console.table(data.user.order_requests)}
+          {data.user.order_requests && <PendingRequestTable email={data.user.email} orderRequest={data.user.order_requests.filter((item) => item.order_status == "Pending")} />}
         </div>
       </div>
 

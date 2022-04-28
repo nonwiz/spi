@@ -35,6 +35,7 @@ const PdfDocument = ({ props }) => {
           <Text style={{ fontSize: "11" }}>Requisition Form</Text>
           <Text style={{ fontSize: "11" }}>Order Date: ___/___/___ When needed: ____/____/___</Text>
           <Text style={{ fontSize: "11" }}>Requesting Personnel _________ Depart ___________</Text>
+          <Text>Test</Text>
         </View>
       </Page>
     </Document >)

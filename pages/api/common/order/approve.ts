@@ -46,6 +46,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         where: { id: orderId },
         data: {
           approval_status: true,
+          order_status: "Approved"
         }
       })
     }

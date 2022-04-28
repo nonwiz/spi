@@ -8,7 +8,8 @@ type Data = {
   department?: object,
   location?: object,
   error?: string,
-  orderTypes?: object[]
+  orderTypes?: object[],
+  comment_by?: object[]
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {

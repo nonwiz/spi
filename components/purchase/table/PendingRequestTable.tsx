@@ -4,33 +4,31 @@ import { useState } from 'react'
 import { IconButton } from "@/components/admin/icons/IconButton";
 import { EyeIcon } from "@/components/admin/icons/EyeIcon";
 import { EditIcon } from "@/components/admin/icons/EditIcon";
-
 import UpdateDepartmentModal from "@/components/admin/UpdateDepartmentModal";
 import StyledStatus from "@/components/customer/StyledStatus";
-import {DeleteIcon} from "@/components/customer//icons/DeleteIcon";
+import UpdateRegStatus from "../UpdateRegStatus";
 
 
 
-const PendingRequestTable = ({orderRequest}) => {
+
+const PendingRequestTable = ({orderRequest, email}) => {
   const router = useRouter()
   const [visible, setVisible] = useState(false);
-  const [orderRequestInfo, setOrderRequestt] = useState([]);
   const [type, setType] = useState("none");
+  const [orderReq, setOrderRequest] = useState({})
   
-  const detailHandler = (orderRequest) =>{
+  const detailHandler = (order) =>{
     setVisible(true);
-    setOrderRequestt(orderRequest);
     setType("view_details")
+    setOrderRequest(order)
   }
 
   const updateHandler = (orderRequest) => {
     setVisible(true);
-    setOrderRequestt(orderRequest);
   }
 
   const closeHandler = () => {
     setVisible(false);
-    setOrderRequestt([])
     setType("none")
   };
     
@@ -41,7 +39,6 @@ const PendingRequestTable = ({orderRequest}) => {
         { name: "ORDER DESCRIPTION", uid: "order_description" },
         { name: "ORDER PRICE", uid: "order_price" },
         { name: "ORDER DATE", uid: "order_date" },
-        { name: "ORDER STATUS", uid: "order_status" },
         { name: "ORDER STATUS", uid: "order_status" },
         { name: "ACTIONS", uid: "actions" },
        
@@ -61,7 +58,7 @@ const PendingRequestTable = ({orderRequest}) => {
       
       const renderCell = (orderRequest, columnKey) => {
         const cellValue = orderRequest[columnKey];
-
+          console.table(orderRequest)
         switch (columnKey) {
 
           case "id":
@@ -105,11 +102,12 @@ const PendingRequestTable = ({orderRequest}) => {
 
     return ( 
       <>
-          <UpdateDepartmentModal
+          <UpdateRegStatus
           type={type}
+          email={email}
           visible={visible} 
           closeHandler={closeHandler} 
-          department={orderRequestInfo} 
+          orderRequest={orderReq} 
           />
 
          

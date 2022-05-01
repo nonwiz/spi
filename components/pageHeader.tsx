@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 
 const PageHeader = ({ page_name }:any) => {
   const { data: session } = useSession();
+
   const router = useRouter()
     let currentPage;
 
@@ -36,19 +37,19 @@ const PageHeader = ({ page_name }:any) => {
             break;
        
 
-        case "/department":
+        case "/departmentHead":
             currentPage ="Home"
             break;
-        case "/department/orderRequest":
+        case "/departmentHead/orderRequest":
             currentPage ="Order Requests"
             break;
-        case "/department/movingRequest":
+        case "/departmentHead/movingRequest":
             currentPage = "Moving Requests"
             break;
-        case "/department/purchaseHistory":
+        case "/departmentHead/purchaseHistory":
             currentPage ="Purchase History"
             break;
-        case "/department/myItems":
+        case "/departmentHead/myItems":
             currentPage ="My Items"
             break;
         
@@ -78,7 +79,7 @@ const PageHeader = ({ page_name }:any) => {
         <a className="inline-flex items-center px-4" href="#">
             <svg className="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
             <span className="ml-2 text-sm font-medium hidden sm:block">
-            Dan khazifire 
+           {(session)?session.user.name:"user"}
             </span>
         </a>
     </div>

@@ -1,4 +1,4 @@
-import { Table, Row, Col, Tooltip, User, Text, Container } from "@nextui-org/react";
+import { Table, Row, Col, Tooltip, User, Text, Container, Grid } from "@nextui-org/react";
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { IconButton } from "@/components/admin/icons/IconButton";
@@ -11,20 +11,25 @@ import UpdateRegStatus from "../UpdateRegStatus";
 
 
 
-const PendingRequestTable = ({orderRequest, email}) => {
+const PendingRequestTable = ({orderRequest, email, pageType}) => {
   const router = useRouter()
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState("none");
   const [orderReq, setOrderRequest] = useState({})
-  
+
+  console.table("parent", orderRequest)
+
+
   const detailHandler = (order) =>{
     setVisible(true);
     setType("view_details")
     setOrderRequest(order)
   }
 
-  const updateHandler = (orderRequest) => {
+  const updateHandler = (order) => {
     setVisible(true);
+    setType("update_details")
+    setOrderRequest(order)
   }
 
   const closeHandler = () => {
@@ -107,19 +112,20 @@ const PendingRequestTable = ({orderRequest, email}) => {
           email={email}
           visible={visible} 
           closeHandler={closeHandler} 
-          orderRequest={orderReq} 
+          orderRequest={orderReq}
+          pageType ={pageType}
           />
 
-         
+
             <Table 
             headerLined
             shadow={false}
-            aria-label={"user details table"}
+            aria-label={"Pending Request table"}
             sticked={true}
             selectionMode="none"
             css={{
               height: "auto",
-              minWidth: "auto",
+              minWidth: "100%",
             }}
             containerCss={{
               borderRadius: "8px",
@@ -128,7 +134,7 @@ const PendingRequestTable = ({orderRequest, email}) => {
            
           >
         
-            <Table.Header columns={columns}>
+            <Table.Header columns={columns} >
               {(column) => (
                 <Table.Column
                   key={column.uid}
@@ -137,7 +143,7 @@ const PendingRequestTable = ({orderRequest, email}) => {
                 </Table.Column>
               )}
             </Table.Header>
-            <Table.Body items={orderRequest}> 
+            <Table.Body items={orderRequest} > 
               {(item) => (
                 <Table.Row >
                   {(columnKey) => (
@@ -153,7 +159,8 @@ const PendingRequestTable = ({orderRequest, email}) => {
               rowsPerPage={(router.pathname=="/customer")?5:10}
             />
             </Table>
-         
+   
+  
       </>
      );
 }

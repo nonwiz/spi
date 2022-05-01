@@ -1,6 +1,7 @@
 import CreateOrderReq from "@/components/customer/createOrderReqModal";
 import FormCreateOrderRequest from "@/components/customer/createOrderRequest";
 import OrderRequestTable from "@/components/customer/tables/OrderRequestTable";
+import { EmptyState } from "@/components/EmptyState";
 
 import { useCustomer } from "lib/fetcher";
 import { useSession } from "next-auth/react";
@@ -40,7 +41,9 @@ export default function Page() {
       <div className="">
         <div className=" rounded-lg ">
             <h2>Recent order Request</h2>
-            {data.user.order_requests && <OrderRequestTable orderRequest={data.user.order_requests} />}
+            {(data.user.order_requests)
+              ?<OrderRequestTable orderRequest={data.user.order_requests} /> 
+              :<EmptyState msg={"You don't have any order request"} />}
 
         </div>
 

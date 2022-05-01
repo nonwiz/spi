@@ -5,6 +5,7 @@ import { useState } from "react";
 import { fetcher } from "lib/fetcher"
 import { useSWRConfig } from "swr"
 import PendingRequestTable from "@/components/purchase/table/PendingRequestTable";
+import { EmptyState } from "@/components/EmptyState";
 
 
 export default function Page() {
@@ -30,7 +31,9 @@ export default function Page() {
         <div className="rounded-lg ">
           <h2>Pending order Request</h2>
 
-        {data.orderRequests && <PendingRequestTable pageType={"departmentHead"} email={data.user.email} orderRequest={data.orderRequests.filter((item) => item.order_status == "Pending" && item.user.department_id == data.user.department_id)} />}
+        {(data.orderRequests)
+          ?<PendingRequestTable pageType={"departmentHead"} email={data.user.email} orderRequest={data.orderRequests.filter((item) => item.order_status == "Pending" && item.user.department_id == data.user.department_id)} />
+          :<EmptyState msg={"No Pending Order Request"} />}}
         </div>
       </div>
  

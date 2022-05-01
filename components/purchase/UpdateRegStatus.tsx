@@ -137,6 +137,10 @@ export default function UpdateRegStatus({type,visible, closeHandler, orderReques
               <p className="text-lg font-semibold"> Approved by:<span className="font-normal"> {orderRequest.approval_by && orderRequest.approval_by.map((item, k) =>
                   <span key={k}>{item.role}</span>)} </span></p>
 
+              <p className="text-lg font-semibold"> Rejected by: <span className="font-normal"> {orderRequest.remark && orderRequest.remark.map((item, k) =>
+                  <span key={k}>{item.role}</span>)} </span></p>
+         
+
                   <Collapse.Group className="-ml-3" >
                   <Collapse title={(orderRequest.comment_by && orderRequest.comment_by.length>0)? `Comment (click to view ${orderRequest.comment_by.length} comments )`:"Comments (no comments were added)" } className="font-semibold">
                     <div className="flex flex-col gap-2">

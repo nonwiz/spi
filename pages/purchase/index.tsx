@@ -7,6 +7,7 @@ import { fetcher } from "lib/fetcher"
 import { useSWRConfig } from "swr"
 import { PDFViewer } from '@react-pdf/renderer';
 import PdfDocument from "@/components/purchase/pdfDocument";
+import { EmptyState } from "@/components/EmptyState";
 
 export default function Page() {
   const { data: session } = useSession();
@@ -29,10 +30,9 @@ export default function Page() {
         <div className="rounded-lg ">
           <h2>Pending order Request</h2>
 
-          {data.orderRequests && <PendingRequestTable 
-                                    email={data.user.email} 
-                                    orderRequest={data.orderRequests.filter((item) => item.order_status == "Pending")} 
-                                    pageType={"purchase"} />}
+          {(data.orderRequests)
+            ?<PendingRequestTable email={data.user.email} pageType={"purchase"} orderRequest={data.orderRequests.filter((item) => item.order_status == "Pending")} />
+            :<EmptyState msg={"No Pending Order Request"} />}
         </div>
       </div>
 

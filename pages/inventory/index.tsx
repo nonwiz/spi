@@ -4,6 +4,9 @@ import { useInventory } from "lib/fetcher"
 import { useSession } from "next-auth/react"
 import { useState } from "react"
 import FormMoveUser from "@/components/inventory/moveUser"
+import StatsCardsInventory from "@/components/inventory/StatsCardsInventory"
+import { EmptyState } from "@/components/EmptyState"
+import ItemsListTable from "@/components/inventory/tables/ItemsListTable"
 
 export default function Page() {
   const { data: session } = useSession()
@@ -17,7 +20,7 @@ export default function Page() {
 
   if (isLoading) return <p> Loading ... </p>
 
-  console.log({ data })
+  console.log("sata",{ data })
 
   const returnRoom = (locations, id) => {
     const tmp = locations.find((ele) => ele.id == id)
@@ -25,6 +28,7 @@ export default function Page() {
   }
 
   const returnLocationItems = (location) => {
+    console.log(location.items)
     console.log("Return items within location", location);
     const items = location.items.map(item =>
       <li>{item.name}</li>);
@@ -32,73 +36,88 @@ export default function Page() {
   }
 
   return (
-    <div className="p-4">
-      <div className="p-2 my-4">
-        <h1>Inventory Master </h1>
-        <br />
+    <>
+        <StatsCardsInventory items={data.items} />
+        <div className="mt-4">
+        <div className="rounded-lg ">
+          <h2>Recently Added item </h2>
 
-        <h2> Order Types </h2>
-        <hr />
-        <ul>
-          {data &&
-            data.orderTypes.map((item, id) => (
-              <li key={id}> {item.type} </li>
-            ))}
-        </ul>
-
-        <br />
-        <h2> Location List </h2>
-        <hr />
-        <ul>
-          {data &&
-            data.locations.map((item, id) => (
-              <li key={id}>
-                <button onClick={() => setSelectedL(id)}>{zones[item.zone]}{item.room_number}
-                </button>
-
-              </li>
-            ))}
-        </ul>
-        <br />
-        <h2> Selected Location </h2>
-        <hr />
-        <li> {data.locations[sLocation].zone} {data.locations[sLocation].room_number}</li>
-        <FormAddInventory
-          props={{ location: data.locations[sLocation].id }}
-        />
-        <hr />
-        <h2> Moving user </h2>
-
-        <FormMoveUser
-          props={{ location: data.locations[sLocation].id }}
-        />
-
-
-        <br />
-        <h2> Current Location items </h2>
-        <hr />
-        <ul>
-          {data &&
-            returnLocationItems(data.locations[sLocation])
-          }
-        </ul>
-        <br />
-
-
-        <h2> List of item </h2>
-        <hr />
-        <ul>
-          {data &&
-            data.items.map((item, id) => (
-              <li key={id}>
-                {" "}
-                {item.name} {returnRoom(data.locations, item.location_id)}{" "}
-              </li>))}
-        </ul>
-        <br />
-
-
+        {(data.items)
+          ?
+            <ItemsListTable items={data.items} locations={data.locations} />
+          :
+            <EmptyState msg={"No Pending Order Request"} />}
+        </div>
       </div>
-    </div>
+
+      {/* <div className="p-4">
+        <div className="p-2 my-4">
+          <h1>Inventory Master </h1>
+          <br />
+
+          <h2> Order Types </h2>
+          <hr />
+          <ul>
+            {data.orderTypes &&
+              data.orderTypes.map((item, id) => (
+                <li key={id}> {item.type} </li>
+              ))}
+          </ul>
+
+          <br />
+          <h2> Location List </h2>
+          <hr />
+          <ul>
+            {data.locations &&
+              data.locations.map((item, id) => (
+                <li key={id}>
+                  <button onClick={() => setSelectedL(id)}>{zones[item.zone]}{item.room_number}
+                  </button>
+
+                </li>
+              ))}
+          </ul>
+          <br />
+          <h2> Selected Location </h2>
+          <hr />
+          <li> {data.locations[sLocation].zone} {data.locations[sLocation].room_number}</li>
+          <FormAddInventory
+            props={{ location: data.locations[sLocation].id }}
+          />
+          <hr />
+          <h2> Moving user </h2>
+
+          <FormMoveUser
+            props={{ location: data.locations[sLocation].id }}
+          />
+
+
+          {/* <br />
+          <h2> Current Location items </h2>
+          <hr />
+          <ul>
+            {data &&
+              returnLocationItems(data.locations[sLocation])
+            }
+          </ul>
+          <br /> 
+
+
+          <h2> List of item </h2>
+          <hr />
+          <ul>
+            {data &&
+              data.items.map((item, id) => (
+                <li key={id}>
+                  {" "}
+                  {item.name} {returnRoom(data.locations, item.location_id)}{" "}
+                </li>))}
+          </ul>
+          <br /> 
+
+
+        </div>
+      </div> */}
+    </>
   )
 }

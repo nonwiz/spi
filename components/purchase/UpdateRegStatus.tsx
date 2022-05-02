@@ -79,7 +79,6 @@ export default function UpdateRegStatus({type,visible, closeHandler, orderReques
               {orderRequest.order_items && orderRequest.order_items.map((item, num) =>
                 <div>
                     <Collapse title={`${item.description}`}>
-
                         <div key={num} className ="flex flex-col gap-4">
                           <div className="flex flex-row gap-2">
                                     <Input  bordered fullWidth

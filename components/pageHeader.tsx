@@ -7,6 +7,7 @@ const PageHeader = ({ page_name }:any) => {
   const router = useRouter()
     let currentPage;
 
+
     switch (router.pathname) {
         case "/":
             currentPage ="Home"

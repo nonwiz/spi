@@ -22,33 +22,7 @@ export default function Page() {
 
   console.log(data, ors[sItem]);
 
-  const handleApprove = async (item: Number) => {
-    fetcher("/api/common/order/approve", { orderId: item }).then((d) => {
-      console.log(d)
-      mutate("/api/finance")
-    })
-  }
-
-  const handleDeleteComment = async (item: Number) => {
-    fetcher("/api/common/order/deleteComment", { commentId: item }).then((d) => {
-      console.log(d)
-      mutate("/api/finance")
-    })
-  }
-
-  const handleReject = async (item: Number) => {
-    fetcher("/api/common/order/reject", { orderId: item }).then((d) => {
-      console.log(d)
-      mutate("/api/finance")
-    })
-  }
-
-  const handleComment = async (comment: String, item: Number) => {
-    fetcher("/api/common/order/comment", { comment, orderId: item }).then((d) => {
-      console.log(d)
-      mutate("/api/finance")
-    })
-  }
+  
 
   return (
     <>

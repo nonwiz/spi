@@ -36,7 +36,7 @@ const LocationListTable = ({location, zones}) => {
     const columns = [
         { name: "#", uid: "#" },
         { name: "ZONE", uid: "zone" },
-        { name: "FLORR", uid: "floor" },
+        { name: "FLOOR", uid: "floor" },
         { name: "ROOM NUMBER", uid: "room_number" },
         { name: "TOTAL QUANTITY", uid: "total_quantity" },
         { name: "UPDATE DATE", uid: "update_date" },

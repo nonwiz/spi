@@ -23,7 +23,7 @@ export default function LocationList() {
 
   return (
       <>
-       <div className="my-8 flex flex-row gap-6 w-full">
+       <div className="my-8 flex flex-row gap-6 w-full items-center">
         <button className="primary-btn"> Create Moving Request</button> 
         <SearchBox />
       </div>

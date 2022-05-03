@@ -169,15 +169,15 @@ const SideNav = () => {
                         <svg className="w-8 h-8 sm:w-6 sm:h-6 fill-current " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
                         <span>Dashboard</span>
                     </a>
-                    <a href="/inventory/locationList" className={router.pathname=="/inventory/locationList"? "navlink-active":"navlink"}>
+                    <a href="/inventory/locationList" className={router.pathname=="/inventory/locationList" || router.pathname=="/inventory/locationList/[id]"? "navlink-active":"navlink"}>
                         <svg className="w-8 h-8 sm:w-6 sm:h-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M2 22a8 8 0 1 1 16 0H2zm8-9c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6zm7.363 2.233A7.505 7.505 0 0 1 22.983 22H20c0-2.61-1-4.986-2.637-6.767zm-2.023-2.276A7.98 7.98 0 0 0 18 7a7.964 7.964 0 0 0-1.015-3.903A5 5 0 0 1 21 8a4.999 4.999 0 0 1-5.66 4.957z"/></svg>
                         <span>Location List</span>
                     </a>
  
-                    <a href="/inventory/itemList" className={router.pathname=="/inventory/itemList"? "navlink-active":"navlink"}>
+                    {/* <a href="/inventory/itemList" className={router.pathname=="/inventory/itemList"? "navlink-active":"navlink"}>
                         <svg className="w-8 h-8 sm:w-6 sm:h-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M2 5l7-3 6 3 6.303-2.701a.5.5 0 0 1 .697.46V19l-7 3-6-3-6.303 2.701a.5.5 0 0 1-.697-.46V5zm13 14.764V7.176l-.065.028L9 4.236v12.588l.065-.028L15 19.764z"/></svg>
                         <span>Item List</span>
-                    </a>
+                    </a> */}
 
                     <a href="#" className={router.pathname==""? "navlink-active absolute bottom-4 w-full left-0 rounded":"navlink absolute bottom-4 w-full left-0 rounded"}>
                         <svg className="w-8 h-8 sm:w-6 sm:h-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M5.334 4.545a9.99 9.99 0 0 1 3.542-2.048A3.993 3.993 0 0 0 12 3.999a3.993 3.993 0 0 0 3.124-1.502 9.99 9.99 0 0 1 3.542 2.048 3.993 3.993 0 0 0 .262 3.454 3.993 3.993 0 0 0 2.863 1.955 10.043 10.043 0 0 1 0 4.09c-1.16.178-2.23.86-2.863 1.955a3.993 3.993 0 0 0-.262 3.455 9.99 9.99 0 0 1-3.542 2.047A3.993 3.993 0 0 0 12 20a3.993 3.993 0 0 0-3.124 1.502 9.99 9.99 0 0 1-3.542-2.047 3.993 3.993 0 0 0-.262-3.455 3.993 3.993 0 0 0-2.863-1.954 10.043 10.043 0 0 1 0-4.091 3.993 3.993 0 0 0 2.863-1.955 3.993 3.993 0 0 0 .262-3.454zM13.5 14.597a3 3 0 1 0-3-5.196 3 3 0 0 0 3 5.196z"/></svg>

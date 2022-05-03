@@ -50,7 +50,7 @@ export default function Page() {
         </div>
       </div>
 
-      {/* <div className="p-4">
+       <div className="p-4">
         <div className="p-2 my-4">
           <h1>Inventory Master </h1>
           <br />
@@ -92,7 +92,7 @@ export default function Page() {
           />
 
 
-          {/* <br />
+          <br />
           <h2> Current Location items </h2>
           <hr />
           <ul>
@@ -117,7 +117,7 @@ export default function Page() {
 
 
         </div>
-      </div> */}
+      </div> 
     </>
   )
 }

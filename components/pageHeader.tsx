@@ -97,7 +97,7 @@ const PageHeader = ({ page_name }:any) => {
            (router.pathname =="/inventory/locationList/[id]")?
             <div className="text-xl flex flex-row gap-2">
                 <Link href="/inventory/locationList"><a className="text-primary-color hover:shadow-sm"> {"<"} Go back</a></Link>
-                <h1 className='font-normal'>Inventory / Location List/ Location Details</h1>
+                <h1 className='font-normal hidden md:block'>Inventory / Location Details</h1>
                      
             </div>:
            <h1 className="text-xl font-bold">Dashboard / <span className='font-normal'> {currentPage}</span></h1>

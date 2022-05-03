@@ -11,7 +11,7 @@ import { EyeIcon } from "../admin/icons/EyeIcon";
 import { DeleteIcon } from "../admin/icons/DeleteIcon";
 
 
-export default function UpdateRegStatus({type,visible, closeHandler, orderRequest, email}) {
+export default function UpdateRegStatus({type,visible, closeHandler, orderRequest, email, pageType}) {
   const { mutate } = useSWRConfig();
   const [comment, setComment] = useState("");
   console.log("Update reg", orderRequest)
@@ -19,28 +19,29 @@ export default function UpdateRegStatus({type,visible, closeHandler, orderReques
  
     fetcher("/api/common/order/approve", { orderId: item }).then((d) => {
       console.log(d)
-      mutate("/api/purchase")
+      mutate(`/api/${pageType}`)
     })
   }
 
   const handleDeleteComment = async (item: Number) => {
     fetcher("/api/common/order/deleteComment", { commentId: item }).then((d) => {
       console.log(d)
-      mutate("/api/purchase")
+      mutate(`/api/${pageType}`)
     })
   }
 
   const handleReject = async (item: Number) => {
     fetcher("/api/common/order/reject", { orderId: item }).then((d) => {
       console.log(d)
-      mutate("/api/purchase")
+      mutate(`/api/${pageType}`)
     })
   }
 
   const handleComment = async (comment: String, item: Number) => {
     fetcher("/api/common/order/comment", { comment, orderId: item }).then((d) => {
       console.log(d)
-      mutate("/api/purchase")
+      console.log("try commenting")
+      mutate(`/api/${pageType}`)
     })
   }
 
@@ -78,7 +79,6 @@ export default function UpdateRegStatus({type,visible, closeHandler, orderReques
               {orderRequest.order_items && orderRequest.order_items.map((item, num) =>
                 <div>
                     <Collapse title={`${item.description}`}>
-
                         <div key={num} className ="flex flex-col gap-4">
                           <div className="flex flex-row gap-2">
                                     <Input  bordered fullWidth
@@ -135,23 +135,25 @@ export default function UpdateRegStatus({type,visible, closeHandler, orderReques
               
               <p className="text-lg font-semibold"> Approved by:<span className="font-normal"> {orderRequest.approval_by && orderRequest.approval_by.map((item, k) =>
                   <span key={k}>{item.role}</span>)} </span></p>
-                {console.log("hi")}
-          
+
+              <p className="text-lg font-semibold"> Rejected by: <span className="font-normal"> {orderRequest.remark && orderRequest.remark.map((item, k) =>
+                  <span key={k}>{item.role}</span>)} </span></p>
+         
+
                   <Collapse.Group className="-ml-3" >
-                  <Collapse title={"Comment (click to view comments)"} className="font-semibold">
+                  <Collapse title={(orderRequest.comment_by && orderRequest.comment_by.length>0)? `Comment (click to view ${orderRequest.comment_by.length} comments )`:"Comments (no comments were added)" } className="font-semibold">
+                    <div className="flex flex-col gap-2">
+
                     {orderRequest.comment_by && orderRequest.comment_by.map((item, k) =>
                      
-                        <p key={k} > {item.user == email && 
-                          <IconButton  onClick={e => handleDeleteComment(item.id)}>{item.role}, {item.user}: {item.comment}, <DeleteIcon size={20} fill="#FF0080"/><span className="text-sm text-[#FF0080] pl-1">Delete</span></IconButton>}
+                        <p key={k} className="text-left flex flex-col ml-4" ><span className="flex flex-row justify-between -ml-4">{k +1}. {item.user} ({item.role}): <IconButton  onClick={e => handleDeleteComment(item.id)}> <DeleteIcon size={15} fill="#FF0080" hidden={(item.user != email)}/></IconButton></span> {item.comment}
+                          
                         </p>
-                     
-
-              )}
+                    )} 
+                    </div>
                   </Collapse>
                   </Collapse.Group>
                
-
-           
 
          {(type=="view_details")
             ?

@@ -11,6 +11,7 @@ import FormCreateOrderType from "@/components/admin/createOrderType";
 import PageHeader from "@/components/pageHeader";
 import UserListTable from "@/components/admin/tables/UserListTable";
 import StatsCards from "@/components/admin/StatsCards";
+import { EmptyState } from "@/components/EmptyState";
 
 
 export default function Page() {
@@ -28,8 +29,11 @@ export default function Page() {
           <div className="flex flex-col lg:flex-row justify-between  mt-8 gap-8">
               <div className=" rounded-lg lg:w-2/3">
                 <h2>User Management</h2>
-                {data?.users && data?.roles && <UserListTable users={data.users} roles={data.roles} />}
+                {(data.users && data.roles)
+                ?<UserListTable users={data.users} roles={data.roles} />
+                :<EmptyState msg={"user table is empty"} />}
               </div>
+              
               <div className="lg:w-2/6">
                 <h2>Recently Activities</h2>
                 {/* <RecentActivities /> */}

@@ -1,6 +1,7 @@
 import CreateOrderReq from "@/components/customer/createOrderReqModal";
 import FormCreateOrderRequest from "@/components/customer/createOrderRequest";
 import OrderRequestTable from "@/components/customer/tables/OrderRequestTable";
+import { EmptyState } from "@/components/EmptyState";
 
 import { useCustomer } from "lib/fetcher";
 import { useSession } from "next-auth/react";
@@ -13,13 +14,9 @@ export default function Page() {
   const [type, setType] = useState("none");
   if (isLoading) return <p> Loading ... </p>
 
-  
-  
   const createOrder = () =>{
     setVisible(true);
   }
-
-
   const closeHandler = () => {
     setVisible(false);
   };
@@ -37,22 +34,16 @@ export default function Page() {
         <button className="primary-btn"> Create Moving Request</button>
       </div>
 
-      <div className="">
-        <div className=" rounded-lg ">
-            <h2>Recent order Request</h2>
-            {data.user.order_requests && <OrderRequestTable orderRequest={data.user.order_requests} />}
-
-        </div>
-
-       
+      <div className=" rounded-lg ">
+          <h2>Recent order Request</h2>
+          {(data.user.order_requests)
+            ?<OrderRequestTable orderRequest={data.user.order_requests} /> 
+            :<EmptyState msg={"You don't have any order request"} />}
       </div>
-
-
+  
       <div className="p-4">
-
         <h2> Personal Information </h2>
         <li> {data.user.name} | {data.user.location ? `${data.user.location.zone} ${data.user.location.room_number}` : "Not assigned"} | {data.user.department && data.user.department.name}</li>
-        
       </div>
       </>
 

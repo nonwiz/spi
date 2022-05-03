@@ -36,7 +36,7 @@ const ItemListTable = ({items}) => {
     { name: "ITEM ORDER DATE", uid: "item_date" },
     { name: "ITEM DEPRECIATION DATE", uid: "item_depreciation" },
     { name: "ITEM QUANTITY", uid: "item_quantity" },
-    { name: "ACTIONS", uid: "actions" },
+    // { name: "ACTIONS", uid: "actions" },
   ];
     
     
@@ -123,11 +123,12 @@ const ItemListTable = ({items}) => {
               )}
             </Table.Header>
             <Table.Body items={items}> 
-              {(item) => (
+              {(item) => ( 
                 <Table.Row >
-                  {(columnKey) => (
+                {(columnKey) => (
                     <Table.Cell >{renderCell(item, columnKey)}</Table.Cell>
                   )}
+                  
                 </Table.Row>
               )}
             </Table.Body>

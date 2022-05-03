@@ -7,96 +7,101 @@ import { EditIcon } from "@/components/admin/icons/EditIcon";
 import UpdateDepartmentModal from "@/components/admin/UpdateDepartmentModal";
 import StyledStatus from "@/components/customer/StyledStatus";
 import UpdateRegStatus from "../UpdateRegStatus";
+import DateConvert from "@/components/dateConvert";
 
 
 
 
-const PendingRequestTable = ({orderRequest, email, pageType}) => {
+const ItemsListTable = ({items, locations}) => {
   const router = useRouter()
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState("none");
   const [orderReq, setOrderRequest] = useState({})
 
-  console.table("parent", orderRequest)
+  const zones = {
+    Information_Technology: "IT",
+    Administration: "AD",
+    Science: "SB",
+    Solomon_hall:"Solomon"
+  }
 
-
-  const detailHandler = (order) =>{
+  const returnRoom = (item) => {
+    const tmp = locations.find((ele) => ele.id == item)
+    return <span> {zones[tmp.zone]}{tmp.room_number} </span>
+  }
+  const detailHandler = (items) =>{
     setVisible(true);
     setType("view_details")
     setOrderRequest(order)
   }
 
-  const updateHandler = (order) => {
-    setVisible(true);
-    setType("update_details")
-    setOrderRequest(order)
-  }
+  // const updateHandler = (order) => {
+  //   setVisible(true);
+  //   setType("update_details")
+  //   setOrderRequest(order)
+  // }
 
   const closeHandler = () => {
     setVisible(false);
     setType("none")
   };
     
-  let columns;
-    if (router.pathname=="/purchase") {
-      columns = [
+  let columns = [
         { name: "#", uid: "id" },
-        { name: "ORDER DESCRIPTION", uid: "order_description" },
-        { name: "ORDER PRICE", uid: "order_price" },
+        { name: "NAME", uid: "name" },
+        { name: "QUANTITY", uid: "quantity" },
+        { name: "PRICE", uid: "price" },
+        { name: "TYPE", uid: "type" },
         { name: "ORDER DATE", uid: "order_date" },
-        { name: "ORDER STATUS", uid: "order_status" },
+        { name: "LOCATION", uid: "location"},
+        { name: "DEPRECIATION", uid: "depreciation" },
         { name: "ACTIONS", uid: "actions" },
        
       ];
-    } else {
-      columns = [
-        { name: "#", uid: "id" },
-        { name: "ORDER DESCRIPTION", uid: "order_description" },
-        { name: "ORDER ITEMS", uid: "order_items" },
-        { name: "ORDER PRICE", uid: "order_price" },
-        { name: "ORDER DATE", uid: "order_date" },
-        { name: "ORDER STATUS", uid: "order_status" },
-        { name: "ACTIONS", uid: "actions" },
-      ];
-    }
-    
+   
+      const renderCell = (items, columnKey) => {
+        const cellValue = items[columnKey];
       
-      const renderCell = (orderRequest, columnKey) => {
-        const cellValue = orderRequest[columnKey];
-          console.table(orderRequest)
         switch (columnKey) {
 
           case "id":
-              return <p className="text-lg ">{orderRequest.id}</p>;
-          case "order_description":
-            return <p className="text-lg ">{orderRequest.purchase_reason}</p>;
-          case "order_items":
-            return <p className="text-lg ">{orderRequest.id}</p>;
-          case "order_price":
-            return <p className="text-lg ">{orderRequest.total_price}</p>;
+              return <p className="text-lg ">{items.id}</p>;
+          case "name":
+            return <p className="text-lg ">{items.name}</p>;
+          case "price":
+            return <p className="text-lg ">{items.price}</p>;
           case "order_date":
-              return <p className="text-lg ">{orderRequest.order_date}</p>;
-          case "order_status":
-             return <StyledStatus status={orderRequest.order_status} />
-       
+            return <p className="text-lg "><DateConvert date={items.order_date} type={"inventory"} /></p>;
+          case "depreciation":
+              return <p className="text-lg "><DateConvert date={items.depreciation} type={"inventory"} /></p>;
 
+          case "type":
+            return <p className="text-lg ">{items.type}</p>;
+
+          case "location":
+            return <p className="text-lg">{returnRoom(items.location_id)}</p>
+          case "quantity":
+            return <p className="text-lg ">{items.quantity} {items.quantity_unit}</p>;
+          case "order_status":
+             return <StyledStatus status={items.order_status} />
+       
           case "actions":
             return (
               <Row justify="center" align="center">
-              <Col css={{ d: "flex" }}>
-                <Tooltip content="Order Details">
-                  <IconButton  onClick={() => detailHandler(orderRequest)}>
+              <Col css={{  }} className="ml-6">
+                <Tooltip content="Item Details" >
+                  <IconButton  onClick={() => detailHandler(items)} >
                     <EyeIcon size={20} fill="#979797" />
                   </IconButton>
                 </Tooltip>
               </Col>
-              <Col css={{ d: "flex" }}>
+              {/* <Col css={{ d: "flex" }}>
                 <Tooltip content="Update Order">
-                  <IconButton onClick={() => updateHandler(orderRequest)}>
+                  <IconButton onClick={() => updateHandler(items)}>
                     <EditIcon size={20} fill="#979797" />
                   </IconButton>
                 </Tooltip>
-              </Col>
+              </Col> */}
             </Row>
             );
           default:
@@ -107,20 +112,20 @@ const PendingRequestTable = ({orderRequest, email, pageType}) => {
 
     return ( 
       <>
-          <UpdateRegStatus
+          {/* <UpdateRegStatus
           type={type}
           email={email}
           visible={visible} 
           closeHandler={closeHandler} 
           orderRequest={orderReq}
           pageType ={pageType}
-          />
+          /> */}
 
 
             <Table 
             headerLined
             shadow={false}
-            aria-label={"Pending Request table"}
+            aria-label={"list of items"}
             sticked={true}
             selectionMode="none"
             css={{
@@ -133,7 +138,7 @@ const PendingRequestTable = ({orderRequest, email, pageType}) => {
             }}
            
           >
-        
+
             <Table.Header columns={columns} >
               {(column) => (
                 <Table.Column
@@ -143,7 +148,7 @@ const PendingRequestTable = ({orderRequest, email, pageType}) => {
                 </Table.Column>
               )}
             </Table.Header>
-            <Table.Body items={orderRequest} > 
+            <Table.Body items={items} > 
               {(item) => (
                 <Table.Row >
                   {(columnKey) => (
@@ -156,13 +161,11 @@ const PendingRequestTable = ({orderRequest, email, pageType}) => {
             <Table.Pagination
               noMargin
               align="center"
-              rowsPerPage={(router.pathname=="/customer")?5:10}
+              rowsPerPage={(router.pathname=="/inventory")?8:10}
             />
             </Table>
-   
-  
       </>
      );
 }
  
-export default PendingRequestTable;
+export default ItemsListTable;

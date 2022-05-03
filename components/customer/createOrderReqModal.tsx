@@ -11,7 +11,7 @@ export default function CreateOrderReq({type,visible, closeHandler, orderTypes})
 
   const { mutate } = useSWRConfig();
   const orderItemProperty = ["description", "size", "quantity", "unit_price", "amount", "type"]
-  const [orderItem, setOrderItem] = useState([1, 1]);
+  const [orderItem, setOrderItem] = useState([0, 0]);
 
   const handleCreateOrderRequest = async event => {
     event.preventDefault();

@@ -169,7 +169,6 @@ model OrderItem {
   id               Int          @id @default(autoincrement())
   description      String
   size             Size @default(other)
-  isAsset Boolean @default(false)
   quotation String?
   purchasing_action String?
   quantity         Float?       @default(1.0)
@@ -207,6 +206,7 @@ model Item {
   description                String?
   price                      Float?
   order_date                 DateTime?
+  isAsset Boolean @default(false)
   depreciation               DateTime?
   type                       String?
   quantity                   Float?

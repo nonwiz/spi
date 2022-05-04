@@ -43,11 +43,16 @@
 - Send an email of comment
 - Finance Year - August 01 - July 31 
 - Listing of items can have another table that depreciatoin items almost.able
-- List of assets - depreciation
+- List of assets - depreciation : who set it?
 
 - List items - consumable - no depreciation
 - Purchase items vs Purchase assets
 - Lesser important vs important (u don't wanna to get clutter by items)
+- Createa a button to clear 
+- Sign up styling
+- Display department budget
+- time frame payment
+- Add name upon sign 
 
 
 ### Wishlist

@@ -61,18 +61,19 @@ export default function UpdateRegStatus({type,visible, closeHandler, orderReques
         <Modal.Body>
 
           <form  className="">
-
-
-          <div className="flex gap-2">
+            
+          <div className="flex flex-row gap-2">
             <p className="text-lg font-semibold">Order Status:</p>
-            {/* <StyledStatus status={orderRequest.order_status}/> */}
-            <StyledStatus status={`${orderRequest.approval_by?.length > 0 && orderRequest.order_status == "Pending"? `Pending (${orderRequest.approval_by.length}/3)` : orderRequest.order_status}`} /> 
+            <div>
+              <StyledStatus status={`${orderRequest.approval_by?.length > 0 && orderRequest.order_status == "Pending"? `Pending (${orderRequest.approval_by.length}/3)` : orderRequest.order_status}`} /> 
+            </div>
+        
           </div>
+ 
           <div className="flex gap-12 mt-2 ">
             <p className="text-lg font-semibold">Reason:</p>
             <p className="text-lg">Purchase Reason: {orderRequest.purchase_reason}</p>
           </div>
-
 
       <fieldset className="border-2 rounded-lg mb-4">
         <legend className=" pr-4 font-semibold">Items:</legend> 

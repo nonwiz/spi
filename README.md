@@ -28,19 +28,18 @@
 ### Order Request
 - Order Item's size: make it predefined instead  - make it optional (*optional) on the front end
 - Change Amount => Total, 
-- Size maybe add unit as well.
-- Writing the order for other user. // Maybe add user email -- Create request for another department.
-- For which department / 
-- Calculate at quantity and unit price amount
+-[x] Size maybe add unit as well.
+-[x]  Writing the order for other user. // Maybe add user email -- Create request for another department. // Write another function for ordering for. For which department / 
+- Calculate at quantity and unit price amount // ask about vat, (vat * unit_price * quantity) 
 - Add Vat field 7% for each item.
 - Consult with miss ampavan and soupanya
 - Sort from new to old
-- Relocate Inventory
+- Creating Moving Request => Relocate Inventory
 - Accordation state when open / close
 - Quotatoin is purchasing receipt or official statement form the company
-- Pending 
-- Purchase, can see without department head approve or not yet? 
-- Finance can assign the role. Controller is the one that approve 
+- Pending  // switch the position
+- [x] Purchase, can see without department head approve or not yet?  // Make another layer of filter unless it is approved by department head first
+- Finance can assign the role of user. Controller is the one that approve 
 - Send an email of comment
 - Finance Year - August 01 - July 31 
 - Listing of items can have another table that depreciatoin items almost.able

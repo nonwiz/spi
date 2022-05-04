@@ -5,10 +5,13 @@ export const DeleteIcon = ({
   size,
   height,
   width,
+  hidden,
   ...props
 }) => {
   return (
+    <>
     <svg
+    hidden={hidden}
       width={size || width || 24}
       height={size || height || 24}
       viewBox="0 0 20 20"
@@ -52,6 +55,10 @@ export const DeleteIcon = ({
         strokeLinejoin="round"
       />
     </svg>
+    
+    <span hidden={hidden} className="text-sm text-[#FF0080] pl-1"> Delete</span>
+    </>
+    
   );
 };
 

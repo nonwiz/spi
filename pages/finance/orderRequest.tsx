@@ -3,13 +3,13 @@ import FormCreateOrderRequest from "@/components/customer/createOrderRequest";
 import OrderRequestTable from "@/components/customer/tables/OrderRequestTable";
 import PendingRequestTable from "@/components/purchase/table/PendingRequestTable";
 
-import { usePurchase } from "lib/fetcher";
+import { useFinance, usePurchase } from "lib/fetcher";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 export default function OrderRequest() {
   const { data: session } = useSession();
-  const { data, isLoading } = usePurchase();
+  const { data, isLoading } = useFinance();
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState("none");
   if (isLoading) return <p> Loading ... </p>
@@ -40,7 +40,9 @@ export default function OrderRequest() {
       <div className="">
         <div className=" rounded-lg ">
             <h2>Recent order Request</h2>
-            {data.orderRequests && <PendingRequestTable orderRequest={data.orderRequests} email={data.user.email} pageType={"purchase"} />}
+
+            {data.orderRequests? <PendingRequestTable orderRequest={data.orderRequests} email={data.user.email} pageType={"finance"} />:
+            <div className="flex justify-center items-center h-96 border-2 border-gray-200">No Order Request were made</div>}
         </div>
       </div>
 

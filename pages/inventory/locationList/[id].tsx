@@ -32,6 +32,7 @@ const LocationDetails =() =>{
         <div className="my-8 flex flex-row gap-6 w-full">
             <button className="primary-btn"> Create Moving Request</button> 
             <button className="primary-btn"> Add Items</button> 
+            <button className="primary-btn"> Add User</button> 
         </div>
 
         <div className='flex flex-col lg:flex-row gap-8 lg:gap-24'>
@@ -52,8 +53,8 @@ const LocationDetails =() =>{
 
                 <fieldset className='border-2 rounded-md'>
                         <legend className='ml-2 pl-2 pr-4 text-lg'>Responsible Person(s) </legend>
-                        <div className='flex flex-col gap-2 mx-4'>
-                    
+                        <button type="button" className="flex py-1 px-4 text-sm rounded-lg border text-gray-700 border-gray-700 gap-x-2.5 hover">Assign Responsible Person</button>
+                        <div className='flex flex-col gap-2 mx-4 my-4'>
                         {loc?.users.map((user, num) =>(
                             <div className='flex flex-row gap-8'>
                                 <p className='w-1/2'><span className='font-semibold'>Name: </span>{user.name} </p>
@@ -61,8 +62,9 @@ const LocationDetails =() =>{
                             </div>
                         
                         ))}
-                        
-                
+                            <div>
+                                
+                            </div>
                         </div>
                 </fieldset>
 

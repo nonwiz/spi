@@ -65,7 +65,8 @@ export default function UpdateRegStatus({type,visible, closeHandler, orderReques
 
           <div className="flex gap-2">
             <p className="text-lg font-semibold">Order Status:</p>
-            <StyledStatus status={orderRequest.order_status}/>
+            {/* <StyledStatus status={orderRequest.order_status}/> */}
+            <StyledStatus status={`${orderRequest.approval_by?.length > 0 && orderRequest.order_status == "Pending"? `Pending (${orderRequest.approval_by.length}/3)` : orderRequest.order_status}`} /> 
           </div>
           <div className="flex gap-12 mt-2 ">
             <p className="text-lg font-semibold">Reason:</p>

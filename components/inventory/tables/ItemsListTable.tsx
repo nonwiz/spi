@@ -83,7 +83,7 @@ const ItemsListTable = ({items, locations}) => {
           case "quantity":
             return <p className="text-lg ">{items.quantity} {items.quantity_unit}</p>;
           case "order_status":
-             return <StyledStatus status={items.order_status} />
+            return <StyledStatus status={`${items.approval_by.length > 0 && items.order_status == "Pending"? `Pending (${items.approval_by.length}/3)` : items.order_status}`} />
        
           case "actions":
             return (

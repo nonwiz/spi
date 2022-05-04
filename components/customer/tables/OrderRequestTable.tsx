@@ -61,7 +61,6 @@ const OrderRequestTable = ({ orderRequest }) => {
     const cellValue = orderRequest[columnKey];
 
     switch (columnKey) {
-
       case "id":
         return <p className="text-lg ">{orderRequest.id}</p>;
       case "order_description":
@@ -73,8 +72,7 @@ const OrderRequestTable = ({ orderRequest }) => {
       case "order_date":
         return <p className="text-lg ">{orderRequest.order_date}</p>;
       case "order_status":
-        return <StyledStatus status={`${orderRequest.approval_by.length > 0 ? `Pending (${orderRequest.approval_by.length}/3)` : orderRequest.order_status}`} />
-
+        return <StyledStatus status={`${orderRequest.approval_by.length > 0 && orderRequest.order_status == "Pending" ? `Pending (${orderRequest.approval_by.length}/3)` : orderRequest.order_status}`} />
 
       case "actions":
         return (
@@ -100,7 +98,6 @@ const OrderRequestTable = ({ orderRequest }) => {
     }
   };
 
-
   return (
     <>
       <UpdateDepartmentModal
@@ -109,7 +106,6 @@ const OrderRequestTable = ({ orderRequest }) => {
         closeHandler={closeHandler}
         department={orderRequestInfo}
       />
-
 
       <Table
         headerLined

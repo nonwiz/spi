@@ -8,6 +8,7 @@ import { EditIcon } from "@/components/admin/icons/EditIcon";
 import UpdateDepartmentModal from "@/components/admin/UpdateDepartmentModal";
 import StyledStatus from "../StyledStatus";
 import { DeleteIcon } from "../icons/DeleteIcon";
+import OrderDetailModal from "../orderDetailModal";
 
 
 
@@ -26,6 +27,7 @@ const OrderRequestTable = ({ orderRequest }) => {
   const updateHandler = (orderRequest) => {
     setVisible(true);
     setOrderRequestt(orderRequest);
+    setType("delete_request")
   }
 
   const closeHandler = () => {
@@ -100,11 +102,11 @@ const OrderRequestTable = ({ orderRequest }) => {
 
   return (
     <>
-      <UpdateDepartmentModal
+      <OrderDetailModal
         type={type}
         visible={visible}
         closeHandler={closeHandler}
-        department={orderRequestInfo}
+        order={orderRequestInfo}
       />
 
       <Table

@@ -29,10 +29,10 @@ const ItemsListTable = ({items, locations}) => {
     const tmp = locations.find((ele) => ele.id == item)
     return <span> {zones[tmp.zone]}{tmp.room_number} </span>
   }
-  const detailHandler = (items) =>{
+  const detailHandler = (item) =>{
     setVisible(true);
     setType("view_details")
-    setOrderRequest(order)
+    setOrderRequest(item)
   }
 
   // const updateHandler = (order) => {

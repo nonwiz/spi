@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 
 // Create Document Component
 const PdfDocument = ({ props }) => {
-  console.log(props);
+  console.log({props});
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -35,7 +35,8 @@ const PdfDocument = ({ props }) => {
           <Text style={{ fontSize: "11" }}>Requisition Form</Text>
           <Text style={{ fontSize: "11" }}>Order Date: ___/___/___ When needed: ____/____/___</Text>
           <Text style={{ fontSize: "11" }}>Requesting Personnel _________ Depart ___________</Text>
-          <Text>Test</Text>
+          <Text>Test {props.order_request.order_items[0].description}</Text>
+            {props.order_request.order_items.map(item => <Text><span>{item.description}</span></Text>)}
         </View>
       </Page>
     </Document >)

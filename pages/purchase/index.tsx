@@ -56,7 +56,7 @@ export default function Page() {
       <div className="bg-rose-500">
         <h2 > PDF </h2>
         <PDFViewer>
-          <PdfDocument props={{ name: "Hesoyamyam", logo: "/assets/aiu_shield.png", order_items: ors[sItem] }} />
+          <PdfDocument props={{ name: "Hesoyamyam", logo: "/assets/aiu_shield.png", order_request: ors[sItem] }} />
         </PDFViewer>
       </div>
       <StatsCardsPurchase orders={data.orderRequests} purchases={data.orderRequests.filter((item) => item.order_status == "Approved")} />

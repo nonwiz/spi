@@ -70,7 +70,7 @@ enum OrderStatus {
   Canceled
 }
 
-enum Size {
+enum ItemSize {
   small
   medium
   large
@@ -168,7 +168,7 @@ model OrderType {
 model OrderItem {
   id               Int          @id @default(autoincrement())
   description      String
-  size             Size @default(other)
+  size             ItemSize @default(other)
   quotation String?
   purchasing_action String?
   quantity         Float?       @default(1.0)

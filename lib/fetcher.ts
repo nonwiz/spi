@@ -40,15 +40,18 @@ export const useFinance = () => {
   return getData("/api/finance");
 };
 
-
 export const useDepartmentHead = () => {
   return getData("/api/departmentHead");
 };
 
-
 export const useCustomer = () => {
   return getData("/api/customer");
 };
+
+export const useInfo = () => {
+  return getData("/api/info");
+};
+
 
 
 

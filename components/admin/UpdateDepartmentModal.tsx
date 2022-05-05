@@ -6,13 +6,13 @@ import { getFieldsValues, fetcher } from "lib/fetcher";
 import { useSWRConfig } from "swr";
 
 
-export default function UpdateDepartmentModal({type,visible, closeHandler, department}) {
+export default function UpdateDepartmentModal({type, visible, closeHandler, department}) {
 
   const { mutate } = useSWRConfig();
 
   const handleUpdateDepartment = async event => {
     event.preventDefault();
-    const formData = getFieldsValues(event, ["budget", "name"])
+    const formData = getFieldsValues(event, ["budget", "id"])
     fetcher("/api/admin/department/update", formData).then(d => {
       console.log(d)
       mutate("/api/admin")
@@ -22,7 +22,7 @@ export default function UpdateDepartmentModal({type,visible, closeHandler, depar
 
   const handleCreateDepartment = async event => {
     event.preventDefault();
-    const formData = getFieldsValues(event, ["id", "budget"])
+    const formData = getFieldsValues(event, ["name", "budget"])
     fetcher("/api/admin/department/create", formData).then(d => {
       console.log(d)
       mutate("/api/admin")

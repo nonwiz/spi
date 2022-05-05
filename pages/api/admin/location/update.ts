@@ -12,10 +12,19 @@ type Data = {
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     const reqSession = await getSession({req});
     if (reqSession && reqSession?.user?.role == "admin") {
-        const users = await prisma.user.findMany();
-        const departments = await prisma.department.findMany();
-        const locations = await prisma.location.findMany();
-        return res.status(200).json({  users, departments, locations })
+   const {id, floor, room_number, description, zone } = req.body;
+    const location = await prisma.location.update({
+      where: {
+        id: Number(id)
+      },
+      data: {
+        floor: Number(floor),
+        room_number: room_number,
+        description,
+        zone
+      }
+    })
+     return res.status(200).json({  location })
     }
     res.status(500).json({error: "not authorized"})
 }

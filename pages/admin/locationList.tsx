@@ -19,7 +19,6 @@ export default function locationList() {
   const handler = () =>{
     setVisible(true);
     setType("create_location");
-    closeHandler();
   }
 
   const closeHandler = () => {

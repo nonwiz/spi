@@ -22,7 +22,7 @@ const ItemListTable = ({items}) => {
     setItemInfo(item);
     setType("view_details")
   }
-
+  console.log(items, "lollll")
   const closeHandler = () => {
     setVisible(false);
     setItemInfo([])

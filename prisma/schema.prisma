@@ -70,6 +70,26 @@ enum OrderStatus {
   Canceled
 }
 
+enum ItemSize {
+  small
+  medium
+  large
+  extra_large
+  other
+}
+
+enum QuantityUnit {
+  kilogram
+  gram
+  litre 
+  square_meter
+  cubic_meter
+  meter
+  pound
+  inches
+  other
+}
+
 model User {
   id             String         @id @default(cuid())
   name           String?
@@ -148,10 +168,14 @@ model OrderType {
 model OrderItem {
   id               Int          @id @default(autoincrement())
   description      String
-  size             String?
+  size             ItemSize @default(other)
+  quotation String?
+  purchasing_action String?
   quantity         Float?       @default(1.0)
+  quantity_unit QuantityUnit? @default(other)
   unit_price       Float?
-  amount           Float?
+  vat Float?
+  total_price           Float?
   type             String
   picture          String?
   link_reference   String?
@@ -182,6 +206,7 @@ model Item {
   description                String?
   price                      Float?
   order_date                 DateTime?
+  isAsset Boolean @default(false)
   depreciation               DateTime?
   type                       String?
   quantity                   Float?

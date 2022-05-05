@@ -19,3 +19,47 @@
 ## Updates
 - March 21: view / update user role, crud location, department
 -
+
+## To check over
+- When user logged like department dean can see the threshold or near the depreciatoin of the items
+- Good for dean to check
+- Check for data or records to make sense.
+
+### Order Request
+- Order Item's size: make it predefined instead  - make it optional (*optional) on the front end
+- Change Amount => Total, 
+-[x] Size maybe add unit as well.
+-[x]  Writing the order for other user. // Maybe add user email -- Create request for another department. // Write another function for ordering for. For which department / 
+- Calculate at quantity and unit price amount // ask about vat, (vat * unit_price * quantity) 
+- Add Vat field 7% for each item.
+- Consult with miss ampavan and soupanya
+- Sort from new to old
+- Creating Moving Request => Relocate Inventory
+- Accordation state when open / close
+- Quotatoin is purchasing receipt or official statement form the company
+- Pending  // switch the position
+- [x] Purchase, can see without department head approve or not yet?  // Make another layer of filter unless it is approved by department head first
+- Finance can assign the role of user. Controller is the one that approve 
+- Send an email of comment
+- Finance Year - August 01 - July 31 
+- Listing of items can have another table that depreciatoin items almost.able
+- List of assets - depreciation : who set it?
+
+- List items - consumable - no depreciation
+- Purchase items vs Purchase assets
+- Lesser important vs important (u don't wanna to get clutter by items)
+- Createa a button to clear 
+- Sign up styling
+- Display department budget
+- time frame payment
+- Add name upon sign 
+
+
+### Wishlist
+- Quotation - file uploading (x2 or x3)
+- Quotation > Invoice > Receipt
+
+
+### Emphasis - Learn
+Passwordless logged in
+

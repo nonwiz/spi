@@ -1,13 +1,13 @@
 import { styled } from '@nextui-org/react';
 
 const StyledStatus = ({status}) => {
-
-   if (status && status.includes("Pending (1/3)")) {
-     return <p className='bg-green-300 text-md w-[50%] text-center rounded-lg'>Approved</p>
+   console.log(status)
+   if (status && status.toLowerCase() == ("approved")) {
+     return <p className='bg-green-300 text-md w-full lg:w-[90%] xl:w-[60%] px-4 text-center rounded-lg'>{status}</p>
    } else if (status && status.toLowerCase().includes("pending")) {
-      return <p className='bg-yellow-300 text-md w-[50%] text-center rounded-lg'>{status}</p>
+      return <p className='bg-yellow-300 text-md w-full lg:w-[90%] xl:w-[60%] px-4 text-center rounded-lg'>{status}</p>
    }else{
-      return <p className='bg-red-300 text-md w-[50%] text-center rounded-lg'>{status}</p>
+      return <p className='bg-red-300 text-md w-full lg:w-[90%] xl:w-[60%] px-4 text-center rounded-lg'>{status}</p>
    }
   
 }

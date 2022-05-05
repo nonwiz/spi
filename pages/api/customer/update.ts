@@ -14,8 +14,19 @@ type Data = {
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const reqSession = await getSession({ req });
   if (reqSession) {
-    const user = await prisma.user.findUnique({
-      where: { email: reqSession.user.email }, include: {
+    const {name, department, location} = req.body;
+    const user = await prisma.user.update({
+      where: { email: reqSession.user.email }, 
+      data: {
+        name,
+        department: {
+          connect: {id: Number(department)}
+        },
+        location: {
+          connect: {id: Number(location)}
+        }
+      },
+      include: {
         department: true,
         location: {
           include: {

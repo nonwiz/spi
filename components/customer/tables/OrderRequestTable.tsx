@@ -8,6 +8,7 @@ import { EditIcon } from "@/components/admin/icons/EditIcon";
 import UpdateDepartmentModal from "@/components/admin/UpdateDepartmentModal";
 import StyledStatus from "../StyledStatus";
 import { DeleteIcon } from "../icons/DeleteIcon";
+import OrderDetailModal from "../orderDetailModal";
 
 
 
@@ -26,6 +27,7 @@ const OrderRequestTable = ({ orderRequest }) => {
   const updateHandler = (orderRequest) => {
     setVisible(true);
     setOrderRequestt(orderRequest);
+    setType("delete_request")
   }
 
   const closeHandler = () => {
@@ -61,7 +63,6 @@ const OrderRequestTable = ({ orderRequest }) => {
     const cellValue = orderRequest[columnKey];
 
     switch (columnKey) {
-
       case "id":
         return <p className="text-lg ">{orderRequest.id}</p>;
       case "order_description":
@@ -73,8 +74,7 @@ const OrderRequestTable = ({ orderRequest }) => {
       case "order_date":
         return <p className="text-lg ">{orderRequest.order_date}</p>;
       case "order_status":
-        return <StyledStatus status={`${orderRequest.approval_by.length > 0 ? `Pending (${orderRequest.approval_by.length}/3)` : orderRequest.order_status}`} />
-
+        return <StyledStatus status={`${orderRequest.approval_by.length > 0 && orderRequest.order_status == "Pending" ? `Pending (${orderRequest.approval_by.length}/3)` : orderRequest.order_status}`} />
 
       case "actions":
         return (
@@ -100,16 +100,14 @@ const OrderRequestTable = ({ orderRequest }) => {
     }
   };
 
-
   return (
     <>
-      <UpdateDepartmentModal
+      <OrderDetailModal
         type={type}
         visible={visible}
         closeHandler={closeHandler}
-        department={orderRequestInfo}
+        order={orderRequestInfo}
       />
-
 
       <Table
         headerLined

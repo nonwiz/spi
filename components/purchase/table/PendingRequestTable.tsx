@@ -77,7 +77,7 @@ const PendingRequestTable = ({orderRequest, email, pageType}) => {
           case "order_date":
               return <p className="text-lg ">{orderRequest.order_date}</p>;
           case "order_status":
-             return <StyledStatus status={orderRequest.order_status} />
+            return <StyledStatus status={`${orderRequest.approval_by.length > 0 && orderRequest.order_status == "Pending"? `Pending (${orderRequest.approval_by.length}/3)` : orderRequest.order_status}`} />
        
 
           case "actions":

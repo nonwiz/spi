@@ -2,6 +2,7 @@ import CreateOrderReq from "@/components/customer/createOrderReqModal";
 import FormCreateOrderRequest from "@/components/customer/createOrderRequest";
 import OrderRequestTable from "@/components/customer/tables/OrderRequestTable";
 import { EmptyState } from "@/components/EmptyState";
+import LoadingIcon from "@/components/loadingIcon";
 
 import { useCustomer } from "lib/fetcher";
 import { useSession } from "next-auth/react";
@@ -12,7 +13,7 @@ export default function Page() {
   const { data, isLoading } = useCustomer();
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState("none");
-  if (isLoading) return <p> Loading ... </p>
+  if (isLoading) return  <LoadingIcon />
 
   const createOrder = () =>{
     setVisible(true);
@@ -36,9 +37,9 @@ export default function Page() {
 
       <div className=" rounded-lg ">
           <h2>Recent order Request</h2>
-          {(data.user.order_requests)
+          {(data.user.order_requests && data.user.order_requests?.length>0)
             ?<OrderRequestTable orderRequest={data.user.order_requests} /> 
-            :<EmptyState msg={"You don't have any order request"} />}
+            :<EmptyState msg={"You don't have any pending request"} />}
       </div>
   
       <div className="p-4">

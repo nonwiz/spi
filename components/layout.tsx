@@ -15,10 +15,10 @@ export default function Layout({ children }: Props) {
   const { data, isLoading } = useCustomer();
   const router = useRouter()
   
-  if (!data?.user) {
+  if (!isLoading && !data?.user) {
     return <SignIn />
   }
-  return (
+return (
     <>
       <Header />
       <main>

@@ -5,37 +5,37 @@ import { IconButton } from "@/components/admin/icons/IconButton";
 import { EyeIcon } from "@/components/admin/icons/EyeIcon";
 import { EditIcon } from "@/components/admin/icons/EditIcon";
 import { DeleteIcon } from "@/components/admin/icons/DeleteIcon";
-import UpdateDepartmentModal from "@/components/admin/UpdateDepartmentModal";
+import UpdateBuildingModal from "@/components/admin/UpdateBuildingModal";
 
 
 
-const DepartmentListTable = ({department}) => {
+const BuildingListTable = ({building}) => {
 
   const [visible, setVisible] = useState(false);
-  const [departmentInfo, setDepartment] = useState([]);
+  const [buildingInfo, setBuilding] = useState([]);
   const [type, setType] = useState("none");
   
-  const detailHandler = (department) =>{
+  const detailHandler = (building) =>{
     setVisible(true);
-    setDepartment(department);
+    setBuilding(building);
     setType("view_details")
   }
 
-  const updateHandler = (department) => {
+  const updateHandler = (building) => {
     setVisible(true);
-    setDepartment(department);
+    setBuilding(building);
   }
 
   const closeHandler = () => {
     setVisible(false);
-    setDepartment([])
+    setBuilding([])
     setType("none")
   };
 
-  const getDeanName = (department, dean_id) =>{
+  const getDeanName = (building, dean_id) =>{
 
-      if(department?.users?.length >0 ){
-        const dean_info = department.users.filter(user => user.id == dean_id)
+      if(building?.users?.length >0 ){
+        const dean_info = building.users.filter(user => user.id == dean_id)
         if(dean_info.length != 0){
             return (dean_info.at(0).name)
         }
@@ -46,42 +46,42 @@ const DepartmentListTable = ({department}) => {
   }
     const columns = [
         { name: "#", uid: "id" },
-        { name: "DEPARTMENT NAME", uid: "name" },
-        { name: "DEPARTMENT DEAN", uid: "dean" },
-        { name: "DEPARTMENT BUDGET", uid: "budget" },
+        { name: "building NAME", uid: "name" },
+        { name: "building DEAN", uid: "dean" },
+        { name: "building BUDGET", uid: "budget" },
         { name: "ACTIONS", uid: "actions" },
       ];
       
-      const renderCell = (department, columnKey) => {
-        const cellValue = department[columnKey];
+      const renderCell = (building, columnKey) => {
+        const cellValue = building[columnKey];
 
         switch (columnKey) {
 
           case "id":
-              return <p className="text-lg ">{department.id}</p>;
+              return <p className="text-lg ">{building.id}</p>;
 
           case "name":
-            return <p className="text-lg md:mr-8">{department.name}</p>;
+            return <p className="text-lg md:mr-8">{building.name}</p>;
           
           case "dean":
-            return <p className="text-lg md:mr-8">{getDeanName(department, department.current_dean_user_id)}</p>;
+            return <p className="text-lg md:mr-8">{getDeanName(building, building.current_dean_user_id)}</p>;
 
           case "budget":
-            return <p className="text-lg md:mr-8">{department.budget}</p>;
+            return <p className="text-lg md:mr-8">{building.budget}</p>;
 
           case "actions":
             return (
               <Row justify="center" align="center">
               <Col css={{ d: "flex" }}>
                 <Tooltip content="View Details">
-                  <IconButton value={department} onClick={() => detailHandler(department)}>
+                  <IconButton value={building} onClick={() => detailHandler(building)}>
                     <EyeIcon size={20} fill="#979797" />
                   </IconButton>
                 </Tooltip>
               </Col>
               <Col css={{ d: "flex" }}>
-                <Tooltip content="Edit Department">
-                  <IconButton onClick={() => updateHandler(department)}>
+                <Tooltip content="Edit Building">
+                  <IconButton onClick={() => updateHandler(building)}>
                     <EditIcon size={20} fill="#979797" />
                   </IconButton>
                 </Tooltip>
@@ -96,11 +96,11 @@ const DepartmentListTable = ({department}) => {
 
     return ( 
       <>
-          <UpdateDepartmentModal
+          <UpdateBuildingModal
           type={type}
           visible={visible} 
           closeHandler={closeHandler} 
-          department={departmentInfo} 
+          building={buildingInfo} 
           />
 
          
@@ -130,7 +130,7 @@ const DepartmentListTable = ({department}) => {
                 </Table.Column>
               )}
             </Table.Header>
-            <Table.Body items={department}> 
+            <Table.Body items={building}> 
               {(item) => (
                 <Table.Row >
                   {(columnKey) => (
@@ -153,4 +153,4 @@ const DepartmentListTable = ({department}) => {
      );
 }
  
-export default DepartmentListTable;
+export default BuildingListTable;

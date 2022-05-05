@@ -5,13 +5,14 @@ import { EmptyState } from "@/components/EmptyState";
 import ItemsListTable from "@/components/inventory/tables/ItemsListTable";
 import SearchBox from "@/components/admin/SearchBox";
 import LocationListTable from "@/components/inventory/tables/LocationListTable";
+import LoadingIcon from "@/components/loadingIcon";
 
 export default function LocationList() {
   const { data: session } = useSession();
   const { data, isLoading } = useInventory();
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState("none");
-  if (isLoading) return <p> Loading ... </p>
+  if (isLoading) return  <LoadingIcon />
   const createOrder = () =>{
     setVisible(true);
   }

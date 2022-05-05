@@ -2,12 +2,13 @@ import { useAdmin } from "lib/fetcher";
 import { useSession } from "next-auth/react";
 import UserListTable from "@/components/admin/tables/UserListTable";
 import SearchBox from "@/components/admin/SearchBox";
+import LoadingIcon from "@/components/loadingIcon";
 
 export default function userList() {
   const { data: session } = useSession();
   const { data, isLoading } = useAdmin();
 
-  if (isLoading) return <p> Loading ... </p>
+  if (isLoading) return  <LoadingIcon />
   if (session?.user?.role != "admin") return <p> Unauthorized </p>
   return (
     <div>

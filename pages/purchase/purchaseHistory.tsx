@@ -1,3 +1,4 @@
+import LoadingIcon from "@/components/loadingIcon";
 import { usePurchase } from "lib/fetcher";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
@@ -8,7 +9,7 @@ export default function MyItems() {
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState("none");
 
-  if (isLoading) return <p> Loading ... </p>
+  if (isLoading) return  <LoadingIcon />
 
   // Order requests whose status is not pending 
   const ors = data.orderRequests.filter(item => item.order_status != "Pending")

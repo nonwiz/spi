@@ -7,6 +7,7 @@ import FormMoveUser from "@/components/inventory/moveUser"
 import StatsCardsInventory from "@/components/inventory/StatsCardsInventory"
 import { EmptyState } from "@/components/EmptyState"
 import ItemsListTable from "@/components/inventory/tables/ItemsListTable"
+import LoadingIcon from "@/components/loadingIcon"
 
 export default function Page() {
   const { data: session } = useSession()
@@ -18,7 +19,7 @@ export default function Page() {
     Science: "SB",
   }
 
-  if (isLoading) return <p> Loading ... </p>
+  if (isLoading) return  <LoadingIcon />
 
   console.log("sata",{ data })
 

@@ -6,6 +6,7 @@ import { fetcher } from "lib/fetcher"
 import { useSWRConfig } from "swr"
 import PendingRequestTable from "@/components/purchase/table/PendingRequestTable";
 import { EmptyState } from "@/components/EmptyState";
+import LoadingIcon from "@/components/loadingIcon";
 
 
 export default function Page() {
@@ -15,7 +16,7 @@ export default function Page() {
   const { mutate } = useSWRConfig()
   const [comment, setComment] = useState("");
 
-  if (isLoading) return <p> Loading ... </p>
+  if (isLoading) return  <LoadingIcon />
 
   const { orderRequests: ors } = data;
 

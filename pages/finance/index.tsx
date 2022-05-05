@@ -7,6 +7,7 @@ import { useSWRConfig } from "swr"
 import StatsCardsPurchase from "@/components/purchase/StatsCardsPurchase";
 import PendingRequestTable from "@/components/purchase/table/PendingRequestTable";
 import { EmptyState } from "@/components/EmptyState";
+import LoadingIcon from "@/components/loadingIcon";
 
 
 export default function Page() {
@@ -16,7 +17,7 @@ export default function Page() {
   const { mutate } = useSWRConfig()
   const [comment, setComment] = useState("");
 
-  if (isLoading) return <p> Loading ... </p>
+  if (isLoading) return  <LoadingIcon />
 
   const { orderRequests: ors } = data;
 
@@ -31,7 +32,7 @@ export default function Page() {
         <div className="rounded-lg ">
           <h2>Pending order Request</h2>
 
-        {(data.orderRequests)
+        {(data?.orderRequests && data.orderRequest?.length>0)
           ?
             <PendingRequestTable pageType={"finance"} email={data.user.email} orderRequest={data.orderRequests.filter((item) => item.order_status == "Pending")} />
           :

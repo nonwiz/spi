@@ -10,24 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-}
 
 model Session {
   id           String   @id @default(cuid())
@@ -96,11 +78,10 @@ model User {
   email          String?        @unique
   emailVerified  DateTime?
   image          String?
-  accounts       Account[]
   sessions       Session[]
   role           Role           @default(customer)
   department     Department?    @relation(fields: [department_id], references: [id])
-  location       Location?      @relation(fields: [location_id], references: [id])
+  location       Location[]  
   order_requests OrderRequest[]
   department_id  Int?
   location_id    Int?
@@ -114,9 +95,15 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+model Building {
+  id                      Int                  @id @default(autoincrement())
+  code  String?
+  name  String?
+}
+
 model Location {
   id                      Int                  @id @default(autoincrement())
-  zone                    Zone                 @default(New)
+  building  String?
   floor                   Int
   room_number             String
   description             String?
@@ -125,6 +112,7 @@ model Location {
   update_date             DateTime?            @default(now())
   items                   Item[]
   location_moving_request LocationMoveRequest?
+  short_code  String
 }
 
 model Department {
@@ -152,14 +140,6 @@ model ApprovalBy {
   role          String
 }
 
-model PurchasingAction {
-  id               Int          @id @default(autoincrement())
-  description      String?
-  status           Boolean      @default(false)
-  order_request    OrderRequest @relation(fields: [order_request_id], references: [id])
-  order_request_id Int          @unique
-}
-
 model OrderType {
   id   Int    @id @default(autoincrement())
   type String @db.VarChar(100)
@@ -171,6 +151,7 @@ model OrderItem {
   size             ItemSize @default(other)
   quotation String?
   purchasing_action String?
+  quotations String?
   quantity         Float?       @default(1.0)
   quantity_unit QuantityUnit? @default(other)
   unit_price       Float?
@@ -178,7 +159,6 @@ model OrderItem {
   total_price           Float?
   type             String
   picture          String?
-  link_reference   String?
   order_request    OrderRequest @relation(fields: [order_request_id], references: [id])
   order_request_id Int
 }
@@ -192,7 +172,8 @@ model OrderRequest {
   total_price     Float?
   vat             Float?
   order_date      DateTime?
-  action_number   PurchasingAction?
+  desired_date    DateTime?
+  action_number   String?
   order_items     OrderItem[]
   user            User              @relation(fields: [user_id], references: [id])
   user_id         String
@@ -215,6 +196,8 @@ model Item {
   location_id                Int
   target_location_request    LocationMoveRequest? @relation(fields: [target_location_request_id], references: [id])
   target_location_request_id Int?
+  code                       String?
+  action_number              String?
 }
 
 model LocationMoveRequest {
@@ -224,3 +207,18 @@ model LocationMoveRequest {
   target_location   Location @relation(fields: [location_id], references: [id])
   location_id       Int      @unique
 }
+
+enum CodeType {
+  department
+  employee
+  location
+  building
+  none
+}
+model CodeName {
+  id Int @id @default(autoincrement())
+  name String @unique
+  code  String @unique
+  codeType CodeType @default(none)
+}
+

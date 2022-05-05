@@ -2,6 +2,7 @@ import Layout from "../components/layout"
 import { useCustomer, useInfo } from "lib/fetcher";
 import FormUpdateProfile from "@/components/customer/updateProfile";
 import { useRouter } from "next/router";
+import LoadingIcon from "@/components/loadingIcon";
 
 
 export default function IndexPage() {
@@ -10,7 +11,7 @@ export default function IndexPage() {
 
   const router = useRouter();
 
-  if (isLoading) return "....";
+  if (isLoading) return  <LoadingIcon />
 
   if (!data.user?.name || !data.user?.department || !data.user?.location) {
     console.log("fill in basic detail first ")

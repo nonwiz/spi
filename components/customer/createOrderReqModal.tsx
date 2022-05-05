@@ -6,7 +6,7 @@ import { getFieldsValues, fetcher } from "lib/fetcher";
 import { useSWRConfig } from "swr";
 import { useState } from "react";
 
-
+// to fix: order request modal by default show two order item, it should show none
 export default function CreateOrderReq({type,visible, closeHandler, orderTypes}) {
 
   const { mutate } = useSWRConfig();
@@ -22,7 +22,7 @@ export default function CreateOrderReq({type,visible, closeHandler, orderTypes})
     }, [])
 
     const datas = [...flatItems, "purchase_reason"];
-    console.log({ datas })
+ 
     const formData = getFieldsValues(event, datas);
     const cleanData = {
       items: [],

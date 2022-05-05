@@ -58,8 +58,17 @@
 ### Wishlist
 - Quotation - file uploading (x2 or x3)
 - Quotation > Invoice > Receipt
+- request for someone else
+
+
 
 
 ### Emphasis - Learn
 Passwordless logged in
+
+
+### TO FIX
+- order request modal by default show two order item, it should show none
+- add empty states to tables
+
 

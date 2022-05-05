@@ -1,3 +1,4 @@
+import Loading from "@/components/loading";
 import { Grid, Input } from "@nextui-org/react";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
@@ -9,17 +10,24 @@ const SignIn = () => {
 
     const handleSignIn = async e => {
         e.preventDefault()
+        let user_input = e.target.querySelector(`[name=email]`).value;
+        if (user_input.length == 9) {
+            user_input += "@my.apiu.edu"
+        } else {
+            user_input += "@apiu.edu"
+        }
+        setEmail(user_input)
         try {
-        const { error } = await signIn('email', {
-            email,
-            redirect: false,
-            callbackUrl: `/`,
-            
-        });
+            const { error } = await signIn('email', {
+                email: user_input,
+                redirect: false,
+                callbackUrl: `/`,
+                
+            });
+            setShowConfirmation(true);
         if (error) {
             throw new Error(error);
         }
-        setShowConfirmation(true);
         } catch(error) {
             console.log(error)
         }
@@ -29,8 +37,10 @@ const SignIn = () => {
     return (
 
   <>
-        {showConfirmation && email 
+        {(showConfirmation) 
             ? <ConfirmEmail email={email} /> 
+            :(showConfirmation)? 
+                <Loading msg={"Please wait..."}/>
             :<div className="min-h-screen flex flex-col items-center justify-center px-4 py-6 bg-primary-color">
                 <form onSubmit={handleSignIn} className=" rounded-lg shadow-md bg-white px-4 py-6 sm:px-8 sm:py-8 space-y-6 w-60 md:w-96">
                     <div className="flex gap-6 flex-col">
@@ -50,8 +60,8 @@ const SignIn = () => {
                                 <Input bordered color="primary" 
                                     labelRight="@apiu.edu" 
                                     placeholder="dan"
-                                    onChange={e => setEmail(e.target.value)} 
                                     className="mt-2 w-full"
+                                    name="email"
                                 />
                   
                                 <button

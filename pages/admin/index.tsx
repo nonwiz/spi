@@ -12,13 +12,14 @@ import PageHeader from "@/components/pageHeader";
 import UserListTable from "@/components/admin/tables/UserListTable";
 import StatsCards from "@/components/admin/StatsCards";
 import { EmptyState } from "@/components/EmptyState";
+import LoadingIcon from "@/components/loadingIcon";
 
 
 export default function Page() {
   const { data: session } = useSession();
   const { data, isLoading } = useAdmin();
 
-  if (isLoading) return <p> Loading ... </p>
+  if (isLoading) return  <LoadingIcon />
   if (session?.user?.role != "admin") return <p> Unauthorized </p>
 
    return (

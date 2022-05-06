@@ -18,19 +18,8 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
  
     const [departments, locations, orderTypes] = await prisma.$transaction([
         prisma.department.findMany({
-            select: {
-                id: true,
-                name: true,
-                current_dean_user_id: true
-            }
         }),
         prisma.location.findMany({
-            select: {
-                id: true,
-                zone: true,
-                floor: true,
-                room_number: true,
-            }
         }),
         prisma.orderType.findMany()
     ])

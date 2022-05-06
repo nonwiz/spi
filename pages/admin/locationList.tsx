@@ -5,6 +5,7 @@ import LocationListTable from "@/components/admin/tables/LocationListTable";
 import SearchBox from "@/components/admin/SearchBox";
 import UpdateLocationModal from "@/components/admin/UpdateLocationModal";
 import LoadingIcon from "@/components/loadingIcon";
+import { EmptyState } from "@/components/EmptyState";
 
 
 export default function locationList() {
@@ -42,10 +43,12 @@ export default function locationList() {
 
        </div>
       <div className="">
-        {/* <h2>List of Users</h2> */}
        
-          { data?.locations && data?.zones && <LocationListTable location={data.locations} zones={data.zones} />  }
-       
+        {(data?.locations && data?.zones && data.locations?.length >0)
+          ?
+          <LocationListTable location={data.locations} zones={data.zones} />
+          :
+            <EmptyState msg={"No locations were added"} />}
         </div>
     </div>
   );

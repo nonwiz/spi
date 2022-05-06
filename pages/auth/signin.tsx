@@ -9,22 +9,23 @@ const SignIn = () => {
     const [showConfirmation, setShowConfirmation] = useState(false);
 
     const handleSignIn = async e => {
-        e.preventDefault()
         let user_input = e.target.querySelector(`[name=email]`).value;
         if (user_input.length == 9) {
             user_input += "@my.apiu.edu"
         } else {
             user_input += "@apiu.edu"
         }
-        setEmail(user_input)
+        
         try {
+            setShowConfirmation(true);
             const { error } = await signIn('email', {
                 email: user_input,
                 redirect: false,
                 callbackUrl: `/`,
                 
             });
-            setShowConfirmation(true);
+    
+            setEmail(user_input)
         if (error) {
             throw new Error(error);
         }
@@ -37,7 +38,7 @@ const SignIn = () => {
     return (
 
   <>
-        {(showConfirmation) 
+        {(showConfirmation && email) 
             ? <ConfirmEmail email={email} /> 
             :(showConfirmation)? 
                 <Loading msg={"Please wait..."}/>

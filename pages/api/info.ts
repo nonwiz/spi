@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
 import { prisma } from "db"
-import { Role, Zone, ItemSize, QuantityUnit } from "@prisma/client";
+import { Role, ItemSize, QuantityUnit } from "@prisma/client";
 
 type Data = {
   departments?: object[],
@@ -23,14 +23,13 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         }),
         prisma.orderType.findMany()
     ])
+    console.log(Zone)
     const data = {
         departments, 
         locations, 
         orderTypes, 
-        zones: Object.keys(Zone), 
-        roles: Object.keys(Role), 
-        itemSizes: Object.keys(ItemSize), 
-        quantityUnits: Object.keys(QuantityUnit)}
+
+    }
     return res.status(200).json(data);
 }
 

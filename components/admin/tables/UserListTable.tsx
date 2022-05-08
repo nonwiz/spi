@@ -45,7 +45,7 @@ const UserListTable = ({users, roles}) => {
         const cellValue = user[columnKey];
         switch (columnKey) {
           case "name":
-            return <User squared  src="https://i.pravatar.cc/150?u=a04258114e29026702d" name={cellValue} className="text-sm capitalize text-wrap">
+            return <User name={cellValue} className="text-sm capitalize text-wrap">
               <span className="text-gray-500 font-semibold">{user.email}</span>
              </User>;
 
@@ -59,7 +59,7 @@ const UserListTable = ({users, roles}) => {
             return <p className="text-lg md:mr-8">{user.department ? user.department.name : "Not assigned"}</p>;
 
           case "location":
-            return <p className="text-lg md:mr-8">{user.location ? `${user.location.zone} ${user.location.room_number}` : "Not assigned"}</p>;
+            return <p className="text-lg md:mr-8">{user.location ? `${user.location.short_code}` : "Not assigned"}</p>;
 
           case "actions":
             return (

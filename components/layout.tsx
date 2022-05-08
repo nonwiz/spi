@@ -17,7 +17,6 @@ export default function Layout({ children }: Props) {
   if (!isLoading && !data?.user) {
     return <SignIn />
   }
-  console.log(data?.user, "hi")
   if (!data?.user?.name || !data?.user?.department || !data?.user?.location) {
     return <div>{children}</div>
   }

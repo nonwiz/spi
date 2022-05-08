@@ -17,9 +17,7 @@ export default function userList() {
       <SearchBox />
        </div>
       <div className="">
-        {/* <h2>List of Users</h2> */}
         {data?.users && data?.roles && <UserListTable users={data.users} roles={data.roles} />}
-
         </div>
     </div>
   );

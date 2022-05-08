@@ -1,4 +1,4 @@
-import { useAdmin } from "lib/fetcher";
+import { useAdmin, useInfo } from "lib/fetcher";
 import { useSession } from "next-auth/react";
 import { useState } from 'react'
 import LocationListTable from "@/components/admin/tables/LocationListTable";
@@ -11,10 +11,11 @@ import { EmptyState } from "@/components/EmptyState";
 export default function locationList() {
   const { data: session } = useSession();
   const { data, isLoading } = useAdmin();
+  const { data: info, isLoading: infoLoading } = useInfo();
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState("none");
 
-  if (isLoading) return  <LoadingIcon />
+  if (isLoading || infoLoading) return  <LoadingIcon />
   if (session?.user?.role != "admin") return <p> Unauthorized </p>
   
   
@@ -44,9 +45,9 @@ export default function locationList() {
        </div>
       <div className="">
        
-        {(data?.locations && data?.zones && data.locations?.length >0)
+        {(info?.locations && info.locations?.length >0)
           ?
-          <LocationListTable location={data.locations} zones={data.zones} />
+          <LocationListTable location={info.locations}  />
           :
             <EmptyState msg={"No locations were added"} />}
         </div>

@@ -106,8 +106,8 @@ model Department {
   name                 String @unique
   users                User[]
   locations       Location[]
-  budget               Float
-  current_dean_user_id String?
+  budget               Float?
+  dean_email String?
 }
 
 model CommentBy {
@@ -145,7 +145,6 @@ model OrderItem {
   vat Float?
   total_price           Float?
   type             String
-  picture          String?
   order_request    OrderRequest @relation(fields: [order_request_id], references: [id])
   order_request_id Int
 }
@@ -208,5 +207,8 @@ model Log {
   id Int @id @default(autoincrement())
   model String
   message String
+  operation String
+  user String
+  timestamp DateTime @default(now())
 }
 

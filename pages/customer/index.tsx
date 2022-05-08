@@ -39,12 +39,12 @@ export default function Page() {
           <h2>Recent order Request</h2>
           {(data.user?.order_requests && data.user?.order_requests?.length>0)
             ?<OrderRequestTable orderRequest={data.user.order_requests} /> 
-            :<EmptyState msg={"You don't have any pending request"} />}
+            :<EmptyState msg={"You don't have order requests"} />}
       </div>
   
       <div className="p-4">
         <h2> Personal Information </h2>
-        <li> {data.user?.name} | {data.user?.location ? `${data.user?.location.zone} ${data.user?.location.room_number}` : "Not assigned"} | {data.user?.department && data.user?.department.name}</li>
+        <li> {data.user?.name} | {data.user?.location ? `${data.user?.location.short_code}` : "Not assigned"} | {data.user?.department && data.user?.department.name}</li>
       </div>
       </>
 

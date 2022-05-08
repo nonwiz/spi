@@ -23,7 +23,6 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         }),
         prisma.orderType.findMany()
     ])
-    console.log(Zone)
     const data = {
         departments, 
         locations, 

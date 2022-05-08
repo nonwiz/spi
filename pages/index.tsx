@@ -3,6 +3,7 @@ import { useCustomer, useInfo } from "lib/fetcher";
 
 import LoadingIcon from "@/components/loadingIcon";
 import FormUpdateProfile from "@/components/customer/updateProfile";
+import UpdateProfile from "@/components/UpdateProfile";
 
 
 export default function IndexPage() {
@@ -15,7 +16,7 @@ export default function IndexPage() {
 
   if (!data.user?.name || !data.user?.department || !data.user?.location) {
     console.log("fill in basic detail first ")
-    return <FormUpdateProfile locations={data?.locations} departments={data?.departments} name=" "/>
+    return <UpdateProfile locations={data?.locations} departments={data?.departments} name=" "/>
   }
   return "Redirecting... to ur role"
 

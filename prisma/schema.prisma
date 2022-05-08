@@ -19,12 +19,6 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model GeneralInfo {
-  id               Int          @id @default(autoincrement())
-  name          String
-  type  String 
-}
-
 enum Role {
   customer
   department_head
@@ -33,27 +27,16 @@ enum Role {
   admin
 }
 
-enum Zone {
-  Administration
-  Science
-  Information_Technology
-  Elijah_hall
-  Solomon_hall
-  Sarah_hall
-  Ester_hall
-  Ruth_hall
-  Eve_hall
-  Student_Administration
-  Marriage_Student
-  Faculty_housing
-  Guestroom
-  Hope_Channel
-  New
+model GeneralInfo {
+  id Int @id @default(autoincrement())
+  name String @unique
+  type  String
 }
 
 enum OrderStatus {
   Pending
   Approved
+  Purchased
   Rejected
   Canceled
 }
@@ -87,7 +70,7 @@ model User {
   sessions       Session[]
   role           Role           @default(customer)
   department     Department?    @relation(fields: [department_id], references: [id])
-  location       Location[]  
+  location       Location?      @relation(fields: [location_id], references: [id])
   order_requests OrderRequest[]
   department_id  Int?
   location_id    Int?
@@ -101,11 +84,6 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model Building {
-  id                      Int                  @id @default(autoincrement())
-  code  String?
-  name  String?
-}
 
 model Location {
   id                      Int                  @id @default(autoincrement())
@@ -119,12 +97,15 @@ model Location {
   items                   Item[]
   location_moving_request LocationMoveRequest?
   short_code  String
+  department Department? @relation(fields: [department_id], references: [id])
+  department_id Int?
 }
 
 model Department {
   id                   Int     @id @default(autoincrement())
   name                 String
   users                User[]
+  locations       Location[]
   budget               Float
   current_dean_user_id String?
 }
@@ -199,6 +180,7 @@ model Item {
   quantity                   Float?
   quantity_unit              String?              @db.VarChar(10)
   location                   Location             @relation(fields: [location_id], references: [id])
+
   location_id                Int
   target_location_request    LocationMoveRequest? @relation(fields: [target_location_request_id], references: [id])
   target_location_request_id Int?
@@ -214,17 +196,17 @@ model LocationMoveRequest {
   location_id       Int      @unique
 }
 
-enum CodeType {
-  department
-  employee
-  location
-  building
-  none
-}
+
 model CodeName {
   id Int @id @default(autoincrement())
   name String @unique
   code  String @unique
-  codeType CodeType @default(none)
+  codeType String
+}
+
+model Log {
+  id Int @id @default(autoincrement())
+  model String
+  message String
 }
 

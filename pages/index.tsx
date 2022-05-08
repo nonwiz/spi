@@ -15,8 +15,7 @@ export default function IndexPage() {
   if (isLoading) return  <LoadingIcon />
 
   if (!data.user?.name || !data.user?.department || !data.user?.location) {
-    console.log("fill in basic detail first ")
-    return <UpdateProfile locations={data?.locations} departments={data?.departments} name=" "/>
+    return <UpdateProfile locations={info?.locations} departments={info?.departments}/>
   }
   return "Redirecting... to ur role"
 

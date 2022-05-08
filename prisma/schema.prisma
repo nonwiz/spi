@@ -103,7 +103,7 @@ model Location {
 
 model Department {
   id                   Int     @id @default(autoincrement())
-  name                 String
+  name                 String @unique
   users                User[]
   locations       Location[]
   budget               Float

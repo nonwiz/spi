@@ -16,18 +16,24 @@ type Data = {
 
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
  
-    const [departments, locations, orderTypes] = await prisma.$transaction([
+    const [departments, locations, orderTypes, generalInfos] = await prisma.$transaction([
         prisma.department.findMany({
+            select: {
+                id: true,
+                name: true,
+            }
         }),
         prisma.location.findMany({
         }),
-        prisma.orderType.findMany()
+        prisma.orderType.findMany(),
+        prisma.generalInfo.findMany()
     ])
+    
     const data = {
         departments, 
         locations, 
         orderTypes, 
-
+        generalInfos
     }
     return res.status(200).json(data);
 }

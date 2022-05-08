@@ -192,7 +192,7 @@ const SideNav = () => {
                         <span>Account Settings</span>
                     </a>
                 </nav>:
-                ". . . . . ....Hi"
+                ""
                 
             }
 

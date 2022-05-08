@@ -5,15 +5,15 @@ import { EmptyState } from '@/components/EmptyState';
 import DateConvert from '@/components/dateConvert';
 import inventory from 'pages/api/inventory';
 import { getDefaultSettings } from 'http2';
+import LoadingIcon from '@/components/loadingIcon';
 
 const LocationDetails =() =>{
     const router = useRouter()
     const id = router.query.id;
     const { data, isLoading } = useInventory();
 
-    if (isLoading) {
-        return <Loading>Loading</Loading>;
-    }
+    if (isLoading) return  <LoadingIcon />
+    
     const loc = data.locations.filter(location => location.id == id )[0]
     console.log(loc)
     const zones = {

@@ -7,6 +7,7 @@ import FormMoveUser from "@/components/inventory/moveUser"
 import StatsCardsInventory from "@/components/inventory/StatsCardsInventory"
 import { EmptyState } from "@/components/EmptyState"
 import ItemsListTable from "@/components/inventory/tables/ItemsListTable"
+import LoadingIcon from "@/components/loadingIcon"
 
 export default function Page() {
   const { data: session } = useSession()
@@ -18,7 +19,7 @@ export default function Page() {
     Science: "SB",
   }
 
-  if (isLoading) return <p> Loading ... </p>
+  if (isLoading) return  <LoadingIcon />
 
   console.log("sata",{ data })
 
@@ -42,15 +43,15 @@ export default function Page() {
         <div className="rounded-lg ">
           <h2>Recently Added item </h2>
 
-        {(data.items)
+        {(data.items && data.items?.length >0)
           ?
             <ItemsListTable items={data.items} locations={data.locations} />
           :
-            <EmptyState msg={"No Pending Order Request"} />}
+            <EmptyState msg={"The Inventory is empty"} />}
         </div>
       </div>
 
-       <div className="p-4">
+       {/* <div className="p-4">
         <div className="p-2 my-4">
           <h1>Inventory Master </h1>
           <br />
@@ -117,7 +118,7 @@ export default function Page() {
 
 
         </div>
-      </div> 
+      </div>  */}
     </>
   )
 }

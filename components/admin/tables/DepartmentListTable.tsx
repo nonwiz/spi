@@ -34,7 +34,7 @@ const DepartmentListTable = ({department}) => {
 
   const getDeanName = (department, dean_id) =>{
 
-      if(department.users.length >0 ){
+      if(department?.users?.length >0 ){
         const dean_info = department.users.filter(user => user.id == dean_id)
         if(dean_info.length != 0){
             return (dean_info.at(0).name)
@@ -48,7 +48,6 @@ const DepartmentListTable = ({department}) => {
         { name: "#", uid: "id" },
         { name: "DEPARTMENT NAME", uid: "name" },
         { name: "DEPARTMENT DEAN", uid: "dean" },
-        { name: "DEPARTMENT BUDGET", uid: "budget" },
         { name: "ACTIONS", uid: "actions" },
       ];
       
@@ -64,10 +63,7 @@ const DepartmentListTable = ({department}) => {
             return <p className="text-lg md:mr-8">{department.name}</p>;
           
           case "dean":
-            return <p className="text-lg md:mr-8">{getDeanName(department, department.current_dean_user_id)}</p>;
-
-          case "budget":
-            return <p className="text-lg md:mr-8">{department.budget}</p>;
+            return <p className="text-lg md:mr-8">{department.dean_email ? department.dean_email : "Not Specified"}</p>;
 
           case "actions":
             return (

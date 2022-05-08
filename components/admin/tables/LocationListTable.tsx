@@ -35,10 +35,9 @@ const LocationListTable = ({location, zones}) => {
  
     const columns = [
         { name: "#", uid: "#" },
-        { name: "ZONE", uid: "zone" },
+        { name: "BUILDING", uid: "building" },
         { name: "FLOOR", uid: "floor" },
         { name: "ROOM NUMBER", uid: "room_number" },
-        { name: "TOTAL QUANTITY", uid: "total_quantity" },
         { name: "UPDATE DATE", uid: "update_date" },
         { name: "ACTIONS", uid: "actions" },
       ];
@@ -51,17 +50,14 @@ const LocationListTable = ({location, zones}) => {
           case "#":
               return <p className="text-lg ">{location.id}</p>;
 
-          case "zone":
-            return <p className="text-lg md:mr-8">{location.zone}</p>;
+          case "building":
+            return <p className="text-lg md:mr-8">{location.building}</p>;
           
           case "floor":
             return <p className="text-lg md:mr-8">{location.floor}</p>;
 
           case "room_number":
             return <p className="text-lg md:mr-8">{location.room_number}</p>;
-
-          case "total_quantity":
-            return <p className="text-lg md:mr-8">{location.total_quantity}</p>;
 
           case "update_date":
             return <p className="text-lg md:mr-8"><DateConvert date={location.update_date}/></p>;

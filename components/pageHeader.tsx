@@ -1,13 +1,13 @@
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from 'next/router'
+import { Popover, Button, Text } from "@nextui-org/react";
 
 const PageHeader = ({ page_name }:any) => {
   const { data: session } = useSession();
 
   const router = useRouter()
   const id = router.query.id;
-  const pattern = /[1-9]|[1-9][0-9]|[1-9][0-9][0-9]/
     let currentPage;
 
 
@@ -104,12 +104,15 @@ const PageHeader = ({ page_name }:any) => {
          
         }
 
-        <a className="inline-flex items-center px-4" href="#">
-            <svg className="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            <span className="ml-2 text-sm font-medium hidden sm:block">
-           {(session)?session.user.name:"user"}
-            </span>
-        </a>
+      
+                <a className="inline-flex items-center px-4" href="#">
+                    <svg className="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <span className="ml-2 text-sm font-medium hidden sm:block">{(session)?session.user.name:"user"}</span>
+                </a>
+            
+                {/* <Text onClick={()=>signOut()} css={{ p: "$10" }}>Sign Out</Text> */}
+           
+   
     </div>
  );
 }

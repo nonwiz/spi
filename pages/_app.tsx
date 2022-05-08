@@ -1,6 +1,7 @@
 import { SessionProvider } from "next-auth/react"
 import type { AppProps } from "next/app"
 import "/styles/globals.css"
+import "/styles/loaders.css"
 import { NextUIProvider } from '@nextui-org/react';
 import Layout from "@/components/layout";
 import router from "next/router";

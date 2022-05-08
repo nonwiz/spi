@@ -12,13 +12,14 @@ type Data = {
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     const reqSession = await getSession({req});
     if (reqSession && reqSession?.user?.role == "admin") {
-    const { id, budget } = req.body
+    const { id, dean_email, name  } = req.body
     const department = await prisma.department.update({
       where: {
         id: Number(id),
       },
       data: {
-        budget: Number(budget)
+        name,
+        dean_email
       }
     })
      return res.status(200).json({  department })

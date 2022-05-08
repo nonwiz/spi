@@ -1,18 +1,21 @@
-import { useAdmin } from "lib/fetcher";
+import { useAdmin, useInfo } from "lib/fetcher";
 import { useSession } from "next-auth/react";
 import { useState } from 'react'
 import LocationListTable from "@/components/admin/tables/LocationListTable";
 import SearchBox from "@/components/admin/SearchBox";
 import UpdateLocationModal from "@/components/admin/UpdateLocationModal";
+import LoadingIcon from "@/components/loadingIcon";
+import { EmptyState } from "@/components/EmptyState";
 
 
 export default function locationList() {
   const { data: session } = useSession();
   const { data, isLoading } = useAdmin();
+  const { data: info, isLoading: infoLoading } = useInfo();
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState("none");
 
-  if (isLoading) return <p> Loading ... </p>
+  if (isLoading || infoLoading) return  <LoadingIcon />
   if (session?.user?.role != "admin") return <p> Unauthorized </p>
   
   
@@ -33,7 +36,7 @@ export default function locationList() {
           visible={visible} 
           closeHandler={closeHandler} 
           location
-          zones={data.zones}/>
+          building={data.building}/>
           
        <div className="flex flex-row gap-12 my-6 ">
        <button onClick={handler} className="flex py-2 px-4 text-sm rounded-lg border border-primary-color gap-x-2.5 bg-primary-color text-white hover:shadow-lg hover:shadow-blue-700/20">Add New Location</button>
@@ -41,10 +44,12 @@ export default function locationList() {
 
        </div>
       <div className="">
-        {/* <h2>List of Users</h2> */}
        
-          { data?.locations && data?.zones && <LocationListTable location={data.locations} zones={data.zones} />  }
-       
+        {(info?.locations && info.locations?.length >0)
+          ?
+          <LocationListTable location={info.locations}  />
+          :
+            <EmptyState msg={"No locations were added"} />}
         </div>
     </div>
   );

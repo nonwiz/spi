@@ -1,6 +1,7 @@
 import CreateOrderReq from "@/components/customer/createOrderReqModal";
 import FormCreateOrderRequest from "@/components/customer/createOrderRequest";
 import OrderRequestTable from "@/components/customer/tables/OrderRequestTable";
+import LoadingIcon from "@/components/loadingIcon";
 import PendingRequestTable from "@/components/purchase/table/PendingRequestTable";
 
 import { usePurchase } from "lib/fetcher";
@@ -12,7 +13,7 @@ export default function OrderRequest() {
   const { data, isLoading } = usePurchase();
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState("none");
-  if (isLoading) return <p> Loading ... </p>
+  if (isLoading) return  <LoadingIcon />
 
   
   

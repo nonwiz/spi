@@ -26,21 +26,6 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
           connect: {id: Number(location)}
         }
       },
-      include: {
-        department: true,
-        location: {
-          include: {
-            items: true,
-          }
-        },
-        order_requests: {
-          include: {
-            order_items: true,
-            approval_by: true,
-            comment_by: true
-          }
-        },
-      }
     })
     const orderTypes = await prisma.orderType.findMany();
     return res.status(200).json({ user, orderTypes })

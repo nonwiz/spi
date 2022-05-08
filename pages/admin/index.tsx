@@ -12,20 +12,20 @@ import PageHeader from "@/components/pageHeader";
 import UserListTable from "@/components/admin/tables/UserListTable";
 import StatsCards from "@/components/admin/StatsCards";
 import { EmptyState } from "@/components/EmptyState";
+import LoadingIcon from "@/components/loadingIcon";
+import { useInfo } from "lib/fetcher";
 
 
 export default function Page() {
-  const { data: session } = useSession();
   const { data, isLoading } = useAdmin();
+  const { data: info, isLoading: infoLoading } = useInfo();
 
-  if (isLoading) return <p> Loading ... </p>
-  if (session?.user?.role != "admin") return <p> Unauthorized </p>
-
+  if (isLoading) return  <LoadingIcon />
    return (
 
     <>
       <div>
-          <StatsCards users={data.users} departments={data.departments} locations={data.locations} zones={data.zones} />
+          <StatsCards users={data.users} departments={info?.departments} locations={info?.locations} zones={data.zones} />
           <div className="flex flex-col lg:flex-row justify-between  mt-8 gap-8">
               <div className=" rounded-lg lg:w-2/3">
                 <h2>User Management</h2>

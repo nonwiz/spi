@@ -22,13 +22,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
             items: true,
           }
         },
-        order_requests: {
-          include: {
-            order_items: true,
-            approval_by: true,
-            comment_by: true
-          }
-        },
+        
       }
     })
     const orderTypes = await prisma.orderType.findMany();

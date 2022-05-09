@@ -57,7 +57,7 @@ const StatsCards = ( {departments, users, locations, zones} ) => {
                 </div>
 
                 <div className="flex items-center gap-6">
-                  <button type="button" disabled className="flex py-3 px-4 text-sm rounded-lg border text-gray-700 border-gray-700 gap-x-2.5 hover">Add New</button>
+                  <button type="button" disabled className="flex py-3 px-4 text-sm rounded-lg border text-gray-700 border-gray-700 gap-x-2.5">Add New</button>
                   <Link href="/admin/userList">
                   <button className="flex py-3 px-4 text-sm rounded-lg border border-primary-color gap-x-2.5 bg-primary-color text-white hover:shadow-lg hover:shadow-blue-700/20">View All</button>
                 </Link>

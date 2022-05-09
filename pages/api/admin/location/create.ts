@@ -9,7 +9,6 @@ type Data = {
 }
 
 
-
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const reqSession = await getSession({req});
   if (reqSession && reqSession?.user?.role == "admin") {

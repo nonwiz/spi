@@ -71,7 +71,6 @@ model User {
   role           Role           @default(customer)
   department     Department?    @relation(fields: [department_id], references: [id])
   location       Location?      @relation(fields: [location_id], references: [id])
-  order_requests OrderRequest[]
   department_id  Int?
   location_id    Int?
 }
@@ -95,6 +94,7 @@ model Location {
   total_quantity          Float?               @default(0)
   update_date             DateTime?            @default(now())
   items                   Item[]
+  order_requests    OrderRequest[]
   location_moving_request LocationMoveRequest?
   short_code  String
   department Department? @relation(fields: [department_id], references: [id])
@@ -135,10 +135,9 @@ model OrderType {
 model OrderItem {
   id               Int          @id @default(autoincrement())
   description      String
-  size             ItemSize @default(other)
+  size             String
   quotation String?
   purchasing_action String?
-  quotations String?
   quantity         Float?       @default(1.0)
   quantity_unit QuantityUnit? @default(other)
   unit_price       Float?
@@ -157,12 +156,12 @@ model OrderRequest {
   approval_by     ApprovalBy[]
   total_price     Float?
   vat             Float?
-  order_date      DateTime?
+  order_date      DateTime? @default(now())
   desired_date    DateTime?
   action_number   String?
   order_items     OrderItem[]
-  user            User              @relation(fields: [user_id], references: [id])
-  user_id         String
+  location            Location              @relation(fields: [location_id], references: [id])
+  location_id         Int
   remark          String?
   comment_by      CommentBy[]
 }

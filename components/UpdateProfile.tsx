@@ -26,7 +26,8 @@ const UpdateProfile= ({locations, departments}: {locations: string[], department
 
   useEffect(() => {
     console.log("change building")
-    setLocation(tmp);
+    const filterLocations = locations?.filter(loc => loc?.building == building)
+    setLocation(filterLocations);
   }, [building])
 
   return (

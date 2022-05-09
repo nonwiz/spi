@@ -2,7 +2,7 @@
 import { Modal, Button, Text, Input,  Radio, Spacer, Textarea  } from "@nextui-org/react";
 import { Mail } from "@/components/admin/icons/Mail";
 import { Password } from "@/components/admin/icons/Password";
-import { getFieldsValues, fetcher } from "lib/fetcher";
+import { getFieldsValues, fetcher, createLog } from "lib/fetcher";
 import { useSWRConfig } from "swr";
 import { useState } from "react";
 
@@ -27,6 +27,9 @@ export default function UpdateLocationModal({ type, visible, closeHandler, locat
       console.log(d)
       mutate("/api/info")
     })
+    createLog("Location", `Update location ${location.short_code}$`, "Update")
+
+
     closeHandler()
   }
 
@@ -42,6 +45,8 @@ export default function UpdateLocationModal({ type, visible, closeHandler, locat
       console.log(d)
       mutate("/api/info")
     })
+
+    createLog("Location", `Add new location ${formData.building}${formData.room_number}`, "Create")
 
   }
 

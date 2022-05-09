@@ -13,10 +13,10 @@ export default function IndexPage() {
   const router = useRouter()
 
   console.log(data, info)
-  if (isLoading) return  <LoadingIcon />
+  if (isLoading || infoLoading) return  <LoadingIcon />
 
-  if (!data.user?.name || !data.user?.department || !data.user?.location) {
-    return <UpdateProfile locations={info?.locations} departments={info?.departments}/>
+  if (!data?.user?.name || !data?.user?.department || !data?.user?.location) {
+    return <UpdateProfile locations={info?.locations} departments={info?.departments} />
   }
   
   router.push('/customer')

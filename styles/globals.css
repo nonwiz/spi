@@ -20,6 +20,9 @@ button, textarea {
   .primary-btn{
       @apply py-2 px-4 text-sm rounded-lg border border-primary-color gap-x-2.5 bg-primary-color text-white hover:shadow-lg hover:shadow-blue-700/20
   }
+  .secondary-btn{
+    @apply flex py-2 px-4 text-sm rounded-lg border text-gray-700 border-gray-700 gap-x-2.5 hover:shadow-lg hover:shadow-gray-700/20
+  }
 
   h2{
       @apply text-xl p-1 py-4 text-gray-700

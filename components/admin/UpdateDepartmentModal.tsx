@@ -9,7 +9,7 @@ import {
 } from "@nextui-org/react"
 import { Mail } from "@/components/admin/icons/Mail"
 import { Password } from "@/components/admin/icons/Password"
-import { getFieldsValues, fetcher } from "lib/fetcher"
+import { getFieldsValues, fetcher, createLog } from "lib/fetcher"
 import { useSWRConfig } from "swr"
 
 export default function UpdateDepartmentModal({
@@ -20,12 +20,6 @@ export default function UpdateDepartmentModal({
 }) {
   const { mutate } = useSWRConfig()
   console.log("DEPARTMENT", department)
-
-  const createLog = (model, message, operation) => {
-    fetcher("/api/common/log", { model, message, operation }).then((d) => {
-      console.log(d)
-    })
-  }
 
   const handleUpdateDepartment = async (event) => {
     event.preventDefault()
@@ -40,14 +34,14 @@ export default function UpdateDepartmentModal({
       if (formData.name != department?.name) {
         createLog(
           "Department",
-          `Updated from ${department?.name} to ${formData.name}`,
+          `Updated from name to ${formData.name}`,
           "Update"
         )
       }
       if (formData.dean_email != department?.dean_email) {
         createLog(
           "Department",
-          `Updated from ${department?.dean_email} to ${formData.dean_email}`,
+          `Updated from dean to ${formData.dean_email}`,
           "Update"
         )
       }
@@ -160,3 +154,7 @@ export default function UpdateDepartmentModal({
     </>
   )
 }
+function createLog(arg0: string, arg1: string, arg2: string) {
+  throw new Error("Function not implemented.")
+}
+

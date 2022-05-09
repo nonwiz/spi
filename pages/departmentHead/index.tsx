@@ -1,6 +1,6 @@
 import Layout from "@/components/layout"
-import { useDepartmentHead } from "lib/fetcher";
-import { useSession } from "next-auth/react";
+import { useDepartmentHead, useInfo } from "lib/fetcher";
+import { useSession  } from "next-auth/react";
 import { useState } from "react";
 import { fetcher } from "lib/fetcher"
 import { useSWRConfig } from "swr"
@@ -12,6 +12,7 @@ import LoadingIcon from "@/components/loadingIcon";
 export default function Page() {
   const { data: session } = useSession();
   const { data, isLoading } = useDepartmentHead();
+  const { data: info, isLoading: infoLoading} = useInfo();
   const [sItem, setSelected] = useState(0)
   const { mutate } = useSWRConfig()
   const [comment, setComment] = useState("");

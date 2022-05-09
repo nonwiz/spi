@@ -17,18 +17,7 @@ const LocationListTable = ({locations}) => {
   const [type, setType] = useState("none");
   const [orderReq, setOrderRequest] = useState({})
 
-  console.log("ello world", locations)
-  const zones = {
-    Information_Technology: "IT",
-    Administration: "AD",
-    Science: "SB",
-    Solomon_hall:"Solomon"
-  }
 
-  const returnRoom = (item) => {
-    const tmp = locations.find((ele) => ele.id == item)
-    return <span> {zones[tmp.zone]}{tmp.room_number} </span>
-  }
   const detailHandler = (locations) =>{
     setVisible(true);
     setType("view_details")
@@ -48,7 +37,7 @@ const LocationListTable = ({locations}) => {
     
   let columns = [
         { name: "#", uid: "id" },
-        { name: "ZONE", uid: "zone"},
+        { name: "BUILDING", uid: "building"},
         { name: "ROOM", uid: "room" },
         { name: "FLOOR", uid: "floor" },
         { name: "NUMBER of ITEMS", uid: "items" },
@@ -63,14 +52,14 @@ const LocationListTable = ({locations}) => {
 
           case "id":
               return <p className="text-lg ">{locations.id}</p>;
-          case "zone":
-            return <p className="text-lg ">{locations.zone}</p>;
+          case "building":
+            return <p className="text-lg ">{locations.building}</p>;
 
           case "floor":
             return <p className="text-lg ">{locations.floor}</p>;
 
           case "room":
-            return <p className="text-lg ">{zones[locations.zone]}{locations.room_number}</p>;
+            return <p className="text-lg ">{locations.room_number}</p>;
           case "items":
             return <p className="text-lg ">{(locations.items.length>0)?`Contains ${locations.items.length} item `: "No items"}</p>;
           case "description":

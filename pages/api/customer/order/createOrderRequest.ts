@@ -32,14 +32,18 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const orderReq = await prisma.orderRequest.create({
     data: {
       purchase_reason: fData.purchase_reason,
+      total_price: Number(fData.total_price),
+      action_number: fData.action_number,
+      remark: fData.remark,
+      desired_date: new Date(fData.desired_date),
       order_items: {
         createMany: {
           data: [...items]
         }
       },
-      user: {
+      location: {
         connect: {
-          email: reqSession.user.email,
+          id: location_id,
         }
       }
 

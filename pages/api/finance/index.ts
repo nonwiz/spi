@@ -27,12 +27,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       where: { email: reqSession.user.email }, include: {
         department: true,
         location: true,
-        order_requests: {
-          include: {
-            order_items: true,
-            approval_by: true,
-          }
-        },
+        
       }
     })
     const orderTypes = await prisma.orderType.findMany();

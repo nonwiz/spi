@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
 import { prisma } from "db"
-import { Role, Zone } from "@prisma/client";
+import { Role } from "@prisma/client";
 
 type Data = {
   user: object,
@@ -24,12 +24,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       where: { email: reqSession.user.email }, include: {
         department: true,
         location: true,
-        order_requests: {
-          include: {
-            order_items: true,
-            approval_by: true,
-          }
-        },
+       
       }
     })
     const allUsers = await prisma.user.findMany({});

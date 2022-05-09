@@ -10,7 +10,7 @@ const FormCreateOrderRequest = ({ orderTypes }: { orderTypes: object[] }) => {
 
   const [orderItem, setOrderItem] = useState([1, 1]);
 
-
+  
   const handleCreateOrderRequest = async event => {
     event.preventDefault();
     const items = orderItem.map((item, i) =>

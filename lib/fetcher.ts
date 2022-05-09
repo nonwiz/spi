@@ -52,6 +52,11 @@ export const useInfo = () => {
   return getData("/api/info");
 };
 
+export const useLog = () => {
+  return getData("/api/log");
+};
+
+
 
 
 
@@ -63,4 +68,10 @@ export const getFieldsValues = (event, fields) => {
   });
   return data;
 };
+
+export const createLog = (model, message, operation) => {
+    fetcher("/api/common/log", { model, message, operation }).then((d) => {
+      console.log(d)
+    })
+  }
 

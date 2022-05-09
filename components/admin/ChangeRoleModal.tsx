@@ -25,7 +25,6 @@ export default function ChangeRoleModal({visible, closeHandler, user, type, role
     <>
       <Modal
         closeButton
-        preventClose
         aria-labelledby="modal-title"
         open={visible}
         onClose={closeHandler}

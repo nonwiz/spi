@@ -36,6 +36,7 @@ export default function locationList() {
           visible={visible} 
           closeHandler={closeHandler} 
           location
+          buildings={info.buildings}
   />
           
        <div className="flex flex-row gap-12 my-6 items-center ">

@@ -4,41 +4,43 @@ import { Mail } from "@/components/admin/icons/Mail";
 import { Password } from "@/components/admin/icons/Password";
 import { getFieldsValues, fetcher } from "lib/fetcher";
 import { useSWRConfig } from "swr";
-import { useInfo } from "lib/fetcher";
 import { useState } from "react";
 
 
-export default function UpdateLocationModal({ type, visible, closeHandler, location }) {
+export default function UpdateLocationModal({ type, visible, closeHandler, location, buildings }) {
   console.log(type, visible)
-  const { data, isLoading } = useInfo();
   const { mutate } = useSWRConfig();
-  if (isLoading) 
-    return "Loading...";
- 
   const [other, setOther] = useState(false);
   const [building, setBuilding] = useState(location?.building)
 
- 
-  const buildings = data.buildings;
 
   const handleUpdateLocation = async event => {
     event.preventDefault();
-    const formData = getFieldsValues(event, ["floor", "description", "building", "room_number", "id"])
+    let formData = getFieldsValues(event, ["id", "floor", "description", "building", "room_number"])
+    if (other) {
+      const tmp = getFieldsValues(event, ["building1"])
+      formData.building = tmp.building1;
+    }
+
+
     fetcher("/api/admin/location/update", formData).then(d => {
       console.log(d)
-      mutate("/api/admin")
-      console.log("hi from somewhere")
+      mutate("/api/info")
     })
     closeHandler()
   }
 
   const handleCreateLocation = async event => {
     event.preventDefault();
-    const formData = getFieldsValues(event, ["floor", "description", "building", "room_number"])
+    let formData = getFieldsValues(event, ["floor", "description", "building", "room_number"])
+    if (other) {
+      const tmp = getFieldsValues(event, ["building1"])
+      formData.building = tmp.building1;
+    }
+
     fetcher("/api/admin/location/create", formData).then(d => {
       console.log(d)
-      mutate("/api/admin")
-      console.log("hi from somewhere", formData)
+      mutate("/api/info")
     })
 
   }
@@ -59,9 +61,10 @@ export default function UpdateLocationModal({ type, visible, closeHandler, locat
           <form onSubmit={(type == "create_location") ? handleCreateLocation : handleUpdateLocation} className="flex flex-col gap-4">
             {type != "create_location" && <input type="hidden" name="id" value={location?.id}/>}
             <div className=" xl:w-88">
-                <Text color="primary" className="mb-1">Building (click to change building)</Text>
+                <Text color="primary" className="mb-1">Building (Click to change building)</Text>
                   <select defaultValue={building} value={building} onChange={e => {e.target.value == "Other" ? setOther(true) : setOther(false); setBuilding(e.target.value)}} disabled={(type=="view_details")?true:false} name="building" className="form-select appearance-none block w-full p-2.5 px-5 text-base font-normal text-gray-700 border-2 rounded-2xl transition ease-in-out m-0
                   focus:text-gray-700 focus:bg-white focus:border-primary-color focus:outline-none" aria-label="building selection">
+                    <option>{location?.building ? location?.building : "Select Location"}</option>
                       {buildings && buildings.map((building, id) => <option key={id}>{building}</option>)}  
                       <option>Other</option>
                   </select>
@@ -71,11 +74,12 @@ export default function UpdateLocationModal({ type, visible, closeHandler, locat
                 color="primary" 
                 size="lg"
                 label="New Building"  
-                name="building"
+                name="building1"
                 type="text"
                 initialValue={"New building"}
               />
               }
+              
 
 
             <div className="flex gap-12">

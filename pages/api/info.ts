@@ -5,6 +5,7 @@ import { prisma } from "db"
 type Data = {
   departments?: object[]
   locations?: object[]
+  buildings?: string[]
   orderTypes?: object[]
   quantity_unit?: string[]
   order_status?: string[]
@@ -32,6 +33,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       prisma.orderType.findMany(),
       prisma.generalInfo.findMany(),
     ])
+  let buildings = Array.from(new Set(locations.map(loc => loc.building)));
   let gi = generalInfos.reduce((obj, item) => {
     if (!obj[item.type]) {
         obj[item.type] = [item.name]
@@ -41,6 +43,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const data = {
     departments,
     locations,
+    buildings,
     orderTypes,
     ...gi,
     message: "Info fetched successfully",

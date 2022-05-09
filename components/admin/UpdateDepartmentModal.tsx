@@ -40,14 +40,14 @@ export default function UpdateDepartmentModal({
       if (formData.name != department?.name) {
         createLog(
           "Department",
-          `Updated from ${department?.name} to ${formData.name}`,
+          `Updated from name to ${formData.name}`,
           "Update"
         )
       }
       if (formData.dean_email != department?.dean_email) {
         createLog(
           "Department",
-          `Updated from ${department?.dean_email} to ${formData.dean_email}`,
+          `Updated from dean to ${formData.dean_email}`,
           "Update"
         )
       }

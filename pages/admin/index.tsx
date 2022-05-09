@@ -1,33 +1,28 @@
 import Layout from "@/components/layout"
-import { useAdmin } from "lib/fetcher";
-import { useSession } from "next-auth/react";
+import { useAdmin, useLog,useInfo } from "lib/fetcher";
+import { EmptyState } from "@/components/EmptyState";
 
-import FormCreateLocation from "@/components/admin/createLocation";
-import FormCreateDepartment from "@/components/admin/createDepartment";
-import FormUpdateLocation from "@/components/admin/updateLocation";
-import FormUpdateDepartment from "@/components/admin/updateDepartment";
-import FormAddUserToDepartment from "@/components/admin/addUserToDepartment";
-import FormCreateOrderType from "@/components/admin/createOrderType";
-import PageHeader from "@/components/pageHeader";
 import UserListTable from "@/components/admin/tables/UserListTable";
 import StatsCards from "@/components/admin/StatsCards";
-import { EmptyState } from "@/components/EmptyState";
 import LoadingIcon from "@/components/loadingIcon";
-import { useInfo } from "lib/fetcher";
+import EventLog from "@/components/admin/EventLog";
+import Link from "next/link";
 
 
 export default function Page() {
   const { data, isLoading } = useAdmin();
   const { data: info, isLoading: infoLoading } = useInfo();
+  const { data: log, isLoading: logLoading } = useLog();
+  console.log(info,"hi")
 
-  if (isLoading) return  <LoadingIcon />
+  if (isLoading || infoLoading || logLoading) return  <LoadingIcon />
    return (
 
     <>
       <div>
           <StatsCards users={data.users} departments={info?.departments} locations={info?.locations} zones={data.zones} />
           <div className="flex flex-col lg:flex-row justify-between  mt-8 gap-8">
-              <div className=" rounded-lg lg:w-2/3">
+              <div className="rounded-lg lg:w-2/3">
                 <h2>User Management</h2>
                 {(data.users && data.roles)
                 ?<UserListTable users={data.users} roles={data.roles} />
@@ -35,8 +30,13 @@ export default function Page() {
               </div>
               
               <div className="lg:w-2/6">
-                <h2>Recently Activities</h2>
-                {/* <RecentActivities /> */}
+                <div className="flex justify-between items-center">
+                  <h2>Recent Activities (Event Log)</h2>
+                  <Link href="/admin/eventLogList">
+                  <button className="flex py-1 px-4 text-sm rounded-lg border border-gray-700 gap-x-2.5  text-gray-700 hover:shadow-lg 0">View All</button>
+                </Link>
+                </div>
+                <EventLog logs={log.logs}/>
               </div>
           </div>
       </div>

@@ -52,6 +52,11 @@ export const useInfo = () => {
   return getData("/api/info");
 };
 
+export const useLog = () => {
+  return getData("/api/log");
+};
+
+
 
 
 

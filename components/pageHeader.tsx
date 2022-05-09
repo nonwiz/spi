@@ -1,7 +1,7 @@
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from 'next/router'
-import { Popover, Button, Text } from "@nextui-org/react";
+
 
 const PageHeader = ({ page_name }:any) => {
   const { data: session } = useSession();
@@ -10,25 +10,29 @@ const PageHeader = ({ page_name }:any) => {
   const id = router.query.id;
     let currentPage;
 
+    //convert this into dictionary
 
     switch (router.pathname) {
-        case "/":
-            currentPage ="Home"
-            break;
-
+      
         case "/admin":
             currentPage ="Admin"
             break;
         case "/admin/customerList":
-            currentPage ="Users List"
+            currentPage ="Users / List"
             break;
         case "/admin/departmentList":
-            currentPage ="Department List"
+            currentPage ="Department / List"
+            break;
+        case "/admin/userList":
+            currentPage ="User / List"
             break;
         case "/admin/locationList":
-            currentPage ="Location List"
+            currentPage ="Location / List"
             break;
-        
+        case "/admin/eventLogList":
+            currentPage ="Recent"
+
+
 
         case "/customer":
             currentPage ="Home"
@@ -40,6 +44,7 @@ const PageHeader = ({ page_name }:any) => {
             currentPage ="My Items"
             break;
        
+
 
         case "/departmentHead":
             currentPage ="Home"
@@ -58,6 +63,7 @@ const PageHeader = ({ page_name }:any) => {
             break;
         
 
+
         case "/purchase":
             currentPage ="Home"
             break;
@@ -67,10 +73,10 @@ const PageHeader = ({ page_name }:any) => {
         case "/purchase/purchaseHistory":
             currentPage ="Purchase History"
             break;
-
         case "/purchase/myItems":
             currentPage ="My Items"
             break;
+
 
         case "/inventory":
             currentPage ="Home"
@@ -101,9 +107,10 @@ const PageHeader = ({ page_name }:any) => {
                      
             </div>:
            <h1 className="text-xl font-bold">Dashboard / <span className='font-normal'> {currentPage}</span></h1>
+          
          
         }
-
+ {console.log(currentPage,"pls work ")}
       
                 <a className="inline-flex items-center px-4" href="#">
                     <svg className="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>

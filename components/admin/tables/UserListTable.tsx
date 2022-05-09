@@ -6,6 +6,7 @@ import { EyeIcon } from "@/components/admin/icons/EyeIcon";
 import { EditIcon } from "@/components/admin/icons/EditIcon";
 import { DeleteIcon } from "@/components/admin/icons/DeleteIcon";
 import ChangeRoleModal from "@/components/admin/ChangeRoleModal";
+import { ProfileIcon } from "../icons/ProfileIcon";
 
 
 const UserListTable = ({users, roles}) => {
@@ -45,9 +46,15 @@ const UserListTable = ({users, roles}) => {
         const cellValue = user[columnKey];
         switch (columnKey) {
           case "name":
-            return <User name={cellValue} className="text-sm capitalize text-wrap">
-              <span className="text-gray-500 font-semibold">{user.email}</span>
-             </User>;
+            return <div className="flex gap-1 items-center fill-gray-700">
+              <ProfileIcon className={"w-8 h-8"}/>
+                    <div className="text-lg">
+                      <p>{user.name}</p> <p className="-mt-1">{user.email}</p>
+                    </div>
+                  </div>
+            // return <User name={cellValue} className="text-sm capitalize text-wrap">
+            //   <span className="text-gray-500 font-semibold">{user.email}</span>
+            //  </User>;
 
           // case "email":
           //     return <p className="text-lg md:mr-8">{user.email}</p>;

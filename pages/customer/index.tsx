@@ -31,7 +31,8 @@ export default function Page() {
           visible={visible} 
           closeHandler={closeHandler} 
           orderTypes={info?.orderTypes} 
-          locations={info.locations}
+          locations={info?.locations}
+          item_size ={info?.item_size}
           />
       <div className="my-8 flex flex-row gap-6 w-full">
         <button onClick={createOrder} className="primary-btn"> Create Order Request</button>

@@ -13,7 +13,9 @@ export default function DepreciatedAssets() {
 
   
   return (
+    <>
 
       <EmptyState msg={"comming soon"}/>
+    </>
 
   )}

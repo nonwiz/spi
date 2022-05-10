@@ -11,9 +11,9 @@ type Data = {
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
-    const reqSession = await getSession({req});
-    if (reqSession && reqSession?.user?.role == "admin") {
-   const {id, floor, room_number, description, building } = req.body;
+  const reqSession = await getSession({ req });
+  if (reqSession && reqSession?.user?.role == "admin") {
+    const { id, floor, room_number, department_id, building } = req.body;
     const location = await prisma.location.update({
       where: {
         id: Number(id)
@@ -21,14 +21,18 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       data: {
         floor: Number(floor),
         room_number: room_number,
-        description,
         building,
-        short_code: `${short_codes[building]}${room_number}`
+        short_code: `${short_codes[building]}${room_number}`,
+        department: {
+          connect: {
+            id: Number(department_id)
+          }
+        }
       }
     })
-     return res.status(200).json({  location })
-    }
-    res.status(500).json({error: "not authorized"})
+    return res.status(200).json({ location })
+  }
+  res.status(500).json({ error: "not authorized" })
 }
 
 // This api route is for admin to fetch the list of users, departments, and locations.

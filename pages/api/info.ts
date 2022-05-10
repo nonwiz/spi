@@ -7,7 +7,6 @@ type Data = {
   locations?: object[]
   buildings?: string[]
   orderTypes?: object[]
-  quantity_unit?: string[]
   order_status?: string[]
   item_size?: string[]
   message: string
@@ -15,11 +14,11 @@ type Data = {
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
-  const reqSession = await getSession({req});
+  const reqSession = await getSession({ req });
   if (!reqSession) {
-      return res.status(401).json({'message': "Permission denied", 'error': true})
+    return res.status(401).json({ 'message': "Permission denied", 'error': true })
   }
- 
+
   const [departments, locations, orderTypes, generalInfos] =
     await prisma.$transaction([
       prisma.department.findMany({
@@ -29,14 +28,24 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
           dean_email: true,
         },
       }),
-      prisma.location.findMany({}),
+      prisma.location.findMany({
+        include: {
+          department: {
+            select: {
+              name: true,
+              id: true,
+              dean_email: true
+            }
+          }
+        }
+      }),
       prisma.orderType.findMany(),
       prisma.generalInfo.findMany(),
     ])
   let buildings = Array.from(new Set(locations.map(loc => loc.building)));
   let gi = generalInfos.reduce((obj, item) => {
     if (!obj[item.type]) {
-        obj[item.type] = [item.name]
+      obj[item.type] = [item.name]
     } else obj[item.type] = [...obj[item.type], item.name]
     return obj
   }, {})

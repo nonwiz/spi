@@ -10,21 +10,25 @@ type Data = {
 
 
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
-  const reqSession = await getSession({req});
+  const reqSession = await getSession({ req });
   if (reqSession && reqSession?.user?.role == "admin") {
-    const { floor, room_number, description, building } = req.body;
+    const { floor, room_number, department_id, building } = req.body;
     const location = await prisma.location.create({
       data: {
         floor: Number(floor),
         room_number: room_number,
-        description,
+        department: {
+          connect: {
+            id: Number(department_id)
+          }
+        },
         building,
         short_code: `${short_codes[building]}${room_number}`
       }
     })
-     return res.status(200).json({  location })
+    return res.status(200).json({ location })
   }
-  res.status(500).json({error: "not authorized"})
+  res.status(500).json({ error: "not authorized" })
 }
 
 

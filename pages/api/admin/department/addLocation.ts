@@ -4,22 +4,28 @@ import { prisma } from "db"
 
 type Data = {
   users?: object[],
+  departments?: object[],
+  locations?: object[],
   error?: string,
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const reqSession = await getSession({ req });
   if (reqSession && reqSession?.user?.role == "admin") {
-    const { name, dean_email } = req.body
-    const department = await prisma.department.create({
+    const { location_id, department_id } = req.body
+    const department = await prisma.department.update({
+      where: {
+        id: Number(department_id),
+      },
       data: {
-        name,
-        dean_email
+        locations: {
+          connect: [{ location_id }],
+        }
       }
     })
     return res.status(200).json({ department })
   }
-  res.status(500).json({ error: "not authorized" })
+  res.status(401).json({ error: true, message: "Permission denied" })
 }
 
-
+// This api route is for admin to fetch the list of users, departments, and locations.

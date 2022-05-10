@@ -48,13 +48,13 @@ export default function AddGeneralInfoModal({visible, closeHandler, info }) {
                 
 
                 <Collapse.Group>
-                    <Collapse title="List of Quantity Units">
+                    <Collapse key="1" title="List of Quantity Units">
                       <div className="grid grid-cols-3 gap-4">
                         {info?.quantity_unit?.map(item => <ul className="text-sm">{item} </ul>)}
                       </div>
                     </Collapse>
 
-                    <Collapse title="List of Order Types">
+                    <Collapse key="2" title="List of Order Types">
                     <div className="grid grid-cols-3 gap-4">
                         {info?.order_type?.map(item => <ul className="text-sm">{item} </ul>)}
                       </div>

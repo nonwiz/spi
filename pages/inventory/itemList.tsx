@@ -14,21 +14,14 @@ import AddItemModal from "@/components/inventory/AddItemModal"
 export default function Page() {
   const { data, isLoading } = useInventory()
   const { data: info, isLoading:infoLoading } = useInfo()
-  const [sLocation, setSelectedL] = useState(0)
   const [visible, setVisible] = useState(false);
-  const [type, setType] = useState("none");
+
 
   if (isLoading || infoLoading) return  <LoadingIcon />
 
-  console.log("sata",{ data })
+  console.log("sata",{ info })
 
-  const returnLocationItems = (location) => {
-    console.log(location.items)
-    console.log("Return items within location", location);
-    const items = location.items.map(item =>
-      <li>{item.name}</li>);
-    return items.length > 0 ? items : "No items within this location!";
-  }
+  
   const handler = () => {setVisible(true);}
   const closeHandler = () => {setVisible(false);};
 

@@ -26,13 +26,13 @@ export default function MyItems() {
 
   const handleMovingItems = async e => {
     e.preventDefault();
-    const formData = getFieldsValues(event, ["moving_item", "target_location_id"])
+    const formData = getFieldsValues(event, ["item_id", "target_location_id"])
     console.log({ formData });
 
-    // fetcher("/api/inventory/addItem", formData).then((d) => {
-    //   console.log(d)
-    //   mutate("/api/customer")
-    // })
+    fetcher("/api/customer/relocate/request", formData).then((d) => {
+      console.log(d)
+      mutate("/api/customer")
+    })
  
   }
   
@@ -58,7 +58,7 @@ export default function MyItems() {
 
       <form onSubmit={handleMovingItems}>
 
-        <select name="moving_item">
+        <select name="item_id">
         {data.user.location.items.map((item, index) => 
         <option key={index} value={item.id}>{item.name}</option>)}
           </select>

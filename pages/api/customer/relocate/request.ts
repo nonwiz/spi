@@ -13,8 +13,28 @@ type Data = {
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const reqSession = await getSession({ req });
   if (reqSession) {
+    const { item_id, target_location_id } = req.body;
+    const item = await prisma.item.findUnique({
+      where: {
+        id: Number(item_id)
+      },
+      include: {
+        location: true
+      }
+    })
     const relocate = await prisma.locationMoveRequest.create({
       data: {
+        item: {
+          connect: {
+            id: item.id
+          }
+        },
+        previous_location: item?.location?.short_code,
+        target_location: {
+          connect: {
+            id: Number(target_location_id)
+          }
+        }
       }
     })
   }

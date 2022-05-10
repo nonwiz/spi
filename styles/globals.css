@@ -27,6 +27,10 @@ button, textarea {
   h2{
       @apply text-xl p-1 py-4 text-gray-700
   }
+
+  .text-label{
+    @apply font-semibold text-lg text-primary-color
+  }
   
 
 }

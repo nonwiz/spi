@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Link from 'next/link'
+import { useInfo, useInventory } from 'lib/fetcher';
 // import SearchBox from "@/components/admin/SearchBox";
 // import ChangeRoleModal from "./ChangeRoleModal";
 // import UpdateLocationModal from './UpdateLocationModal';
@@ -9,10 +10,24 @@ const StatsCardsInventory = ( {items} ) => {
   const [visible1, setVisible1] = useState(false);
   const [visible2, setVisible2] = useState(false);
   const [type, setType] = useState("none");
+  const {data, isLoading } = useInventory()
   
-  const supply = items.filter(item => item.type =="Supply").length
-  const electronic = items.filter(item => item.type =="Electronic").length
-  const office = items.filter(item => item.type =="Office").length
+  if (isLoading) return "...";
+
+  const supply = data.items.length
+  const electronic = data.items.filter(item => item.isAsset).length
+  const office = data.items.filter(item => {
+    let od = new Date(item.order_date);
+    let dp;
+    let today = new Date();
+    if (item.depreciation) {
+      dp = new Date(item.depreciation)
+    } else {
+      dp = new Date();
+      dp.setFullYear(od.getFullYear() + 10)
+    }
+    return dp > today;
+  }).length
 
 
     return ( 
@@ -28,7 +43,7 @@ const StatsCardsInventory = ( {items} ) => {
                     </div>
                   <p className="text-5xl font-semibold text-gray-700">{supply}</p>
                 </div>
-                <span className="p-2 text-base tracking-wide text-gray-500 font-medium">Total Supplies</span>
+                <span className="p-2 text-base tracking-wide text-gray-500 font-medium">Total Items</span>
               </div>
 
               <div className="flex items-center gap-6 text-blue-700">
@@ -48,7 +63,7 @@ const StatsCardsInventory = ( {items} ) => {
                     </div>
                   <p className="text-5xl font-semibold text-gray-700">{electronic}</p>
                 </div>
-                <span className="p-2 text-base tracking-wide text-gray-500 font-medium">Electronics Items </span>
+                <span className="p-2 text-base tracking-wide text-gray-500 font-medium">Total Assets </span>
               </div>
 
               <div className="flex items-center gap-6 text-blue-700">
@@ -68,7 +83,7 @@ const StatsCardsInventory = ( {items} ) => {
                     </div>
                   <p className="text-5xl font-semibold text-gray-700">{office}</p>
                 </div>
-                <span className="p-2 text-base tracking-wide text-gray-500 font-medium">Office Items</span>
+                <span className="p-2 text-base tracking-wide text-gray-500 font-medium">Total Depreciated Assets</span>
               </div>
 
               <div className="flex items-center gap-6 text-blue-700">

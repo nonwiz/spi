@@ -8,6 +8,7 @@ import UpdateDepartmentModal from "@/components/admin/UpdateDepartmentModal";
 import StyledStatus from "@/components/customer/StyledStatus";
 import UpdateRegStatus from "../UpdateRegStatus";
 import DateConvert from "@/components/dateConvert";
+import ViewItemModal from "../ViewItemModal";
 
 
 
@@ -15,26 +16,19 @@ import DateConvert from "@/components/dateConvert";
 const ItemsListTable = ({items, locations}) => {
   const router = useRouter()
   const [visible, setVisible] = useState(false);
-  const [type, setType] = useState("none");
-  const [orderReq, setOrderRequest] = useState({})
-
-  const zones = {
-    Information_Technology: "IT",
-    Administration: "AD",
-    Science: "SB",
-    Solomon_hall:"Solomon"
-  }
-  console.log(locations)
-  console.log(items)
+  const [itemInfo, setItemInfo] = useState([])
+  const [itemLocation, setItemLocation] = useState([])
 
   const returnRoom = (location_id) => {
-    return locations.find((loc) => loc.id == location_id).short_code
+    return locations?.find((loc) => loc.id == location_id)?.short_code
 
   }
 
 
-  const handler = () => {
+  const handler = (item) => {
+    setItemInfo(item)
     setVisible(true);
+    setItemLocation(returnRoom(item.location_id));
   }
 
   const closeHandler = () => {
@@ -85,7 +79,7 @@ const ItemsListTable = ({items, locations}) => {
               <Row justify="center" align="center">
               <Col css={{  }} className="ml-6">
                 <Tooltip content="Item Details" >
-                  <IconButton  onClick={() => handler()} >
+                  <IconButton  onClick={() => handler(items)} >
                     <EyeIcon size={20} fill="#979797" />
                   </IconButton>
                 </Tooltip>
@@ -101,12 +95,12 @@ const ItemsListTable = ({items, locations}) => {
 
     return ( 
       <>
-          {/* <ViewItemModal
-        visible={visible}
-        closeHandler={closeHandler}
-        locations={info?.locations}
-      
-      />*/}
+          <ViewItemModal
+          visible={visible}
+          closeHandler={closeHandler}
+          location={itemLocation} 
+          item={itemInfo}      
+      />
 
 
             <Table 

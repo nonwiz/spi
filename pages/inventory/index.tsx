@@ -22,28 +22,9 @@ export default function Page() {
 
   if (isLoading || infoLoading) return  <LoadingIcon />
 
-  console.log("sata",{ info })
+  console.log("sata",info)
 
-  const returnLocationItems = (location) => {
-    console.log(location.items)
-    console.log("Return items within location", location);
-    const items = location.items.map(item =>
-      <li>{item.name}</li>);
-    return items.length > 0 ? items : "No items within this location!";
-  }
-
-  const handleAddInfo = async event => {
-    event.preventDefault();
-    const formData = getFieldsValues(event, ["name", "type"])
-    console.log({formData})
-    fetcher("/api/common/general_info/create", formData).then(d => {
-      console.log(d)
-      mutate("/api/info")
-    })
-    createLog("GeneralInfo", "Create: new general info type", "Create")
-
-  }
-
+ 
   const createGeneralInfo = () =>{
     setVisible(true);
   }

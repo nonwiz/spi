@@ -1,6 +1,7 @@
 import CreateOrderReq from "@/components/customer/createOrderReqModal";
 import FormCreateOrderRequest from "@/components/customer/createOrderRequest";
 import OrderRequestTable from "@/components/customer/tables/OrderRequestTable";
+import { EmptyState } from "@/components/EmptyState";
 import LoadingIcon from "@/components/loadingIcon";
 import PendingRequestTable from "@/components/purchase/table/PendingRequestTable";
 
@@ -28,7 +29,7 @@ export default function OrderRequest() {
 
   return (
       <>
-      <CreateOrderReq
+      {/* <CreateOrderReq
           type={type}
           visible={visible} 
           closeHandler={closeHandler} 
@@ -36,12 +37,14 @@ export default function OrderRequest() {
           />
       <div className="my-8 flex flex-row gap-6 w-full">
         <button onClick={createOrder} className="primary-btn"> Create Order Request</button>
-      </div>
+      </div> */}
 
       <div className="">
         <div className=" rounded-lg ">
             <h2>Recent order Request</h2>
-            {data.orderRequests && <PendingRequestTable orderRequest={data.orderRequests} email={data.user.email} pageType={"purchase"} />}
+            {(data?.orderRequests)?
+              <PendingRequestTable  email={data.user.email} pageType={"purchase"} orderRequest={data.orderRequests.filter((item) => item.order_status != "Purchased")}/>:
+              <EmptyState msg={"No Pending Order Request"} />}
         </div>
       </div>
 

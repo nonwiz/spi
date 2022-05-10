@@ -8,6 +8,7 @@ import { useCustomer } from "lib/fetcher";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import LoadingIcon from "@/components/loadingIcon";
+import { EmptyState } from "@/components/EmptyState";
 
 export default function MyItems() {
   const { data: session } = useSession();
@@ -33,7 +34,9 @@ export default function MyItems() {
       <div className="">
         <div className=" rounded-lg ">
             <h2>List of items</h2>
-            {data.user.location && data.user.location.items && <ItemListTable items={data.user.location.items} />} 
+            {(data?.user?.location && data?.user?.location.items.length>0)?
+                <ItemListTable items={data?.user?.location.items}/> :
+                <EmptyState msg={"item List is empty"} />} 
 
             </div>
       </div>

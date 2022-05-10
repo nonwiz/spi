@@ -40,8 +40,8 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         approval_by: true
       }
     })
-    // If 3 people have approved (purchase, finance, department head)
-    if (updatedOrder.approval_by.length >= 3) {
+
+    if (updatedOrder.approval_by.length >= 2) {
       await prisma.orderRequest.update({
         where: { id: orderId },
         data: {

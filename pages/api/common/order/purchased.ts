@@ -9,30 +9,25 @@ type Data = {
   location?: object,
   error?: string,
   orderTypes?: object[]
+  comment_by?: object[]
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const reqSession = await getSession({ req });
+  const { orderId } = req.body;
   if (reqSession) {
-    const orderRequests = await prisma.orderRequest.findMany({
-      include: {
-        order_items: true,
-        approval_by: true,
-        comment_by: true,
-        location: true,
-      }
-    })
     const user = await prisma.user.findUnique({
-      where: { email: reqSession.user.email }, include: {
-        department: true,
-        location: true,
-       
-      }
+      where: { email: reqSession.user.email }
     })
-    const orderTypes = await prisma.orderType.findMany();
-    return res.status(200).json({ user, orderTypes, orderRequests })
+    const order = await prisma.orderRequest.update({
+      where: { id: orderId },
+      data: {
+        order_status: "Purchased",
+        purchased_date: new Date()
+      },
+    })
+    return res.status(200).json({ error: false, 'message': "set order to purchased" });
   }
-  res.status(500).json({ error: "not authorized" })
 }
 
 

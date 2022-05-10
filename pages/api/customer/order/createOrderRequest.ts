@@ -23,18 +23,17 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   // }
 
   const items = fData.items.map(item => {
-    const tmp = { ...item, quantity: Number(item.quantity), unit_price: Number(item.unit_price), amount: Number(item.amount) }
+    const tmp = { ...item, quantity: Number(item.quantity), unit_price: Number(item.unit_price), total_price: Number(item.total_price) }
     return tmp;
   });
+  let total_price = items.reduce((sum, item) => sum += item.total_price, 0)
 
 
   console.log({ bdoy: req["body"] })
   const orderReq = await prisma.orderRequest.create({
     data: {
       purchase_reason: fData.purchase_reason,
-      total_price: Number(fData.total_price),
-      action_number: fData.action_number,
-      remark: fData.remark,
+      total_price: Number(total_price),
       desired_date: new Date(fData.desired_date),
       order_items: {
         createMany: {
@@ -43,7 +42,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       },
       location: {
         connect: {
-          id: location_id,
+          id: Number(fData.location_id),
         }
       }
 

@@ -7,17 +7,20 @@ import { EditIcon } from "@/components/admin/icons/EditIcon";
 import UpdateDepartmentModal from "@/components/admin/UpdateDepartmentModal";
 import StyledStatus from "@/components/customer/StyledStatus";
 import UpdateRegStatus from "../UpdateRegStatus";
+import DateConvert from "@/components/dateConvert";
 
 
 
 
 const PendingRequestTable = ({orderRequest, email, pageType}) => {
+
   const router = useRouter()
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState("none");
   const [orderReq, setOrderRequest] = useState({})
 
-  console.table("parent", orderRequest)
+  console.log("Here is pending request table", orderRequest)
+
 
 
   const detailHandler = (order) =>{
@@ -36,6 +39,7 @@ const PendingRequestTable = ({orderRequest, email, pageType}) => {
     setVisible(false);
     setType("none")
   };
+
     
   let columns;
     if (router.pathname=="/purchase") {
@@ -43,18 +47,18 @@ const PendingRequestTable = ({orderRequest, email, pageType}) => {
         { name: "#", uid: "id" },
         { name: "ORDER DESCRIPTION", uid: "order_description" },
         { name: "ORDER PRICE", uid: "order_price" },
-        { name: "ORDER DATE", uid: "order_date" },
+        { name: "REQUEST DATE", uid: "order_date" },
         { name: "ORDER STATUS", uid: "order_status" },
         { name: "ACTIONS", uid: "actions" },
        
       ];
     } else {
       columns = [
-        { name: "#", uid: "id" },
+        { name: "ROOM", uid: "id" },
         { name: "ORDER DESCRIPTION", uid: "order_description" },
         { name: "ORDER ITEMS", uid: "order_items" },
         { name: "ORDER PRICE", uid: "order_price" },
-        { name: "ORDER DATE", uid: "order_date" },
+        { name: "REQUEST DATE", uid: "order_date" },
         { name: "ORDER STATUS", uid: "order_status" },
         { name: "ACTIONS", uid: "actions" },
       ];
@@ -67,7 +71,7 @@ const PendingRequestTable = ({orderRequest, email, pageType}) => {
         switch (columnKey) {
 
           case "id":
-              return <p className="text-lg ">{orderRequest.id}</p>;
+              return <p className="text-lg ">{orderRequest.location.short_code}</p>;
           case "order_description":
             return <p className="text-lg ">{orderRequest.purchase_reason}</p>;
           case "order_items":
@@ -75,9 +79,9 @@ const PendingRequestTable = ({orderRequest, email, pageType}) => {
           case "order_price":
             return <p className="text-lg ">{orderRequest.total_price}</p>;
           case "order_date":
-              return <p className="text-lg ">{orderRequest.order_date}</p>;
+              return <p className="text-lg "><DateConvert date={orderRequest.order_date} type="date" /></p>;
           case "order_status":
-            return <StyledStatus status={`${orderRequest.approval_by.length > 0 && orderRequest.order_status == "Pending"? `Pending (${orderRequest.approval_by.length}/3)` : orderRequest.order_status}`} />
+            return <StyledStatus status={`${orderRequest.approval_by.length > 0 && orderRequest.order_status == "Pending"? `Pending (${orderRequest.approval_by.length}/2)` : orderRequest.order_status}`} />
        
 
           case "actions":

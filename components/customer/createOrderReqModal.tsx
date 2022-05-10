@@ -2,7 +2,7 @@
 import { Modal, Button, Text, Input,Textarea, Collapse  } from "@nextui-org/react";
 import { Mail } from "@/components/admin/icons/Mail";
 import { Password } from "@/components/admin/icons/Password";
-import { getFieldsValues, fetcher } from "lib/fetcher";
+import { getFieldsValues, fetcher, createLog } from "lib/fetcher";
 import { useSWRConfig } from "swr";
 import { useEffect, useState } from "react";
 
@@ -11,14 +11,13 @@ import { useEffect, useState } from "react";
 export default function CreateOrderReq({type,visible, closeHandler, orderTypes, locations,quantity_unit }) {
 
   const { mutate } = useSWRConfig();
-  const orderItemProperty = ["description", "size", "quantity", "unit_price", "amount", "type"]
+  const orderItemProperty = ["name", "quotation", "quantity_unit", "quantity", "unit_price", "total_price", "type"]
   const [orderItem, setOrderItem] = useState([]);
   const [step, setStep] = useState(1);
   const allBuilding = Array.from(new Set(locations?.map(item => item?.building)))
   const [building, setBuilding] = useState([])
   const [locationOptions, setLocation] = useState(locations)
   const [message, setMessage] = useState("")
-
 
 
   const handleCreateOrderRequest = async event => {
@@ -29,12 +28,14 @@ export default function CreateOrderReq({type,visible, closeHandler, orderTypes, 
       return [...all, ...curr]
     }, [])
 
-    const datas = [...flatItems, "purchase_reason", "location_id", "desired_date", "remark"];
+    const datas = [...flatItems, "purchase_reason", "location_id", "desired_date" ];
  
     const formData = getFieldsValues(event, datas);
     const cleanData = {
       items: [],
       purchase_reason: formData["purchase_reason"],
+      desired_date: formData["desired_date"],
+      location_id: formData["location_id"]
     }
     for (let i = 0; i < orderItem.length; i++) {
       const item = {};
@@ -42,16 +43,17 @@ export default function CreateOrderReq({type,visible, closeHandler, orderTypes, 
         item[f] = formData[`${f}-${i}`];
       })
       cleanData.items.push(item)
-      closeHandler
+      closeHandler()
     }
 
     const formatedData = JSON.stringify(cleanData)
 
-    console.log({ formatedData });
+
     fetcher("/api/customer/order/createOrderRequest", formatedData).then(d => {
-      console.log(d)
       mutate("/api/admin")
     })
+    createLog("OrderRequest & OrderItem", `Create: new orders items, [${formatedData}]`, "Create")
+
     closeHandler
     //we should add a try and catch here
 
@@ -65,7 +67,7 @@ export default function CreateOrderReq({type,visible, closeHandler, orderTypes, 
   const changeTab =(msg:String, nextStep:number) =>{
     if(msg=="continue" && step==1){
       let purchase = document.querySelector(`[name="purchase_reason"]`)?.value;
-      let location = document.querySelector(`[name="location"]`)?.value;
+      let location = document.querySelector(`[name="location_id"]`)?.value;
   
       if(!purchase && location =="Select Room"){setMessage("Please Fill all the fields (Building, Room, Purchase Reason)")}
       else if (!purchase ){setMessage("Purchase Reason is required")}
@@ -86,7 +88,7 @@ export default function CreateOrderReq({type,visible, closeHandler, orderTypes, 
  const getItems =(num:number) =>{
     let unit = document.querySelector(`[name="quantity-${num}"]`)?.value;
     let price = document.querySelector(`[name="unit_price-${num}"]`)?.value;
-    let amount = document.querySelector(`[name="amount-${num}"]`);
+    let amount = document.querySelector(`[name="total_price-${num}"]`);
     amount.value = unit*price
 
  }
@@ -166,7 +168,7 @@ export default function CreateOrderReq({type,visible, closeHandler, orderTypes, 
             
                 </select>
 
-                <select required name="location" className=" form-select appearance-none block w-1/2 p-2.5 px-5 text-base font-normal text-gray-700 border-2 rounded-2xl transition ease-in-out m-0
+                <select required name="location_id" className=" form-select appearance-none block w-1/2 p-2.5 px-5 text-base font-normal text-gray-700 border-2 rounded-2xl transition ease-in-out m-0
                 focus:text-gray-700 focus:bg-white focus:border-primary-color focus:outline-none" aria-label="room selection">
                   <option> Select Room </option>
                     {locationOptions?.map((location, num) => 
@@ -257,7 +259,7 @@ export default function CreateOrderReq({type,visible, closeHandler, orderTypes, 
                           readOnly
                           label="Total Amount"
                           placeholder="0 baht"
-                          name={`amount-${num}`}
+                          name={`total_price-${num}`}
                           
                           />
 

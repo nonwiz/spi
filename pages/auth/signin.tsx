@@ -10,11 +10,11 @@ const SignIn = () => {
 
     const handleSignIn = async e => {
         let user_input = e.target.querySelector(`[name=email]`).value;
-        // if (user_input.length == 9) {
-        //     user_input += "@my.apiu.edu"
-        // } else {
-        //     user_input += "@apiu.edu"
-        // }
+        if (user_input.length == 9) {
+            user_input += "@my.apiu.edu"
+        } else {
+            user_input += "@apiu.edu"
+        }
         
         try {
             setShowConfirmation(true);

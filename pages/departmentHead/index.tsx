@@ -21,7 +21,6 @@ export default function Page() {
 
   const { orderRequests: ors } = data;
 
-  console.log(data, ors[sItem]);
 
  
 
@@ -34,8 +33,8 @@ export default function Page() {
           <h2>Pending order Request</h2>
 
         {(data.orderRequests)
-          ?<PendingRequestTable pageType={"departmentHead"} email={data.user.email} orderRequest={data.orderRequests.filter((item) => item.order_status == "Pending" && item.user.department_id == data.user.department_id)} />
-          :<EmptyState msg={"No Pending Order Request"} />}}
+           ? <PendingRequestTable pageType={"departmentHead"} email={data.user.email} orderRequest={data.orderRequests} />
+          : <EmptyState msg={"No Pending Order Request"} />}
         </div>
       </div>
  

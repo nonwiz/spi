@@ -27,7 +27,7 @@ const FormAddInventory = ({locations}: {locations: string[]}) => {
       console.log(d)
       mutate("/api/inventory")
     })
-    createLog("Item", "Add: ")
+    createLog("Item", `Add: new item (${formData.name}-${formData.type}-${formData.order_date}) to the inventory`, "Create")
   }
 
   useEffect(() => {
@@ -67,7 +67,7 @@ const FormAddInventory = ({locations}: {locations: string[]}) => {
                     {info?.order_type?.map((ot, num) => 
                         <option key={num} >{ot}</option>)}
                 </select>
- 
+             
 
   </div>
 
@@ -87,7 +87,7 @@ const FormAddInventory = ({locations}: {locations: string[]}) => {
         <input type="number" step="0.01" name="quantity" placeholder="Item Quantity" />
                 <select   name="quantity_unit" className=" form-select appearance-none block w-1/2 p-2.5 px-5 text-base font-normal text-gray-700 border-2 rounded-2xl transition ease-in-out m-0
                 focus:text-gray-700 focus:bg-white focus:border-primary-color focus:outline-none" aria-label="department selection">
-                  <option> Select Room </option>
+                  <option> Select quantity unit </option>
                     {info.quantity_unit?.map((unit, num) => 
                         <option key={num}>{unit}</option>)}
                 </select>

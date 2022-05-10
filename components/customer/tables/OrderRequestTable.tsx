@@ -18,6 +18,8 @@ const OrderRequestTable = ({ orderRequest }) => {
   const [orderRequestInfo, setOrderRequestt] = useState([]);
   const [type, setType] = useState("none");
 
+  console.log({orderRequest})
+
   const detailHandler = (orderRequest) => {
     setVisible(true);
     setOrderRequestt(orderRequest);

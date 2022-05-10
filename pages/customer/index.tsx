@@ -42,8 +42,8 @@ export default function Page() {
 
       <div className=" rounded-lg ">
           <h2>Recent order Request</h2>
-          {(data?.user?.order_requests && data.user?.order_requests?.length>0)
-            ?<OrderRequestTable orderRequest={data?.user?.order_requests} /> 
+          {(data?.user?.location?.order_requests && data.user?.location?.order_requests?.length>0)
+            ?<OrderRequestTable orderRequest={data?.user?.location?.order_requests} /> 
             :<EmptyState msg={"You don't have order requests"}/>}
       </div>
 {/*   

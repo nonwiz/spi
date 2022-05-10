@@ -1,10 +1,10 @@
-const SearchBox = () => {
+const SearchBox = ({msg}) => {
 
     return ( 
         <div className="w-full lg:w-1/3">
              <div className=" relative text-gray-600">
                 <input className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-full" 
-                  type="search" name="search" placeholder="Search for user" />
+                  type="search" name="search" placeholder={msg} />
                 <button type="submit" className=" absolute right-0  mr-4 border-0 outline-none">
                   <svg className="h-4 w-4 fill-current border-red-100" xmlns="http://www.w3.org/2000/svg"
                     xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"

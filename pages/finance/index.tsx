@@ -21,7 +21,7 @@ export default function Page() {
 
   const { orderRequests: ors } = data;
 
-  console.log(data, ors[sItem]);
+  console.log({data, ors}, ors[0]);
 
   
 
@@ -32,7 +32,7 @@ export default function Page() {
         <div className="rounded-lg ">
           <h2>Pending order Request</h2>
 
-        {(data?.orderRequests && data.orderRequest?.length>0)
+        {(ors && ors.length > 0)
           ?
             <PendingRequestTable pageType={"finance"} email={data.user.email} orderRequest={data.orderRequests.filter((item) => item.order_status == "Pending")} />
           :

@@ -28,9 +28,8 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       }
     })
     const allUsers = await prisma.user.findMany({});
-    const orderTypes = await prisma.orderType.findMany();
     const items = locations.map(item => item.items).flat()
-    return res.status(200).json({ user, allUsers, items, orderTypes, locations })
+    return res.status(200).json({ user, allUsers, items, locations })
   }
   res.status(500).json({ error: "not authorized" })
 }

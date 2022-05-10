@@ -10,8 +10,11 @@ type Data = {
 
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const reqSession = await getSession({ req });
-  const { name, location, description, price, order_date, depreciation, quantity, quantity_unit } = req.body;
-  const data = { name, description, price: Number(price), quantity: Number(quantity), order_date: new Date(order_date), depreciation: new Date(depreciation), quantity_unit }
+  const { name, code, type, location_id, description, price, order_date, depreciation, quantity, quantity_unit } = req.body;
+  const data = {name, code, type, description, price: Number(price), quantity: Number(quantity), order_date: new Date(order_date), depreciation: new Date(depreciation), quantity_unit }
+  if (data.price >= 6000) {
+    data["isAsset"] = true;
+  }
   console.log("Before checking for NaN", { data })
 
   if (isNaN(data.order_date)) {
@@ -29,12 +32,12 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         ...data,
         location: {
           connect: {
-            id: Number(location)
+            id: Number(location_id)
           }
         }
       }
     });
-    return res.status(200).json({})
+    return res.status(200).json({item})
   }
   res.status(500).json({ error: "not authorized" })
 }

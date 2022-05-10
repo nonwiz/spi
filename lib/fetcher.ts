@@ -64,7 +64,13 @@ export const getFieldsValues = (event, fields) => {
   console.log(event, fields)
   const data = {};
   fields.forEach((item) => {
-    data[item] = event.target.querySelector(`[name=${item}]`).value;
+    let key = `[name=${item}]`;
+    const ele = event.target.querySelector(key);
+    if (ele.value !== undefined)  {
+      data[item] = ele.value;
+    } else {
+      data[item] = "";
+    }
   });
   return data;
 };

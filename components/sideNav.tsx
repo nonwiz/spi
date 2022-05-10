@@ -62,7 +62,7 @@ const SideNav = () => {
                     </a>
                     <a href="/admin/eventLogList" className={router.pathname=="/admin/eventLogList"? "navlink-active":"navlink"}>
                         <svg className="w-8 h-8 sm:w-6 sm:h-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M2 5l7-3 6 3 6.303-2.701a.5.5 0 0 1 .697.46V19l-7 3-6-3-6.303 2.701a.5.5 0 0 1-.697-.46V5zm13 14.764V7.176l-.065.028L9 4.236v12.588l.065-.028L15 19.764z"/></svg>
-                        <span>Recent Activities (logs)</span>
+                        <span>Event Log</span>
                     </a>
 
                     <a href="#" className={router.pathname==""? "navlink-active absolute bottom-4 w-full left-0 rounded":"navlink absolute bottom-4 w-full left-0 rounded"}>

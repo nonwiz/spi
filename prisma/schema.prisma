@@ -107,8 +107,7 @@ model OrderType {
 
 model OrderItem {
   id               Int          @id @default(autoincrement())
-  description      String
-  size             String
+  name             String
   quotation        String?
   quantity         Float?       @default(1.0)
   quantity_unit    String? @default("other")
@@ -157,6 +156,7 @@ model Item {
   target_location_request_id Int?
   code                       String?
   action_number              String?
+  order_reference String?
 }
 
 model LocationMoveRequest {

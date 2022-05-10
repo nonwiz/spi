@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 const UpdateProfile= ({locations, departments}: {locations: string[], departments:object[]}) => {
   const { mutate } = useSWRConfig();
   const router = useRouter()
+
   const allBuilding = Array.from(new Set(locations?.map(item => item?.building)))
   const [building, setBuilding] = useState(allBuilding[0])
   const [locationOptions, setLocation] = useState(locations)

@@ -1,6 +1,6 @@
 import Layout from "@/components/layout"
 import FormAddInventory from "@/components/inventory/addItem"
-import { useInventory } from "lib/fetcher"
+import { useInventory, useInfo } from "lib/fetcher"
 import { useSession } from "next-auth/react"
 import { useState } from "react"
 import FormMoveUser from "@/components/inventory/moveUser"
@@ -11,9 +11,10 @@ import LoadingIcon from "@/components/loadingIcon"
 
 export default function Page() {
   const { data, isLoading } = useInventory()
+  const { data: info, isLoading:infoLoading } = useInfo()
   const [sLocation, setSelectedL] = useState(0)
 
-  if (isLoading) return  <LoadingIcon />
+  if (isLoading || infoLoading) return  <LoadingIcon />
 
   console.log("sata",{ data })
 
@@ -31,7 +32,7 @@ export default function Page() {
         <div className="mt-4">
         <div className="rounded-lg ">
           <h2>Recently Added item </h2>
-
+          <FormAddInventory locations={info.locations}  />
         {(data.items && data.items?.length >0)
           ?
             <ItemsListTable items={data.items} locations={data.locations} />

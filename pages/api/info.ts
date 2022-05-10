@@ -8,7 +8,7 @@ type Data = {
   buildings?: string[]
   orderTypes?: object[]
   order_status?: string[]
-  item_size?: string[]
+  quantity_unit?: string[]
   message: string
   error?: boolean
 }

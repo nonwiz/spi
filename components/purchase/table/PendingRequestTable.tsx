@@ -19,7 +19,7 @@ const PendingRequestTable = ({orderRequest, email, pageType}) => {
   const [type, setType] = useState("none");
   const [orderReq, setOrderRequest] = useState({})
 
-  console.log("Here is pending request table", orderRequest)
+
 
 
 
@@ -67,7 +67,7 @@ const PendingRequestTable = ({orderRequest, email, pageType}) => {
       
       const renderCell = (orderRequest, columnKey) => {
         const cellValue = orderRequest[columnKey];
-          console.table(orderRequest)
+          
         switch (columnKey) {
 
           case "id":

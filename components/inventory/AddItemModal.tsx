@@ -18,7 +18,7 @@ export default function AddItemModal({visible, closeHandler, locations, building
 
   const handleAddInventory = async (event) => {
     event.preventDefault()
-    console.log("Handle add inventory called")
+
     const formData = getFieldsValues(event, ["code", "type", "name", "location_id", "description", "price", "order_date", "depreciation", "quantity", "quantity_unit"])
     
 
@@ -31,7 +31,7 @@ export default function AddItemModal({visible, closeHandler, locations, building
 }
 
   useEffect(() => {
-    console.log("change building")
+    
     const filterLocations = locations?.filter(loc => loc?.building == building)
     setLocation(filterLocations);
   }, [building])

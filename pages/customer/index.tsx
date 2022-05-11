@@ -34,7 +34,7 @@ export default function Page() {
           locations={info?.locations}
           quantity_unit={info?.quantity_unit}
           />
-{console.log(info)}
+
       <div className="my-8 flex flex-row gap-6 w-full">
         <button onClick={createOrder} className="primary-btn"> Create Order Request</button>
         <button className="primary-btn"> Create Moving Request</button>

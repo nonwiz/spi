@@ -13,7 +13,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const id = 1;
   const users = ["bdchanbroset@gmail.com", "201800157@my.apiu.edu"]
   const emails = users.map(item => ({email: item}));
-  console.log({emails})
+  
     const department = await prisma.department.update({
       where: {
         id

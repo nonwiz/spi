@@ -15,7 +15,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   if (data.price >= 6000) {
     data["isAsset"] = true;
   }
-  console.log("Before checking for NaN", { data })
+
 
   if (isNaN(data.order_date)) {
     // check if the order date is invalid or not
@@ -25,7 +25,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     // check if the depreciation date is valid or not
     delete data["depreciation"];
   }
-  console.log("After checking ", { data })
+
   if (reqSession) {
     const item = await prisma.item.create({
       data: {

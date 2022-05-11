@@ -52,19 +52,21 @@ export default function UpdateRegStatus({type,visible, closeHandler, orderReques
   }
 
   const handleComment = async (order_request: String, comment: String, item: Number) => {
-    console.log("hadnle comment trigger", order_request)
+
     fetcher("/api/common/order/comment", { comment, orderId: item }).then((d) => {
       
-      console.log("try commenting")
+
       mutate(`/api/${pageType}`)
     })
 
     let recipient;
     if (order_request.location?.users.length) {
-     recipient = order_request.location.users.map(item => item.email).join(", ")
+     recipient = order_request.location?.users?.map(item => item.email).join(", ")
     } else {
+      // sent to the department dean.
     }
-    fetcher("/api/common/send_email", {recipient, comment).then(d => {
+    const body = pageType + ": " + comment
+    fetcher("/api/common/send_email", {recipient, comment: body}).then(d => {
     }) 
   }
 

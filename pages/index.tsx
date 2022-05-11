@@ -12,7 +12,7 @@ export default function IndexPage() {
   const { data: info, isLoading: infoLoading } = useInfo();
   const router = useRouter()
 
-  console.log(data, info)
+
   if (isLoading || infoLoading) return  <LoadingIcon />
 
   if (!data?.user?.name || !data?.user?.department || !data?.user?.location) {

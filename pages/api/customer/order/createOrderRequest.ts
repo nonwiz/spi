@@ -29,7 +29,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   let total_price = items.reduce((sum, item) => sum += item.total_price, 0)
 
 
-  console.log({ bdoy: req["body"] })
+  
   const orderReq = await prisma.orderRequest.create({
     data: {
       purchase_reason: fData.purchase_reason,
@@ -48,7 +48,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     },
   })
-  console.log({ fData, items })
+ 
   return res.status(200).json({ orderReq })
 }
 // res.status(500).json({ error: "not authorized" })

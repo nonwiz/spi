@@ -22,7 +22,7 @@ export default function Page() {
 
   if (isLoading || infoLoading) return  <LoadingIcon />
 
-  console.log("sata",info)
+ 
 
  
   const createGeneralInfo = () =>{

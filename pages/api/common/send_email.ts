@@ -13,7 +13,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   // create reusable transporter object using the default SMTP transport
   const reqSession = await getSession({ req });
   if (reqSession) {
-const { recipient } = req.body;
+const { recipient, comment } = req.body;
  
   let nodemailer = require('nodemailer')
   let transporter = nodemailer.createTransport({
@@ -31,7 +31,7 @@ const { recipient } = req.body;
     to: recipient, // list of receivers
     subject: "New Comment has been added ✔", // Subject line
     text: "Open SPI to view the new comment.?", // plain text body
-    html: "<b>SPI's Comment</b>", // html body
+    html: `<h1> New comment </h1><hr /><b>${comment}</b><br /> <p> Web master </p>`, // html body
   }, (err, data) => {
       if (err) console.log(err);
       else console.log("Sent!")
@@ -39,7 +39,7 @@ const { recipient } = req.body;
 
       res.send("success")
 
-  console.log("Message sent: %s", info.messageId, info);
+  console.log("Message sent: %s", info?.messageId, info);
 }
  
 }

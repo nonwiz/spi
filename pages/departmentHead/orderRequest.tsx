@@ -28,7 +28,7 @@ export default function OrderRequest() {
   };
 
   const pendingRequests = (order_req: any[]) =>{
-    console.log(order_req,"holaaaa") 
+
     let filtered_req = order_req.filter((item) => item?.location?.department_id == data?.user?.department_id)
     return filtered_req
   }
@@ -50,7 +50,7 @@ export default function OrderRequest() {
       <div className="">
         <div className=" rounded-lg ">
             <h2>Recent order Request</h2>
-            {console.log(data)}
+            
             {(data?.orderRequests.length>0)?
                <PendingRequestTable pageType={"departmentHead"} email={data?.user?.email} orderRequest={pendingRequests(data?.orderRequests)} />:
                <EmptyState msg={"No Pending Order Request"} />}

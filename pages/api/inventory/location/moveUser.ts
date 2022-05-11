@@ -10,7 +10,7 @@ type Data = {
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const reqSession = await getSession({ req });
   const { userId, location: lid } = req.body;
-  console.log({ userId, lid })
+
   if (reqSession) {
     const location = await prisma.location.update({
       where: {

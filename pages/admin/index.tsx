@@ -13,7 +13,7 @@ export default function Page() {
   const { data, isLoading } = useAdmin();
   const { data: info, isLoading: infoLoading } = useInfo();
   const { data: log, isLoading: logLoading } = useLog();
-  console.log(info,"hi")
+  
 
   if (isLoading || infoLoading || logLoading) return  <LoadingIcon />
    return (

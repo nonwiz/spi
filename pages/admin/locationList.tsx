@@ -17,7 +17,7 @@ export default function locationList() {
 
 
   if (isLoading || infoLoading) return <LoadingIcon />
-  console.log(info.departments)
+  
   if (session?.user?.role != "admin") return <p> Unauthorized </p>
 
 

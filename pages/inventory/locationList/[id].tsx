@@ -15,7 +15,7 @@ const LocationDetails =() =>{
     if (isLoading) return  <LoadingIcon />
     
     const loc = data.locations.filter(location => location.id == id )[0]
-    console.log(loc)
+
     const zones = {
         Information_Technology: "IT",
         Administration: "AD",

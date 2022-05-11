@@ -20,7 +20,7 @@ export default function MyItems() {
   const [type, setType] = useState("none");
   if (isLoading || infoLoading) return  <LoadingIcon />
 
-  console.log("my items", data.user.location)
+
 
 
 
@@ -65,7 +65,7 @@ export default function MyItems() {
           </select>
     
     <select onChange={e => {
-      console.log(e, fLocations)
+      
       setLocations(info.locations.filter(loc => loc.building == e.target.value))      }
     }>
       <option> Pick building </option>

@@ -28,7 +28,7 @@ export default function OrderRequest() {
     setVisible(false);
   };
 
-  console.log(data)
+  
   return (
       <>
       <CreateOrderReq

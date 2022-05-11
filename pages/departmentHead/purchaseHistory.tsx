@@ -36,7 +36,7 @@ export default function MyItems() {
       <div className="">
         <div className=" rounded-lg ">
             <h2>Purchase History</h2>
-            {console.log(data)}
+            
             {(pendingRequests(data?.orderRequests).length>0)?
                <PendingRequestTable pageType={"departmentHead"} email={data?.user?.email} orderRequest={pendingRequests(data?.orderRequests)} />:
                <EmptyState msg={"You did not make any purchase"} />}

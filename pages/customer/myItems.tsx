@@ -10,6 +10,7 @@ import { useEffect, useState, useRef } from "react";
 import { EmptyState } from "@/components/EmptyState";
 import LoadingIcon from "@/components/loadingIcon";
 import { useSWRConfig } from "swr";
+import CreateMoveRegModal from "@/components/customer/createMoveRegModal";
 
 export default function MyItems() {
   const { mutate } = useSWRConfig()
@@ -19,10 +20,6 @@ export default function MyItems() {
   const [ fLocations, setLocations ] = useState([])
   const [type, setType] = useState("none");
   if (isLoading || infoLoading) return  <LoadingIcon />
-
-
-
-
 
   const handleMovingItems = async e => {
     e.preventDefault();
@@ -37,7 +34,7 @@ export default function MyItems() {
  
   }
   
-  const createOrder = () =>{
+  const handle = () =>{
     setVisible(true);
   }
 
@@ -48,42 +45,12 @@ export default function MyItems() {
 
   return (
       <>
-      <CreateOrderReq
-          type={type}
-          visible={visible} 
-          closeHandler={closeHandler} 
-          orderTypes={data.orderTypes} 
-          />
-
-    <hr />
-
-      <form onSubmit={handleMovingItems}>
-
-        <select name="item_id">
-        {data.user.location.items.map((item, index) => 
-        <option key={index} value={item.id}>{item.name}</option>)}
-          </select>
     
-    <select onChange={e => {
-      
-      setLocations(info.locations.filter(loc => loc.building == e.target.value))      }
-    }>
-      <option> Pick building </option>
-      {info.buildings.map((item, index) => <option key={index}>{item}</option>)}
-    </select>
     
-    <select name="target_location_id">
-      <option> Select room </option>
-      {fLocations.map((item, index) => <option key={index} value={item.id}>{item.room_number}</option>)}
-    </select>
 
    <div className="my-8 flex flex-row gap-6 w-full">
-         <button className="primary-btn" type="submit"> Create Moving Request</button>
+         <button onClick={handle} className="primary-btn" type="button"> Create Moving Request</button>
       </div>
-     
-
-              </form>
-
 
 
       <div className=" rounded-lg ">

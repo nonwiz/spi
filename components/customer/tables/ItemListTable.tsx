@@ -8,6 +8,7 @@ import { EditIcon } from "@/components/admin/icons/EditIcon";
 import UpdateDepartmentModal from "@/components/admin/UpdateDepartmentModal";
 import StyledStatus from "../StyledStatus";
 import {DeleteIcon} from "../icons/DeleteIcon";
+import DateConvert from "@/components/dateConvert";
 
 
 
@@ -53,7 +54,7 @@ const ItemListTable = ({items}) => {
           case "item_description":
             return <p className="text-lg ">{items.description}</p>;
           case "item_date":
-            return <p className="text-lg ">{items.order_date}</p>;
+            return <p className="text-lg "><DateConvert date={items.order_date} type="date" /></p>;
           case "item_depreciation":
             return <p className="text-lg ">{items.depriciation}</p>;
           case "item_quantity":

@@ -32,7 +32,7 @@ export default function Page() {
         <div className="rounded-lg ">
           <h2>Pending order Request</h2>
 
-        {(data.orderRequests)
+        {(data.orderRequests.length>0)
            ? <PendingRequestTable pageType={"departmentHead"} email={data.user.email} orderRequest={data.orderRequests} />
           : <EmptyState msg={"No Pending Order Request"} />}
         </div>

@@ -18,6 +18,12 @@ export default function IndexPage() {
   if (!data?.user?.name || !data?.user?.department || !data?.user?.location) {
     return <UpdateProfile locations={info?.locations} departments={info?.departments} />
   }
+
+  if(data.user.role == "finance_officer"){router.push('/finance')}
+  if(data.user.role == "department_head"){router.push('/departmentHead')}
+  if(data.user.role == "purchasing_officer"){router.push('/purchase')}
+  if(data.user.role == "inventory"){router.push('/inventory')}
+
   
   router.push('/customer')
   return null

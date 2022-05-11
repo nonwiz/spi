@@ -19,7 +19,7 @@ export default function UpdateDepartmentModal({
   department,
 }) {
   const { mutate } = useSWRConfig()
-  console.log("DEPARTMENT", department)
+
 
   const handleUpdateDepartment = async (event) => {
     event.preventDefault()
@@ -27,7 +27,7 @@ export default function UpdateDepartmentModal({
 
     try {
       fetcher("/api/admin/department/update", formData).then((d) => {
-        console.log(d)
+        
         mutate("/api/info")
       })
 
@@ -56,7 +56,7 @@ export default function UpdateDepartmentModal({
     event.preventDefault()
     const formData = getFieldsValues(event, ["name", "dean_email"])
     fetcher("/api/admin/department/create", formData).then((d) => {
-      console.log(d)
+      
       mutate("/api/info")
     })
     createLog("Department", `Create new department ${formData.name}`, "Create")

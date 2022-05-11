@@ -10,12 +10,12 @@ import StyledStatus from "./StyledStatus";
 export default function OrderDetailModal({type,visible, closeHandler, order}) {
 
   const { mutate } = useSWRConfig();
-  console.log(order)
+
   const handleUpdateDepartment = async event => {
     event.preventDefault();
     const formData = getFieldsValues(event, ["budget", "name"])
     fetcher("/api/admin/department/update", formData).then(d => {
-      console.log(d)
+      
       mutate("/api/admin")
     })
     closeHandler()
@@ -23,7 +23,7 @@ export default function OrderDetailModal({type,visible, closeHandler, order}) {
 
   const handleCancel = async orderId => {
     fetcher("/api/common/order/cancelled", {orderId}).then(d => {
-      console.log(d)
+      
       mutate("/api/customer")
     })
 
@@ -34,7 +34,7 @@ export default function OrderDetailModal({type,visible, closeHandler, order}) {
     event.preventDefault();
     const formData = getFieldsValues(event, ["id", "budget"])
     fetcher("/api/admin/department/create", formData).then(d => {
-      console.log(d)
+      
       mutate("/api/admin")
     })
 
@@ -68,7 +68,7 @@ export default function OrderDetailModal({type,visible, closeHandler, order}) {
             <legend className="pl-1 pr-4 font-semibold">Items:</legend> 
                <Collapse.Group  >
               {order && order.order_items?.map((item, num) =>
-                <div className="">
+                <div className="" key={num}>
                     <Collapse key={num} title={`${item.name}`}>
                         <div  className ="flex flex-col gap-4 px-2">
                           <div className="flex flex-row gap-2">

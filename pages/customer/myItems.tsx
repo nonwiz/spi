@@ -27,12 +27,13 @@ export default function MyItems() {
   const handleMovingItems = async e => {
     e.preventDefault();
     const formData = getFieldsValues(event, ["item_id", "target_location_id"])
-    console.log({ formData });
+    
 
     fetcher("/api/customer/relocate/request", formData).then((d) => {
-      console.log(d)
+      
       mutate("/api/customer")
     })
+    
  
   }
   

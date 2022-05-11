@@ -35,7 +35,7 @@ export default function locationList() {
     event.preventDefault();
     const formData = getFieldsValues(event, ["floor", "description", "zone", "room_number"])
     fetcher("/api/admin/location/create", formData).then(d => {
-      console.log(d)
+      
     })
 
   }

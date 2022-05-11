@@ -19,19 +19,19 @@ const FormAddInventory = ({locations}: {locations: string[]}) => {
 
   const handleAddInventory = async (event) => {
     event.preventDefault()
-    console.log("Handle add inventory called")
+    
     const formData = getFieldsValues(event, ["code", "type", "name", "location_id", "description", "price", "order_date", "depreciation", "quantity", "quantity_unit"])
-    console.log({ formData });
+    
 
     fetcher("/api/inventory/addItem", formData).then((d) => {
-      console.log(d)
+      
       mutate("/api/inventory")
     })
     createLog("Item", `Add: new item (${formData.name}-${formData.type}-${formData.order_date}) to the inventory`, "Create")
   }
 
   useEffect(() => {
-    console.log("change building")
+    
     const filterLocations = locations?.filter(loc => loc?.building == building)
     setLocation(filterLocations);
   }, [building])

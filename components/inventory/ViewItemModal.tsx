@@ -10,7 +10,7 @@ import DateConvert from "../dateConvert";
 
 export default function ViewItemModal({visible, closeHandler, item, location }) {
     const { mutate } = useSWRConfig()
-    console.log(item)
+
    
   return (
     <>

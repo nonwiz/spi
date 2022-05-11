@@ -78,7 +78,7 @@ export const getFieldsValues = (event, fields) => {
 
 export const createLog = (model, message, operation) => {
     fetcher("/api/common/log", { model, message, operation }).then((d) => {
-      console.log(d)
+      
     })
   }
 

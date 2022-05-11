@@ -9,6 +9,7 @@ import UpdateDepartmentModal from "@/components/admin/UpdateDepartmentModal";
 import StyledStatus from "../StyledStatus";
 import { DeleteIcon } from "../icons/DeleteIcon";
 import OrderDetailModal from "../orderDetailModal";
+import DateConvert from "@/components/dateConvert";
 
 
 
@@ -18,7 +19,7 @@ const OrderRequestTable = ({ orderRequest }) => {
   const [orderRequestInfo, setOrderRequestt] = useState([]);
   const [type, setType] = useState("none");
 
-  console.log({orderRequest})
+
 
   const detailHandler = (orderRequest) => {
     setVisible(true);
@@ -74,7 +75,7 @@ const OrderRequestTable = ({ orderRequest }) => {
       case "order_price":
         return <p className="text-lg ">{orderRequest.total_price}</p>;
       case "order_date":
-        return <p className="text-lg ">{orderRequest.order_date}</p>;
+        return <p className="text-lg "><DateConvert date={orderRequest.order_date} type="date" /></p>;
       case "order_status":
         return <StyledStatus status={`${orderRequest.approval_by.length > 0 && orderRequest.order_status == "Pending" ? `Pending (${orderRequest.approval_by.length}/3)` : orderRequest.order_status}`} />
 

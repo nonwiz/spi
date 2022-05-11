@@ -17,6 +17,7 @@ export default function Page() {
   const [sItem, setSelected] = useState(0)
   const { mutate } = useSWRConfig()
   if (isLoading || infoLoading) return  <LoadingIcon />
+
   const { orderRequests: ors } = data
   
   return (

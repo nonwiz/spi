@@ -21,7 +21,7 @@ export default function Page() {
 
   const { orderRequests: ors } = data;
 
-  console.log({data, ors}, ors[0]);
+  console.log("Finance", data.orderRequests);
 
   
 

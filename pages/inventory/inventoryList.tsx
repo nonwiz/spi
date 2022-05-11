@@ -16,7 +16,7 @@ export default function Page() {
 
   if (isLoading) return  <LoadingIcon />
 
-  console.log("sata",{ data })
+  
 
   const returnLocationItems = (location) => {
     console.log(location.items)

@@ -11,10 +11,10 @@ export default function ChangeRoleModal({visible, closeHandler, user, type, role
   const { mutate } = useSWRConfig();
   const handleUpdateRole = async event => {
     event.preventDefault();
-    console.log("updated user role")
+  
     const formData = getFieldsValues(event, ["email", "role"])
     fetcher("/api/admin/user/updateRole", formData).then(d => {
-      console.log(d)
+
       mutate("/api/admin")
     })
 

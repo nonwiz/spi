@@ -15,7 +15,7 @@
     "start": "next start",
     "types": "tsc --noEmit"
   },
- "prisma": {
+  "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "author": "Non Wiz <nonwiz@pm.me>",
@@ -28,6 +28,7 @@
     "@nextui-org/react": "^1.0.8-beta.5",
     "@prisma/client": "^3.13.0",
     "@react-pdf/renderer": "^2.1.1",
+    "@types/nodemailer": "^6.4.4",
     "assert": "^2.0.0",
     "browserify-zlib": "^0.2.0",
     "buffer": "^6.0.3",

@@ -1,6 +1,6 @@
 import Layout from "@/components/layout"
 import FormAddInventory from "@/components/inventory/addItem"
-import { useInventory, useInfo } from "lib/fetcher"
+import { useInventory, useInfo, fetcher, getFieldsValues, createLog } from "lib/fetcher"
 import { useSession } from "next-auth/react"
 import { useState } from "react"
 import FormMoveUser from "@/components/inventory/moveUser"
@@ -10,20 +10,30 @@ import ItemsListTable from "@/components/inventory/tables/ItemsListTable"
 import LoadingIcon from "@/components/loadingIcon"
 import SearchBox from "@/components/admin/SearchBox"
 import AddItemModal from "@/components/inventory/AddItemModal"
+import { useSWRConfig } from "swr"
 
 export default function Page() {
   const { data, isLoading } = useInventory()
   const { data: info, isLoading:infoLoading } = useInfo()
   const [visible, setVisible] = useState(false);
-
+  const { mutate } = useSWRConfig();
 
   if (isLoading || infoLoading) return  <LoadingIcon />
 
-  console.log("sata",{ info })
+  
 
   
   const handler = () => {setVisible(true);}
   const closeHandler = () => {setVisible(false);};
+
+  const handleApproveRelocate= async relocate => {
+    fetcher("/api/customer/relocate/approve", {relocate_id: relocate.id}).then(d => {
+      
+      mutate("/api/inventory")
+    })
+    createLog("LocationMoveRequest", `Moving ${relocate.item.name} from ${relocate.previous_location} to ${relocate.target_location.short_code}`, "Update")
+
+  }
 
   return (
     <>
@@ -44,6 +54,12 @@ export default function Page() {
         <div className="mt-4">
         <div className="rounded-lg ">
           <h2>Recently Added item </h2>
+          <hr />
+          <p> List of relocating item request </p>
+          {data.relocate_requests.map((re, index) => 
+            <li key={index}> {re.item.name} from {re.previous_location} to {re.target_location.short_code} | <button onClick={() => handleApproveRelocate(re)}> Accept </button> </li>
+          )}
+
           {/* <FormAddInventory locations={info.locations}  /> */}
         {(data.items && data.items?.length >0)
           ?

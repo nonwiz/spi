@@ -138,7 +138,7 @@ const LocationListTable = ({location, zones}) => {
               align="center"
               rowsPerPage={10}
               
-              onPageChange={(page) => console.log({ page })}
+              
             />
             </Table>
          

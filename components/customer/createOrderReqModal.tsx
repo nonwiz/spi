@@ -117,7 +117,7 @@ export default function CreateOrderReq({type,visible, closeHandler, orderTypes, 
   
 
   useEffect(() => {
-    console.log("change building")
+
     const filterLocations = locations?.filter(loc => loc?.building == building)
     setLocation(filterLocations);
   }, [building])
@@ -125,7 +125,7 @@ export default function CreateOrderReq({type,visible, closeHandler, orderTypes, 
 
   return (
     <>
-    {console.log(step)}
+
       <Modal
         closeButton
         aria-labelledby="modal-title"

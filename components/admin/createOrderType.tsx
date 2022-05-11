@@ -10,7 +10,7 @@ const FormCreateOrderType = ({orderTypes}) => {
     event.preventDefault();
     const formData = getFieldsValues(event, ["type"])
     fetcher("/api/admin/orderType/create", formData).then(d => {
-      console.log(d)
+
       mutate("/api/admin")
     })
 

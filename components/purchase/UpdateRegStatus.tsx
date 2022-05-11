@@ -15,12 +15,12 @@ import DateConvert from "../dateConvert";
 export default function UpdateRegStatus({type,visible, closeHandler, orderRequest, email, pageType}) {
   const { mutate } = useSWRConfig();
   const [comment, setComment] = useState("");
-  console.log("Update reg", orderRequest)
+
 
   const handlePurchased = async (orderId:Number) => {
  
     fetcher("/api/common/order/purchased", { orderId }).then((d) => {
-      console.log(d)
+      
       mutate(`/api/${pageType}`)
     })
     closeHandler()
@@ -30,31 +30,42 @@ export default function UpdateRegStatus({type,visible, closeHandler, orderReques
   const handleApprove = async (item: Number) => {
  
     fetcher("/api/common/order/approve", { orderId: item }).then((d) => {
-      console.log(d)
+      
       mutate(`/api/${pageType}`)
     })
   }
 
   const handleDeleteComment = async (item: Number) => {
     fetcher("/api/common/order/deleteComment", { commentId: item }).then((d) => {
-      console.log(d)
+      
       mutate(`/api/${pageType}`)
     })
+
+
   }
 
   const handleReject = async (item: Number) => {
     fetcher("/api/common/order/reject", { orderId: item }).then((d) => {
-      console.log(d)
+      
       mutate(`/api/${pageType}`)
     })
   }
 
-  const handleComment = async (comment: String, item: Number) => {
+  const handleComment = async (order_request: String, comment: String, item: Number) => {
+    console.log("hadnle comment trigger", order_request)
     fetcher("/api/common/order/comment", { comment, orderId: item }).then((d) => {
-      console.log(d)
+      
       console.log("try commenting")
       mutate(`/api/${pageType}`)
     })
+
+    let recipient;
+    if (order_request.location?.users.length) {
+     recipient = order_request.location.users.map(item => item.email).join(", ")
+    } else {
+    }
+    fetcher("/api/common/send_email", {recipient, comment).then(d => {
+    }) 
   }
 
 
@@ -198,7 +209,7 @@ export default function UpdateRegStatus({type,visible, closeHandler, orderReques
                   onChange={(e) => setComment(e.target.value)}/>
                 <div className="flex justify-center mt-3">
                 {/* <Button auto flat  onClick={closeHandler} className="text-error-color">Close</Button> */}
-                    <Button auto className="primary-btn" onClick={e => handleComment(comment, orderRequest.id)}>Save Comment</Button>
+                    <Button auto className="primary-btn" onClick={e => handleComment(orderRequest, comment, orderRequest.id)}>Save Comment</Button>
                 </div>
               
               </div>

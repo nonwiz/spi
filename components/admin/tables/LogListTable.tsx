@@ -94,7 +94,7 @@ const LogListTable = ({logs}) => {
               align="center"
               rowsPerPage={14}
      
-              onPageChange={(page) => console.log({ page })}
+              
             />
             </Table>
          

@@ -14,7 +14,11 @@ export default function OrderRequest() {
   const { data, isLoading } = useFinance();
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState("none");
+
   if (isLoading) return  <LoadingIcon />
+
+  // Check if there is someone approved yet / someone who approved refer to the dean usually.
+  const pendingOrderRequests = data.orderRequests.filter(oreq => oreq.order_status == "Pending" && oreq.approval_by.length > 0)
 
   
   
@@ -44,7 +48,7 @@ export default function OrderRequest() {
             <h2>Recent order Request</h2>
 
             {data.orderRequests? 
-              <PendingRequestTable orderRequest={data.orderRequests} email={data.user.email} pageType={"finance"} />:
+              <PendingRequestTable orderRequest={pendingOrderRequests} email={data.user.email} pageType={"finance"} />:
               <EmptyState msg={"No Pending Order Request"} />}
         </div>
       </div>

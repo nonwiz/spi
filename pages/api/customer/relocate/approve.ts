@@ -19,7 +19,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         id: Number(relocate_id)
       },
       include: {
-        item?: true,
+        item: true,
         target_location: true
       }
     })

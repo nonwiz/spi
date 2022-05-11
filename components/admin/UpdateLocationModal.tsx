@@ -27,7 +27,7 @@ export default function UpdateLocationModal({ type, visible, closeHandler, locat
     }
 
     const update = fetcher("/api/admin/location/update", formData).then(d => {
-      console.log(d)
+      
       mutate("/api/info")
     })
     createLog("Location", `Update location ${location.short_code} pk:${location.id}`, "Update")
@@ -43,7 +43,7 @@ export default function UpdateLocationModal({ type, visible, closeHandler, locat
     }
 
     fetcher("/api/admin/location/create", formData).then(d => {
-      console.log(d)
+      
       mutate("/api/info")
     })
     createLog("Location", `Add new location ${formData.building}${formData.room_number}`, "Create")

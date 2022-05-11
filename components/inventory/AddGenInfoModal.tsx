@@ -13,9 +13,9 @@ export default function AddGeneralInfoModal({visible, closeHandler, info }) {
     const handleAddInfo = async event => {
       event.preventDefault();
       const formData = getFieldsValues(event, ["name", "type"])
-      console.log({formData})
+      
       fetcher("/api/common/general_info/create", formData).then(d => {
-        console.log(d)
+        
         mutate("/api/info")
       })
       createLog("GeneralInfo", "Create: new general info type", "Create")

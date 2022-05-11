@@ -47,7 +47,7 @@ export default function OrderRequest() {
         <div className=" rounded-lg ">
             <h2>Recent order Request</h2>
 
-            {(data.orderRequests.length>0)? 
+            {(pendingOrderRequests.length>0)? 
               <PendingRequestTable orderRequest={pendingOrderRequests} email={data.user.email} pageType={"finance"} />:
               <EmptyState msg={"No Pending Order Request"} />}
         </div>

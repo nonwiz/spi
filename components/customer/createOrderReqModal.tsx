@@ -52,9 +52,9 @@ export default function CreateOrderReq({type,visible, closeHandler, orderTypes, 
     fetcher("/api/customer/order/createOrderRequest", formatedData).then(d => {
       mutate("/api/admin")
     })
-    createLog("OrderRequest & OrderItem", `Create: new orders items, [${formatedData}]`, "Create")
+    createLog("OrderRequest & OrderItem", `Create: new orders items`, "Create")
 
-    closeHandler
+    closeHandler();
     //we should add a try and catch here
 
   }
@@ -272,7 +272,7 @@ export default function CreateOrderReq({type,visible, closeHandler, orderTypes, 
                         <Text color="primary" className="mb-1">Type (click to select Type)</Text>
                           <select  name={`type-${num}`}className="form-select appearance-none block w-full p-2.5 px-5 text-base font-normal text-gray-700 border-2 rounded-2xl transition ease-in-out m-0
                           focus:text-gray-700 focus:bg-white focus:border-primary-color focus:outline-none" aria-label="Zone selection">
-                              {orderTypes?.map((item, id) => <option key={id}>{item.type}</option>)}  
+                              {orderTypes?.map((item, id) => <option key={id}>{item}</option>)}  
                       
                           </select>
                       </div>

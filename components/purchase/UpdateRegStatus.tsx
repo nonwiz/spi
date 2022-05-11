@@ -59,15 +59,15 @@ export default function UpdateRegStatus({type,visible, closeHandler, orderReques
       mutate(`/api/${pageType}`)
     })
 
-    let recipient;
-    if (order_request.location?.users.length) {
-     recipient = order_request.location?.users?.map(item => item.email).join(", ")
-    } else {
-      // sent to the department dean.
-    }
-    const body = pageType + ": " + comment
-    fetcher("/api/common/send_email", {recipient, comment: body}).then(d => {
-    }) 
+    closeHandler();
+
+    // let recipient;
+    // if (order_request?.location?.users?.length) {
+    //  recipient = order_request.location?.users?.map(item => item.email).join(", ")
+    // } else {
+    // }
+    // fetcher("/api/common/send_email", {recipient, comment}).then(d => {
+    // }) 
   }
 
 

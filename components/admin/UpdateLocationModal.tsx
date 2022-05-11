@@ -47,6 +47,7 @@ export default function UpdateLocationModal({ type, visible, closeHandler, locat
       mutate("/api/info")
     })
     createLog("Location", `Add new location ${formData.building}${formData.room_number}`, "Create")
+    closeHandler();
 
   }
 

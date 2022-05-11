@@ -30,7 +30,7 @@ export default function Page() {
           type={type}
           visible={visible} 
           closeHandler={closeHandler} 
-          orderTypes={info?.orderTypes} 
+          orderTypes={info?.order_type} 
           locations={info?.locations}
           quantity_unit={info?.quantity_unit}
           />

@@ -19,12 +19,14 @@ export default function IndexPage() {
     return <UpdateProfile locations={info?.locations} departments={info?.departments} />
   }
 
+
+  if(data.user.role == "customer"){router.push('/customer')}
+  if(data.user.role == "admin"){router.push('/admin')}
   if(data.user.role == "finance_officer"){router.push('/finance')}
   if(data.user.role == "department_head"){router.push('/departmentHead')}
   if(data.user.role == "purchasing_officer"){router.push('/purchase')}
   if(data.user.role == "inventory"){router.push('/inventory')}
 
   
-  router.push('/customer')
   return null
 }

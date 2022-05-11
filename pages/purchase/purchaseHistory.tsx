@@ -14,12 +14,8 @@ export default function MyItems() {
   if (isLoading) return  <LoadingIcon />
 
   // Order requests whose status is not pending 
-  const ors = data?.orderRequests.filter(item => item?.order_status != "Pending")
-
-  const pendingRequests = (order_req: any[]) =>{
-    let filtered_req = order_req.filter((item) => (item?.location?.department_id == data?.user?.department_id) && item?.order_status=="Purchased")
-    return filtered_req
-  }
+  const ors = data?.orderRequests.filter(item => item?.order_status == "Purchased")
+  
 
   
   return (
@@ -32,8 +28,8 @@ export default function MyItems() {
       <div className="">
         <div className=" rounded-lg ">
             <h2>Recent Purchase</h2>
-            {(data?.orderRequests.length>0)?
-              <PendingRequestTable orderRequest={pendingRequests(data?.orderRequests)} email={data?.user.email} pageType={"purchase"} />:
+            {(ors?.length>0)?
+              <PendingRequestTable orderRequest={ors} email={data?.user.email} pageType={"purchase"} />:
               <EmptyState msg={"No Pending Order Request"} />}
         </div>
       </div>

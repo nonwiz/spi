@@ -13,6 +13,9 @@ import ViewItemModal from "../ViewItemModal";
 
 
 
+
+
+
 const ItemsListTable = ({items, locations}) => {
   const router = useRouter()
   const [visible, setVisible] = useState(false);
@@ -34,7 +37,28 @@ const ItemsListTable = ({items, locations}) => {
   const closeHandler = () => {
     setVisible(false);
   };
-    
+   
+    const checkDepreciation = (item) => {
+    let od = new Date(item.order_date);
+      let dp;
+      let today = new Date();
+      if (!item.isAsset) {
+        return "Not Applicable"
+      }
+      if (item.depreciation) {
+        dp = new Date(item.depreciation)
+      } else {
+        dp = new Date();
+        dp.setFullYear(od.getFullYear() + 10)
+      }
+      if (dp < today) {
+        return "Depreciated"
+      } else {
+        return dp.toDateString();
+      }
+   
+    }
+
   let columns = [
         { name: "#", uid: "id" },
         { name: "NAME", uid: "name" },
@@ -62,7 +86,7 @@ const ItemsListTable = ({items, locations}) => {
           case "order_date":
             return <p className="text-lg "><DateConvert date={items.order_date} type={"inventory"} /></p>;
           case "depreciation":
-              return <p className="text-lg "><DateConvert date={items.depreciation} type={"inventory"} /></p>;
+              return <p className="text-lg ">{checkDepreciation(items)}</p>;
 
           case "type":
             return <p className="text-lg ">{items.type}</p>;

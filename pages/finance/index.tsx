@@ -19,8 +19,8 @@ export default function Page() {
 
   if (isLoading) return  <LoadingIcon />
 
-  const { orderRequests: ors } = data;
 
+  const pendingOrderRequests = data.orderRequests.filter(oreq => oreq.order_status == "Pending" && oreq.approval_by.length > 0)
 
 
   
@@ -32,7 +32,7 @@ export default function Page() {
         <div className="rounded-lg ">
           <h2>Pending order Request</h2>
 
-        {(ors && ors.length > 0)
+        {(pendingOrderRequests && pendingOrderRequests.length > 0)
           ?
             <PendingRequestTable pageType={"finance"} email={data.user.email} orderRequest={data.orderRequests.filter((item) => item.order_status == "Pending")} />
           :

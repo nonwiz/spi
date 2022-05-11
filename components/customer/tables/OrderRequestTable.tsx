@@ -71,7 +71,7 @@ const OrderRequestTable = ({ orderRequest }) => {
       case "order_description":
         return <p className="text-lg ">{orderRequest.purchase_reason}</p>;
       case "order_items":
-        return <p className="text-lg ">{orderRequest.id}</p>;
+        return <p className="text-lg ">{orderRequest.order_items.length}</p>;
       case "order_price":
         return <p className="text-lg ">{orderRequest.total_price}</p>;
       case "order_date":

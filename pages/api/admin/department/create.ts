@@ -4,7 +4,9 @@ import { prisma } from "db"
 
 type Data = {
   users?: object[],
-  error?: string,
+  error?: boolean,
+  message: string,
+  department?: object,
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
@@ -17,9 +19,9 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         dean_email
       }
     })
-    return res.status(200).json({ department })
+    return res.status(200).json({ department, error: false, message: "Update department"})
   }
-  res.status(500).json({ error: "not authorized" })
+  res.status(500).json({ error: true, message: "not authorized" })
 }
 
 

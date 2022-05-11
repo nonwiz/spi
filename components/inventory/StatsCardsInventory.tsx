@@ -83,7 +83,7 @@ const StatsCardsInventory = ( {items} ) => {
                     </div>
                   <p className="text-5xl font-semibold text-gray-700">{office}</p>
                 </div>
-                <span className="p-2 text-base tracking-wide text-gray-500 font-medium">Total Depreciated Assets</span>
+                <span className="p-2 text-base tracking-wide text-gray-500 font-medium">Depreciated Assets</span>
               </div>
 
               <div className="flex items-center gap-6 text-blue-700">

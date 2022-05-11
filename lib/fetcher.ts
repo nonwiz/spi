@@ -82,3 +82,25 @@ export const createLog = (model, message, operation) => {
     })
   }
 
+ 
+export const checkDepreciation = (item) => {
+let od = new Date(item.order_date);
+  let dp;
+  let today = new Date();
+  if (!item.isAsset) {
+    return "Not Applicable"
+  }
+  if (item.depreciation) {
+    dp = new Date(item.depreciation)
+  } else {
+    dp = new Date();
+    dp.setFullYear(od.getFullYear() + 10)
+  }
+  if (dp < today) {
+    return "Depreciated"
+  } else {
+    return dp.toDateString();
+  }
+
+}
+

@@ -18,8 +18,9 @@ export default function Page() {
   const { mutate } = useSWRConfig()
   if (isLoading || infoLoading) return  <LoadingIcon />
 
-  const { orderRequests: ors } = data
-  
+ // pendingOrderRequests 
+  const por = data.orderRequests.filter(oreq => oreq.order_status == "Pending" && oreq.approval_by.length > 1)
+
   return (
     <>
 
@@ -29,13 +30,13 @@ export default function Page() {
           <PdfDocument props={{ name: "Hesoyamyam", logo: "/assets/aiu_shield.png", order_request: ors[sItem] }} />
         </PDFViewer>
       </div> */}
-      <StatsCardsPurchase orders={data.orderRequests} purchases={data.orderRequests.filter((item) => item.order_status == "Purchased")} />
+      <StatsCardsPurchase orders={por} purchases={data.orderRequests.filter((item) => item.order_status == "Purchased")} />
       <div className="mt-4">
         <div className="rounded-lg ">
           <h2>Pending order Request</h2>
 
-          {(data.orderRequests)
-            ?<PendingRequestTable email={data.user.email} pageType={"purchase"} orderRequest={data.orderRequests.filter((item) => item.order_status == "Pending")} />
+          {(por.length > 0)
+            ?<PendingRequestTable email={data.user.email} pageType={"purchase"} orderRequest={por} />
             :<EmptyState msg={"No Pending Order Request"} />}
         </div>
       </div>

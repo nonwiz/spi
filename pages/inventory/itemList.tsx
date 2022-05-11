@@ -31,7 +31,7 @@ export default function Page() {
       
       mutate("/api/inventory")
     })
-    createLog("LocationMoveRequest", `Moving ${relocate.item.name} from ${relocate.previous_location} to ${relocate.target_location.short_code}`, "Update")
+    createLog("LocationMoveRequest", `Moving ${relocate.item?.name} from ${relocate.previous_location} to ${relocate.target_location.short_code}`, "Update")
 
   }
 
@@ -57,7 +57,7 @@ export default function Page() {
           <hr />
           <p> List of relocating item request </p>
           {data.relocate_requests.map((re, index) => 
-            <li key={index}> {re.item.name} from {re.previous_location} to {re.target_location.short_code} | <button onClick={() => handleApproveRelocate(re)}> Accept </button> </li>
+            <li key={index}> {re.item?.name} from {re.previous_location} to {re.target_location.short_code} | <button onClick={() => handleApproveRelocate(re)}> Accept </button> </li>
           )}
 
           {/* <FormAddInventory locations={info.locations}  /> */}

@@ -56,10 +56,9 @@ export default function UpdateDepartmentModal({
     event.preventDefault()
     const formData = getFieldsValues(event, ["name", "dean_email"])
     fetcher("/api/admin/department/create", formData).then((d) => {
-      
       mutate("/api/info")
     })
-    createLog("Department", `Create new department ${formData.name}`, "Create")
+    // createLog("Department", `Create new department ${formData.name}`, "Create")
 
     closeHandler()
   }

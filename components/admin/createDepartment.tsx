@@ -10,7 +10,7 @@ const FormCreateDepartment = () => {
     event.preventDefault();
     const formData = getFieldsValues(event, ["name", "budget"])
     fetcher("/api/admin/department/create", formData).then(d => {
-      console.log(d)
+
       mutate("/api/admin")
     })
 

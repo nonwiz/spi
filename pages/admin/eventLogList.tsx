@@ -14,7 +14,7 @@ export default function eventLogList() {
   const { data, isLoading } = useAdmin();
   const { data: info, isLoading: infoLoading } = useInfo();
   const { data: log, isLoading: logLoading } = useLog();
-  console.log(info,"hi")
+
 
   if (isLoading || infoLoading || logLoading) return  <LoadingIcon />
    return (
@@ -26,10 +26,10 @@ export default function eventLogList() {
               <div className="rounded-lg ">
                 <h2>Recent Activities (Event Log)</h2>
                 {(log.logs)
-                ?<LogListTable logs={log.logs} />
+                ?<LogListTable logs={log.logs.reverse()} />
                 :<EmptyState msg={"user table is empty"} />}
               </div>
-        
+                  
           </div>
       </div>
 

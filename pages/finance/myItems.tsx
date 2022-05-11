@@ -34,8 +34,9 @@ export default function MyItems() {
       <div className="">
         <div className=" rounded-lg ">
             <h2>List of items</h2>
-            {(data.user.location && data.user.location.items) ? <ItemListTable items={data.user.location.items} />:
-            <EmptyState msg={"You don't have any items"} />}
+            {(data.user.location && data.user.location.items.length>0) ? 
+              <ItemListTable items={data.user.location.items} />:
+              <EmptyState msg={"You don't have any items"} />}
             </div>
       </div>
       </>

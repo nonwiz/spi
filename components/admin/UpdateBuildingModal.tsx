@@ -14,7 +14,7 @@ export default function UpdateBuildingModal({type, visible, closeHandler, buildi
     event.preventDefault();
     const formData = getFieldsValues(event, ["id", "name"])
     fetcher("/api/admin/building/update", formData).then(d => {
-      console.log(d)
+
       mutate("/api/admin")
     })
     closeHandler()
@@ -24,7 +24,7 @@ export default function UpdateBuildingModal({type, visible, closeHandler, buildi
     event.preventDefault();
     const formData = getFieldsValues(event, ["name"])
     fetcher("/api/admin/building/create", formData).then(d => {
-      console.log(d)
+
       mutate("/api/admin")
     })
 

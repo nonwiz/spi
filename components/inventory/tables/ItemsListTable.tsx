@@ -8,6 +8,10 @@ import UpdateDepartmentModal from "@/components/admin/UpdateDepartmentModal";
 import StyledStatus from "@/components/customer/StyledStatus";
 import UpdateRegStatus from "../UpdateRegStatus";
 import DateConvert from "@/components/dateConvert";
+import ViewItemModal from "../ViewItemModal";
+
+
+
 
 
 
@@ -15,37 +19,46 @@ import DateConvert from "@/components/dateConvert";
 const ItemsListTable = ({items, locations}) => {
   const router = useRouter()
   const [visible, setVisible] = useState(false);
-  const [type, setType] = useState("none");
-  const [orderReq, setOrderRequest] = useState({})
+  const [itemInfo, setItemInfo] = useState([])
+  const [itemLocation, setItemLocation] = useState([])
 
-  const zones = {
-    Information_Technology: "IT",
-    Administration: "AD",
-    Science: "SB",
-    Solomon_hall:"Solomon"
+  const returnRoom = (location_id) => {
+    return locations?.find((loc) => loc.id == location_id)?.short_code
+
   }
 
-  const returnRoom = (item) => {
-    const tmp = locations.find((ele) => ele.id == item)
-    return <span> {zones[tmp.zone]}{tmp.room_number} </span>
-  }
-  const detailHandler = (item) =>{
+
+  const handler = (item) => {
+    setItemInfo(item)
     setVisible(true);
-    setType("view_details")
-    setOrderRequest(item)
+    setItemLocation(returnRoom(item.location_id));
   }
-
-  // const updateHandler = (order) => {
-  //   setVisible(true);
-  //   setType("update_details")
-  //   setOrderRequest(order)
-  // }
 
   const closeHandler = () => {
     setVisible(false);
-    setType("none")
   };
-    
+   
+    const checkDepreciation = (item) => {
+    let od = new Date(item.order_date);
+      let dp;
+      let today = new Date();
+      if (!item.isAsset) {
+        return "Not Applicable"
+      }
+      if (item.depreciation) {
+        dp = new Date(item.depreciation)
+      } else {
+        dp = new Date();
+        dp.setFullYear(od.getFullYear() + 10)
+      }
+      if (dp < today) {
+        return "Depreciated"
+      } else {
+        return dp.toDateString();
+      }
+   
+    }
+
   let columns = [
         { name: "#", uid: "id" },
         { name: "NAME", uid: "name" },
@@ -73,7 +86,7 @@ const ItemsListTable = ({items, locations}) => {
           case "order_date":
             return <p className="text-lg "><DateConvert date={items.order_date} type={"inventory"} /></p>;
           case "depreciation":
-              return <p className="text-lg "><DateConvert date={items.depreciation} type={"inventory"} /></p>;
+              return <p className="text-lg ">{checkDepreciation(items)}</p>;
 
           case "type":
             return <p className="text-lg ">{items.type}</p>;
@@ -83,25 +96,19 @@ const ItemsListTable = ({items, locations}) => {
           case "quantity":
             return <p className="text-lg ">{items.quantity} {items.quantity_unit}</p>;
           case "order_status":
-            return <StyledStatus status={`${items.approval_by.length > 0 && items.order_status == "Pending"? `Pending (${items.approval_by.length}/3)` : items.order_status}`} />
+            return <StyledStatus status={`${items.approval_by.length > 0 && items.order_status == "Pending"? `Pending (${items.approval_by.length}/2)` : items.order_status}`} />
        
           case "actions":
             return (
               <Row justify="center" align="center">
               <Col css={{  }} className="ml-6">
                 <Tooltip content="Item Details" >
-                  <IconButton  onClick={() => detailHandler(items)} >
+                  <IconButton  onClick={() => handler(items)} >
                     <EyeIcon size={20} fill="#979797" />
                   </IconButton>
                 </Tooltip>
               </Col>
-              {/* <Col css={{ d: "flex" }}>
-                <Tooltip content="Update Order">
-                  <IconButton onClick={() => updateHandler(items)}>
-                    <EditIcon size={20} fill="#979797" />
-                  </IconButton>
-                </Tooltip>
-              </Col> */}
+              
             </Row>
             );
           default:
@@ -112,14 +119,12 @@ const ItemsListTable = ({items, locations}) => {
 
     return ( 
       <>
-          {/* <UpdateRegStatus
-          type={type}
-          email={email}
-          visible={visible} 
-          closeHandler={closeHandler} 
-          orderRequest={orderReq}
-          pageType ={pageType}
-          /> */}
+          <ViewItemModal
+          visible={visible}
+          closeHandler={closeHandler}
+          location={itemLocation} 
+          item={itemInfo}      
+      />
 
 
             <Table 

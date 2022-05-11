@@ -16,7 +16,6 @@ export default function UpdateLocationModal({ type, visible, closeHandler, locat
   const { mutate } = useSWRConfig();
   const [other, setOther] = useState(false);
   const [building, setBuilding] = useState(location?.building)
-  console.log({ departments: info.departments })
 
 
   const handleUpdateLocation = async event => {
@@ -27,15 +26,11 @@ export default function UpdateLocationModal({ type, visible, closeHandler, locat
       formData.building = tmp.building1;
     }
 
-    console.log({formData});
-
-    fetcher("/api/admin/location/update", formData).then(d => {
-      console.log(d)
-      createLog("Location", `Update location ${location.short_code}$`, "Update")
+    const update = fetcher("/api/admin/location/update", formData).then(d => {
+      
       mutate("/api/info")
     })
-
-
+    createLog("Location", `Update location ${location.short_code} pk:${location.id}`, "Update")
     closeHandler()
   }
 
@@ -48,11 +43,11 @@ export default function UpdateLocationModal({ type, visible, closeHandler, locat
     }
 
     fetcher("/api/admin/location/create", formData).then(d => {
-      console.log(d)
+      
       mutate("/api/info")
     })
-
     createLog("Location", `Add new location ${formData.building}${formData.room_number}`, "Create")
+    closeHandler();
 
   }
 

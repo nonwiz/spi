@@ -9,7 +9,7 @@ const FormMoveUser = ({ props }) => {
     event.preventDefault()
     const formData = getFieldsValues(event, ["userId", "location"])
     fetcher("/api/inventory/location/moveUser", formData).then((d) => {
-      console.log(d)
+      
       mutate("/api/inventory")
     })
   }

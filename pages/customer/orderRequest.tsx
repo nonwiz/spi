@@ -11,9 +11,10 @@ import { useState } from "react";
 export default function OrderRequest() {
   const { data: session } = useSession();
   const { data, isLoading } = useCustomer();
+  const { data: info, isLoading: infoLoading } = useCustomer();
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState("none");
-  if (isLoading) return  <LoadingIcon />
+  if (isLoading || infoLoading) return  <LoadingIcon />
 
 
   
@@ -27,22 +28,26 @@ export default function OrderRequest() {
     setVisible(false);
   };
 
+  
   return (
       <>
       <CreateOrderReq
-          type={type}
-          visible={visible} 
-          closeHandler={closeHandler} 
-          orderTypes={data.orderTypes} 
-          />
+        type={type}
+        visible={visible}
+        closeHandler={closeHandler}
+        orderTypes={data.orderTypes} 
+        locations={info?.locations}
+          quantity_unit={info?.quantity_unit}
+     
+         />
       <div className="my-8 flex flex-row gap-6 w-full">
         <button onClick={createOrder} className="primary-btn"> Create Order Request</button>
       </div>
 
       <div className=" rounded-lg ">
           <h2>Recent order Request</h2>
-          {(data.user.order_requests && data.user.order_requests?.length>0)
-            ?<OrderRequestTable orderRequest={data.user.order_requests} /> 
+          {(data.user.location?.order_requests && data.user.location.order_requests?.length>0)
+            ?<OrderRequestTable orderRequest={data.user.location.order_requests} /> 
             :<EmptyState msg={"You don't have any pending request"} />}
       </div>
       </>

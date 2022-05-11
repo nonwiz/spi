@@ -10,7 +10,7 @@ type Data = {
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
-  console.log("test", Role);
+  
   const reqSession = await getSession({req});
   if (reqSession && reqSession?.user?.role == "admin") {
    const [users, orderTypes] = await prisma.$transaction([

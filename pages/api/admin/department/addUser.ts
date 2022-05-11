@@ -13,7 +13,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     const reqSession = await getSession({req});
     if (reqSession && reqSession?.user?.role == "admin") {
     const { id, user } = req.body
-    console.log({id, user})
+    
     const department = await prisma.department.update({
       where: {
         id: Number(id),

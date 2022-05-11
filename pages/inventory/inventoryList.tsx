@@ -16,11 +16,10 @@ export default function Page() {
 
   if (isLoading) return  <LoadingIcon />
 
-  console.log("sata",{ data })
+  
 
   const returnLocationItems = (location) => {
-    console.log(location.items)
-    console.log("Return items within location", location);
+
     const items = location.items.map(item =>
       <li>{item.name}</li>);
     return items.length > 0 ? items : "No items within this location!";

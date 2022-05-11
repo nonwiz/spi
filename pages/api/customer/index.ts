@@ -20,13 +20,19 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         location: {
           include: {
             items: true,
+            order_requests: {
+              include: {
+                order_items: true,
+                comment_by: true,
+                approval_by: true,
+              }
+            }
           }
         },
         
       }
     })
-    const orderTypes = await prisma.orderType.findMany();
-    return res.status(200).json({ user, orderTypes })
+    return res.status(200).json({ user })
   }
   res.status(500).json({ error: "not authorized" })
 }

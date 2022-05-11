@@ -14,6 +14,6 @@ export default function PurchaseHistory() {
   
   return (
 
-      <EmptyState msg={"comming soon"}/>
+      <EmptyState msg={"Coming soon"}/>
 
   )}

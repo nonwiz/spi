@@ -14,25 +14,30 @@ type Data = {
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const reqSession = await getSession({ req });
   if (reqSession) {
-    const locations = await prisma.location.findMany({
-      include: {
-        items: true,
-        users: true,
-      }
-    })
-    const user = await prisma.user.findUnique({
-      where: { email: reqSession.user.email }, include: {
-        department: true,
-        location: true,
-       
-      }
-    })
-    const allUsers = await prisma.user.findMany({});
-    const orderTypes = await prisma.orderType.findMany();
-    const items = locations.map(item => item.items).flat()
-    return res.status(200).json({ user, allUsers, items, orderTypes, locations })
+
+    const [locations, user, allUsers, code_list] = await prisma.$transaction([
+      prisma.location.findMany({
+        include: {
+          items: true,
+          users: true,
+          location_moving_request: {
+            include: {
+              item: true,
+              target_location: true
+            }
+          }
+        }
+    }),
+    prisma.user.findUnique({ where: { email: reqSession.user.email}, include: { department: true, location: true}}),
+    prisma.user.findMany(),
+    prisma.codeName.findMany()
+    ])    
+     const items = locations.map(item => item.items).flat()
+     const code_types = Array.from(new Set(code_list.map(item => item.codeType)))
+     const relocate_requests = locations.filter(loc => loc.location_moving_request).map(loc => loc.location_moving_request);
+    return res.status(200).json({ user, allUsers, items, locations, code_list, relocate_requests, code_types, error: false, message: "fetched inventory!" })
   }
-  res.status(500).json({ error: "not authorized" })
+  res.status(401).json({ error: true, message: "not authorized" })
 }
 
 

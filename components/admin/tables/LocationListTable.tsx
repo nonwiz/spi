@@ -34,7 +34,7 @@ const LocationListTable = ({location, zones}) => {
 
  
     const columns = [
-        { name: "#", uid: "#" },
+        { name: "#", uid: "short_code" },
         { name: "BUILDING", uid: "building" },
         { name: "FLOOR", uid: "floor" },
         { name: "ROOM NUMBER", uid: "room_number" },
@@ -47,8 +47,8 @@ const LocationListTable = ({location, zones}) => {
 
         switch (columnKey) {
 
-          case "#":
-              return <p className="text-lg ">{location.id}</p>;
+          case "short_code":
+              return <p className="text-lg ">{location.short_code}</p>;
 
           case "building":
             return <p className="text-lg md:mr-8">{location.building}</p>;
@@ -138,7 +138,7 @@ const LocationListTable = ({location, zones}) => {
               align="center"
               rowsPerPage={10}
               
-              onPageChange={(page) => console.log({ page })}
+              
             />
             </Table>
          

@@ -17,7 +17,6 @@ export default function LocationList() {
     setVisible(true);
   }
 
-
   const closeHandler = () => {
     setVisible(false);
   };
@@ -26,13 +25,13 @@ export default function LocationList() {
       <>
        <div className="my-8 flex flex-row gap-6 w-full items-center">
         <button className="primary-btn"> Create Moving Request</button> 
-        <SearchBox />
+        <SearchBox msg={undefined} />
       </div>
 
       <div className="">
         <div className=" rounded-lg ">
             <h2>List of Locations</h2>
-            {(data.locations)
+            {(data?.locations.length>0)
               ?
                 <LocationListTable locations={data.locations} />
               :

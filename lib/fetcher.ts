@@ -61,17 +61,46 @@ export const useLog = () => {
 
 
 export const getFieldsValues = (event, fields) => {
-  console.log(event, fields)
+  
   const data = {};
   fields.forEach((item) => {
-    data[item] = event.target.querySelector(`[name=${item}]`).value;
+    let key = `[name=${item}]`;
+    const ele = event.target.querySelector(key);
+    
+    if (ele.value !== undefined)  {
+      data[item] = ele.value;
+    } else {
+      data[item] = "";
+    }
   });
   return data;
 };
 
 export const createLog = (model, message, operation) => {
     fetcher("/api/common/log", { model, message, operation }).then((d) => {
-      console.log(d)
+      
     })
   }
+
+ 
+export const checkDepreciation = (item) => {
+let od = new Date(item.order_date);
+  let dp;
+  let today = new Date();
+  if (!item.isAsset) {
+    return "Not Applicable"
+  }
+  if (item.depreciation) {
+    dp = new Date(item.depreciation)
+  } else {
+    dp = new Date();
+    dp.setFullYear(od.getFullYear() + 10)
+  }
+  if (dp < today) {
+    return "Depreciated"
+  } else {
+    return dp.toDateString();
+  }
+
+}
 

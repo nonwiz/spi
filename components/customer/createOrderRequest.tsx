@@ -20,7 +20,7 @@ const FormCreateOrderRequest = ({ orderTypes }: { orderTypes: object[] }) => {
     }, [])
 
     const datas = [...flatItems, "purchase_reason"];
-    console.log({ datas })
+
     const formData = getFieldsValues(event, datas);
     const cleanData = {
       items: [],
@@ -36,9 +36,9 @@ const FormCreateOrderRequest = ({ orderTypes }: { orderTypes: object[] }) => {
 
     const formatedData = JSON.stringify(cleanData)
 
-    console.log({ formatedData });
+
     fetcher("/api/customer/order/createOrderRequest", formatedData).then(d => {
-      console.log(d)
+      
       mutate("/api/admin")
     })
 

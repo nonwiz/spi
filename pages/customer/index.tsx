@@ -30,10 +30,11 @@ export default function Page() {
           type={type}
           visible={visible} 
           closeHandler={closeHandler} 
-          orderTypes={info?.orderTypes} 
+          orderTypes={info?.order_type} 
           locations={info?.locations}
-          item_size ={info?.item_size}
+          quantity_unit={info?.quantity_unit}
           />
+
       <div className="my-8 flex flex-row gap-6 w-full">
         <button onClick={createOrder} className="primary-btn"> Create Order Request</button>
         <button className="primary-btn"> Create Moving Request</button>
@@ -41,8 +42,8 @@ export default function Page() {
 
       <div className=" rounded-lg ">
           <h2>Recent order Request</h2>
-          {(data?.user?.order_requests && data.user?.order_requests?.length>0)
-            ?<OrderRequestTable orderRequest={data?.user?.order_requests} /> 
+          {(data?.user?.location?.order_requests && data.user?.location?.order_requests?.length>0)
+            ?<OrderRequestTable orderRequest={data?.user?.location?.order_requests} /> 
             :<EmptyState msg={"You don't have order requests"}/>}
       </div>
 {/*   

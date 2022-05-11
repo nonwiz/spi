@@ -26,7 +26,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     })
     // Check if this role already have approved or not yet
     if (order.approval_by.filter(approved => approved.role == user.role).length > 0) {
-      console.log("Role, already approve")
+      
       return res.status(200).json({ 'message': "already approved" })
     }
     const updatedOrder = await prisma.orderRequest.update({
@@ -40,8 +40,8 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         approval_by: true
       }
     })
-    // If 3 people have approved (purchase, finance, department head)
-    if (updatedOrder.approval_by.length >= 3) {
+
+    if (updatedOrder.approval_by.length >= 2) {
       await prisma.orderRequest.update({
         where: { id: orderId },
         data: {
@@ -51,7 +51,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       })
     }
 
-    console.log({ updatedOrder });
+
     return res.status(200).json({ "message": "approved order!", updatedOrder })
   }
   res.status(500).json({ error: "not authorized" })

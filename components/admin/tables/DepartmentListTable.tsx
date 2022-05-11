@@ -141,7 +141,7 @@ const DepartmentListTable = ({department}) => {
               align="center"
               rowsPerPage={10}
               
-              onPageChange={(page) => console.log({ page })}
+              
             />
             </Table>
          

@@ -13,19 +13,19 @@ export default function Page() {
   const { data, isLoading } = useAdmin();
   const { data: info, isLoading: infoLoading } = useInfo();
   const { data: log, isLoading: logLoading } = useLog();
-  console.log(info,"hi")
+  
 
   if (isLoading || infoLoading || logLoading) return  <LoadingIcon />
    return (
 
     <>
       <div>
-          <StatsCards users={data.users} departments={info?.departments} locations={info?.locations} zones={data.zones} />
+          <StatsCards users={data?.users} departments={info?.departments} locations={info?.locations} zones={data.zones} />
           <div className="flex flex-col lg:flex-row justify-between  mt-8 gap-8">
               <div className="rounded-lg lg:w-2/3">
                 <h2>User Management</h2>
-                {(data.users && data.roles)
-                ?<UserListTable users={data.users} roles={data.roles} />
+                {(data?.users && data?.roles)
+                ?<UserListTable users={data?.users} roles={data?.roles} />
                 :<EmptyState msg={"user table is empty"} />}
               </div>
               
@@ -36,7 +36,8 @@ export default function Page() {
                   <button className="flex py-1 px-4 text-sm rounded-lg border border-gray-700 gap-x-2.5  text-gray-700 hover:shadow-lg 0">View All</button>
                 </Link>
                 </div>
-                <EventLog logs={log.logs}/>
+                <EventLog logs={log?.logs.reverse().slice(0,6)}/>
+        
               </div>
           </div>
       </div>

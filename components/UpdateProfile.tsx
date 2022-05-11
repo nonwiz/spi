@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 const UpdateProfile= ({locations, departments}: {locations: string[], departments:object[]}) => {
   const { mutate } = useSWRConfig();
   const router = useRouter()
+
   const allBuilding = Array.from(new Set(locations?.map(item => item?.building)))
   const [building, setBuilding] = useState(allBuilding[0])
   const [locationOptions, setLocation] = useState(locations)
@@ -15,9 +16,9 @@ const UpdateProfile= ({locations, departments}: {locations: string[], department
   const handleUpdateProfile = async event => {
     event.preventDefault();
     const formData = getFieldsValues(event, ["name", "department", "location"])
-    console.log({formData})
+ 
     fetcher("/api/customer/update", formData).then(d => {
-      console.log(d)
+  
       mutate("/api/customer")
     })
     
@@ -25,7 +26,7 @@ const UpdateProfile= ({locations, departments}: {locations: string[], department
   }
 
   useEffect(() => {
-    console.log("change building")
+  
     const filterLocations = locations?.filter(loc => loc?.building == building)
     setLocation(filterLocations);
   }, [building])

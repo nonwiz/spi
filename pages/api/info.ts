@@ -8,7 +8,7 @@ type Data = {
   buildings?: string[]
   orderTypes?: object[]
   order_status?: string[]
-  item_size?: string[]
+  quantity_unit?: string[]
   message: string
   error?: boolean
 }
@@ -49,12 +49,17 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     } else obj[item.type] = [...obj[item.type], item.name]
     return obj
   }, {})
+
+
+  const info_types = Array.from(new Set(generalInfos.map(item => item.type))).filter(info => info !== "order_status")
   const data = {
     departments,
     locations,
     buildings,
     orderTypes,
+    generalInfos,
     ...gi,
+    info_types,
     message: "Info fetched successfully",
     error: false,
   }

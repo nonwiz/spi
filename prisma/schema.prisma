@@ -107,8 +107,7 @@ model OrderType {
 
 model OrderItem {
   id               Int          @id @default(autoincrement())
-  description      String
-  size             String
+  name             String
   quotation        String?
   quantity         Float?       @default(1.0)
   quantity_unit    String? @default("other")
@@ -130,6 +129,7 @@ model OrderRequest {
   total_price       Float?
   vat               Float?
   order_date        DateTime? @default(now())
+  purchased_date  DateTime?
   desired_date      DateTime?
   action_number     String?
   order_items       OrderItem[]
@@ -157,11 +157,12 @@ model Item {
   target_location_request_id Int?
   code                       String?
   action_number              String?
+  order_reference String?
 }
 
 model LocationMoveRequest {
   id                Int      @id @default(autoincrement())
-  items             Item[]
+  item             Item?
   previous_location String
   target_location   Location @relation(fields: [location_id], references: [id])
   location_id       Int      @unique

@@ -138,7 +138,7 @@ const UserListTable = ({users, roles}) => {
               align="center"
               rowsPerPage={9}
      
-              onPageChange={(page) => console.log({ page })}
+              
             />
             </Table>
          

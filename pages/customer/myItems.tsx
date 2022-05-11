@@ -4,22 +4,41 @@ import OrderRequestTable from "@/components/customer/tables/OrderRequestTable";
 import ItemListTable from "@/components/customer/tables/ItemListTable";
 
 
-import { useCustomer } from "lib/fetcher";
+import { fetcher, getFieldsValues, useCustomer, useInfo } from "lib/fetcher";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { EmptyState } from "@/components/EmptyState";
 import LoadingIcon from "@/components/loadingIcon";
+import { useSWRConfig } from "swr";
+import CreateMoveRegModal from "@/components/customer/createMoveRegModal";
 
 export default function MyItems() {
-  const { data: session } = useSession();
+  const { mutate } = useSWRConfig()
   const { data, isLoading } = useCustomer();
+  const { data: info, isLoading: infoLoading } = useInfo();
   const [visible, setVisible] = useState(false);
+  const [ fLocations, setLocations ] = useState([])
   const [type, setType] = useState("none");
-  if (isLoading) return  <LoadingIcon />
+  if (isLoading || infoLoading) return  <LoadingIcon />
 
+
+
+
+
+  const handleMovingItems = async e => {
+    e.preventDefault();
+    const formData = getFieldsValues(event, ["item_id", "target_location_id"])
+    
+
+    fetcher("/api/customer/relocate/request", formData).then((d) => {
+      
+      mutate("/api/customer")
+    })
+    
+ 
+  }
   
-  
-  const createOrder = () =>{
+  const handle = () =>{
     setVisible(true);
   }
 
@@ -30,21 +49,23 @@ export default function MyItems() {
 
   return (
       <>
-      <CreateOrderReq
-          type={type}
+    
+        <CreateMoveRegModal 
           visible={visible} 
           closeHandler={closeHandler} 
-          orderTypes={data.orderTypes} 
+          info={info}
+          items={data?.user?.location?.items}
           />
 
-      <div className="my-8 flex flex-row gap-6 w-full">
-         <button className="primary-btn"> Create Moving Request</button>
-       
+    
 
+   <div className="my-8 flex flex-row gap-6 w-full">
+         <button onClick={handle} className="primary-btn" type="button"> Create Moving Request</button>
       </div>
 
+
       <div className=" rounded-lg ">
-          <h2>List of item</h2>
+          <h2>List of item within {data.user.location.short_code}</h2>
           {(data.user.location?.items && data.user.location?.items?.length>0)
             ?<ItemListTable items={data.user.location.items}/>
             :<EmptyState msg={"You don't have any items"} />}

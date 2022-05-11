@@ -14,9 +14,9 @@ const FormUpdateProfile= (
   const handleUpdateProfile = async event => {
     event.preventDefault();
     const formData = getFieldsValues(event, ["name", "department", "location"])
-    console.log({formData})
+    
     fetcher("/api/customer/update", formData).then(d => {
-      console.log(d)
+      
       mutate("/api/customer")
     })
 

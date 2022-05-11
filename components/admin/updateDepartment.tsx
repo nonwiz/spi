@@ -10,7 +10,7 @@ const FormUpdateDepartment = ({departments}) => {
     event.preventDefault();
     const formData = getFieldsValues(event, ["budget", "id"])
     fetcher("/api/admin/department/update", formData).then(d => {
-      console.log(d)
+ 
       mutate("/api/admin")
     })
 

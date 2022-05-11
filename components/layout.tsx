@@ -22,7 +22,7 @@ export default function Layout({ children }: Props) {
   }
 return (
     <>
-      <Header />
+      {/* <Header /> */}
       <main>
         <div className="relative min-h-screen md:flex">
             <SideNav />
@@ -33,7 +33,7 @@ return (
         </div>
 
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }

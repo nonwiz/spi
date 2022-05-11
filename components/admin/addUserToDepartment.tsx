@@ -10,7 +10,7 @@ const FormAddUserToDepartment = ({departments, users} : {departments: object[], 
     event.preventDefault();
     const formData = getFieldsValues(event, ["user", "id"])
     fetcher("/api/admin/department/addUser", formData).then(d => {
-      console.log(d)
+
       mutate("/api/admin")
     })
 

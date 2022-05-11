@@ -4,10 +4,11 @@ import { useState } from 'react'
 import { IconButton } from "@/components/admin/icons/IconButton";
 import { EyeIcon } from "@/components/admin/icons/EyeIcon";
 import { EditIcon } from "@/components/admin/icons/EditIcon";
-
+import { checkDepreciation } from "lib/fetcher"
 import UpdateDepartmentModal from "@/components/admin/UpdateDepartmentModal";
 import StyledStatus from "../StyledStatus";
 import {DeleteIcon} from "../icons/DeleteIcon";
+import DateConvert from "@/components/dateConvert";
 
 
 
@@ -22,7 +23,7 @@ const ItemListTable = ({items}) => {
     setItemInfo(item);
     setType("view_details")
   }
-  console.log(items, "lollll")
+
   const closeHandler = () => {
     setVisible(false);
     setItemInfo([])
@@ -53,9 +54,9 @@ const ItemListTable = ({items}) => {
           case "item_description":
             return <p className="text-lg ">{items.description}</p>;
           case "item_date":
-            return <p className="text-lg ">{items.order_date}</p>;
+            return <p className="text-lg "><DateConvert date={items.order_date} type="date" /></p>;
           case "item_depreciation":
-            return <p className="text-lg ">{items.depriciation}</p>;
+            return <p className="text-lg ">{checkDepreciation(items)}</p>;
           case "item_quantity":
               return <p className="text-lg ">{items.quantity} {items.quantity_unit}</p>;
     
@@ -145,3 +146,5 @@ const ItemListTable = ({items}) => {
 }
  
 export default ItemListTable;
+
+

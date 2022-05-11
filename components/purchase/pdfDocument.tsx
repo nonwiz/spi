@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 
 // Create Document Component
 const PdfDocument = ({ props }) => {
-  console.log({props});
+
   return (
     <Document>
       <Page size="A4" style={styles.page}>

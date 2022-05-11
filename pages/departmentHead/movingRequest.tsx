@@ -1,3 +1,4 @@
+import { EmptyState } from "@/components/EmptyState";
 import LoadingIcon from "@/components/loadingIcon";
 import { useCustomer } from "lib/fetcher";
 import { useSession } from "next-auth/react";
@@ -12,5 +13,5 @@ export default function MovingRequest() {
 
   
   return (
-      <div className="flex justify-center items-center h-96">comming soon....</div>
+    <EmptyState msg={"Coming soon"}/>
   )}

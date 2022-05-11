@@ -15,7 +15,7 @@ const LocationDetails =() =>{
     if (isLoading) return  <LoadingIcon />
     
     const loc = data.locations.filter(location => location.id == id )[0]
-    console.log(loc)
+
     const zones = {
         Information_Technology: "IT",
         Administration: "AD",
@@ -29,13 +29,13 @@ const LocationDetails =() =>{
 
     return (
         <>
-        <div className="my-8 flex flex-row gap-6 w-full">
+        {/* <div className="my-8 flex flex-row gap-6 w-full">
             <button className="primary-btn"> Create Moving Request</button> 
             <button className="primary-btn"> Add Items</button> 
             <button className="primary-btn"> Add User</button> 
-        </div>
+        </div> */}
 
-        <div className='flex flex-col lg:flex-row gap-8 lg:gap-24'>
+        <div className='flex flex-col lg:flex-row gap-8 lg:gap-24 mt-8'>
             <div className='flex flex-col gap-6 lg:w-2/3'>
                 <fieldset className='border-2 rounded-md'>
                         <legend className='ml-2 pl-2 pr-4 text-lg'>Description</legend>

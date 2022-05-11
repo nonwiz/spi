@@ -21,6 +21,10 @@ export default function MyItems() {
   const [type, setType] = useState("none");
   if (isLoading || infoLoading) return  <LoadingIcon />
 
+
+
+
+
   const handleMovingItems = async e => {
     e.preventDefault();
     const formData = getFieldsValues(event, ["item_id", "target_location_id"])
@@ -46,6 +50,13 @@ export default function MyItems() {
   return (
       <>
     
+        <CreateMoveRegModal 
+          visible={visible} 
+          closeHandler={closeHandler} 
+          info={info}
+          items={data?.user?.location?.items}
+          />
+
     
 
    <div className="my-8 flex flex-row gap-6 w-full">

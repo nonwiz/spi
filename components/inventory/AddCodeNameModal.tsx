@@ -44,6 +44,14 @@ export default function AddCodeNameModal({visible, closeHandler, code_list, code
                     <p className="text-primary-color text-lg">Code Name:  </p>
                     <span >includes Location and Employee Code </span>
                 </div>
+                <div>
+              <Input  bordered fullWidth
+                        label="2. Label"
+                        color="primary" size="lg"
+                        type="text" name="name" placeholder="Item Name"
+                    />
+       
+                  </div>
 
               
             <div className="flex flex-row gap-4 mt-4">

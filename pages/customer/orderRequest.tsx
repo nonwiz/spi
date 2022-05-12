@@ -17,7 +17,7 @@ export default function OrderRequest() {
   if (isLoading || infoLoading) return  <LoadingIcon />
 
 
-  
+   const pendingOrderRequests = data?.user?.location?.order_requests.filter(oreq => oreq.order_status != "Purchased") 
   
   const createOrder = () =>{
     setVisible(true);
@@ -41,13 +41,13 @@ export default function OrderRequest() {
      
          />
       <div className="my-8 flex flex-row gap-6 w-full">
-        <button onClick={createOrder} className="primary-btn"> Create Order Request</button>
+        <button onClick={createOrder} className="primary-btn"> Recent Order Request</button>
       </div>
 
       <div className=" rounded-lg ">
-          <h2>Recent order Request</h2>
+          <h2>Pending order Request</h2>
           {(data.user.location?.order_requests && data.user.location.order_requests?.length>0)
-            ?<OrderRequestTable orderRequest={data.user.location.order_requests} /> 
+            ?<OrderRequestTable orderRequest={pendingOrderRequests} /> 
             :<EmptyState msg={"You don't have any pending request"} />}
       </div>
       </>

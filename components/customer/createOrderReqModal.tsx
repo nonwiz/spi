@@ -8,8 +8,8 @@ import { useEffect, useState } from "react";
 
 
 // to fix: order request modal by default show two order item, it should show none
-export default function CreateOrderReq({type,visible, closeHandler, orderTypes, locations,quantity_unit }) {
-
+export default function CreateOrderReq({type,visible, closeHandler, orderTypes, locations,quantity_unit, office }) {
+console.log("office", office)
   const { mutate } = useSWRConfig();
   const orderItemProperty = ["name", "quotation", "quantity_unit", "quantity", "unit_price", "total_price", "type"]
   const [orderItem, setOrderItem] = useState([]);
@@ -18,7 +18,7 @@ export default function CreateOrderReq({type,visible, closeHandler, orderTypes, 
   const [building, setBuilding] = useState([])
   const [locationOptions, setLocation] = useState(locations)
   const [message, setMessage] = useState("")
-
+  const [ needAction, setAction] = useState(false)
 
   const handleCreateOrderRequest = async event => {
     event.preventDefault();
@@ -157,8 +157,7 @@ export default function CreateOrderReq({type,visible, closeHandler, orderTypes, 
             <div className=" flex flex-col">
               <p className="  text-primary-color text-md font-normal">1. Location Details: </p>
               <span className="font-normal font-sm pl-[12px] text-sm">Building and room where the ordered item will be placed</span>
-            
-            
+           {!office ? 
               <div className="flex flex-row gap-4 mt-2">
                 <select  required className=" form-select appearance-none block w-full p-2.5 px-5 text-base font-normal text-gray-700 border-2 rounded-2xl transition ease-in-out m-0
                 focus:text-gray-700 focus:bg-white focus:border-primary-color focus:outline-none" aria-label="location selection" aria-labelledby="location selection" onChange={e => setBuilding(e.target.value)}>
@@ -175,6 +174,13 @@ export default function CreateOrderReq({type,visible, closeHandler, orderTypes, 
                         <option key={num} value={location.id} >{location.room_number}</option>)}
                 </select>
               </div>
+              : 
+              <>
+              <p className="p-1 mx-2 font-bold"> Selected: as your office location </p>
+              <input type="hidden" name="location_id" value={office} />
+              </>
+}
+
             </div>
           
             <Textarea bordered fullWidth
@@ -319,7 +325,24 @@ export default function CreateOrderReq({type,visible, closeHandler, orderTypes, 
                   
                 />
 
+       {needAction && 
+       <>
+              <div className="my-2">
+                  <label htmlFor="desired_date" className="  text-primary-color text-md font-normal inline-flex gap-1 items-center">5. Your order is more than 6k. Please fill the purchasing action.</label>
+                </div>
+              <Input  bordered fullWidth required
+                  color="primary" size="lg"
+                  type="text" 
+                  name={`purchase_action`}
+                  aria-label="purchase_action"
+                  
+                />
+                </>
+       }
+
        
+
+
 
               <div className="mt-16 flex w-full justify-between">
                 <button onClick={()=>changeTab("back",step-1)} type="button" className="secondary-btn">&lt;- Back</button>

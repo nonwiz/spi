@@ -29,7 +29,6 @@ export default function OrderDetailModal({type,visible, closeHandler, order}) {
 
   }
 
-
   const handleCreateDepartment = async event => {
     event.preventDefault();
     const formData = getFieldsValues(event, ["id", "budget"])

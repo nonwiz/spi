@@ -40,7 +40,9 @@ const LogListTable = ({logs}) => {
             return <p className="text-lg md:mr-8">{log.message}</p>;
 
           case "operation":
-            return <div className={(log?.operation=="Update")?"bg-yellow-400 w-[80%] rounded-full":"bg-green-400  w-[80%] rounded-full"}><p className="text-lg md:mr-8 text-center w-full">{log.operation }</p></div>;
+            return <div className={(log?.operation=="Update")
+            ?"bg-yellow-400 w-[80%] rounded-full":"Delete"?
+            "bg-red-400  w-[80%] rounded-full":"bg-green-400  w-[80%] rounded-full"}><p className="text-lg md:mr-8 text-center w-full">{log.operation }</p></div>;
 
           case "user":
             return <p className="text-lg md:mr-8">{log.user }</p>;

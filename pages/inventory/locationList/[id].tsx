@@ -77,7 +77,7 @@ const LocationDetails =() =>{
                         <legend className='ml-2 pl-2 pr-4 text-lg'>Items ({loc.items.length}):</legend>
                         <Collapse.Group >
                             {loc?.items.map((item, num) =>(
-                                <div>
+                                <div key={num}>
                                     
                                 <Collapse  key={item.id} title={`${num+1}. ${item.name} ---- Exp: ${convertDate(item.depreciation)}` } className="text-lg font-normal">
                                         <div  className='text-lg '>

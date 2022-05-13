@@ -5,6 +5,7 @@ import { Password } from "@/components/admin/icons/Password";
 import { getFieldsValues, fetcher, createLog } from "lib/fetcher";
 import { useSWRConfig } from "swr";
 import { useEffect, useState } from "react";
+import next from "next";
 
 
 // to fix: order request modal by default show two order item, it should show none
@@ -19,6 +20,7 @@ console.log("office", office)
   const [locationOptions, setLocation] = useState(locations)
   const [message, setMessage] = useState("")
   const [ needAction, setAction] = useState(false)
+  const [ totalAmount, SetTotalAmount] = useState(0)
 
   const handleCreateOrderRequest = async event => {
     event.preventDefault();
@@ -48,7 +50,6 @@ console.log("office", office)
 
     const formatedData = JSON.stringify(cleanData)
 
-
     fetcher("/api/customer/order/createOrderRequest", formatedData).then(d => {
       mutate("/api/admin")
     })
@@ -59,6 +60,41 @@ console.log("office", office)
 
   }
 
+
+  const displayNamePrice = (num:number) =>{
+    const items ={}
+    // for (let num = 0; num < orderItem.length; num++) {
+      let amount = document.querySelector(`[name="total_price-${num}"]`)?.value
+      let name = document.querySelector(`[name="name-${num}"]`)?.value;
+
+    if(name != null && amount !=null){
+      return `Item: ${name} - ${amount} Baht`
+    }else{
+      return null
+    }
+  }
+
+  /**
+   * sums all the total price of items in the order request, and also checks if the total price is above 6000 baht
+   */
+  const getTotalAmount =() =>{
+    let count = 0
+     for (let num = 0; num < orderItem.length; num++) {
+       let amount = document.querySelector(`[name="total_price-${num}"]`)?.value
+       if(amount != null){
+         count += Number(amount)
+        }
+     }
+
+     if(count >=6000){
+       console.log(count, "hehehhehe")
+      setAction(true)
+     }else{
+      setAction(false)
+     }
+  
+   }
+
   /**
    * validates if all fields are filled in the step 1, and also allows navigation to next page
    * @param msg 
@@ -66,16 +102,20 @@ console.log("office", office)
    */
   const changeTab =(msg:String, nextStep:number) =>{
     if(msg=="continue" && step==1){
+      console.log(nextStep, "hel;oooooooooooooooooooo","really")
       let purchase = document.querySelector(`[name="purchase_reason"]`)?.value;
       let location = document.querySelector(`[name="location_id"]`)?.value;
-  
+    
       if(!purchase && location =="Select Room"){setMessage("Please Fill all the fields (Building, Room, Purchase Reason)")}
       else if (!purchase ){setMessage("Purchase Reason is required")}
       else if(location =="Select Room" ){setMessage("Location is required (Building and Room)")}
       else if(message==""){setStep(nextStep)}
+
     }else if(msg=="continue" && nextStep==2){
+
       if(message==""){setStep(nextStep)}
     }else{
+      getTotalAmount()
       setMessage("")
       setStep(nextStep)
     }
@@ -92,16 +132,18 @@ console.log("office", office)
     amount.value = unit*price
 
  }
-
+ 
  /**
   * validates the items fiels, before being able to add another item
   * @param num 
   */
  const addItems = (num) =>{
+   let total =0
    if(num>0){
       let name = document.querySelector(`[name="name-${num-1}"]`)?.value;
       let unit = document.querySelector(`[name="quantity-${num-1}"]`)?.value;
       let price = document.querySelector(`[name="unit_price-${num-1}"]`)?.value;
+      total = unit * price
 
 
       if(name=="" && unit=="" && !price==""){setMessage("Please provide the item Name, Price, and number of units")}
@@ -112,9 +154,17 @@ console.log("office", office)
       if(price==""){setMessage("Please provide the item price")}
       if(name==""){setMessage("Please provide the item name")}
     }
-    if(message==""){setOrderItem([...orderItem, 1])}
+    if(message==""){
+      displayNamePrice(num-1)
+      setOrderItem([...orderItem, 1])
+      // SetTotalAmount(totalAmount+total)
+    }
   }
+
+
   
+
+ 
 
   useEffect(() => {
 
@@ -210,7 +260,8 @@ console.log("office", office)
             <Collapse.Group>
               {orderItem?.map((item, num) =>
 
-              <Collapse key={num} title={`Order Item ${num+1}: click to open`}>
+              <Collapse key={num} title={(displayNamePrice(num) !=null)?displayNamePrice(num):`Order Item ${num+1}: click to open`}>
+     
                 <div>
                     <p className={(message !="")?"text-error-color font-bold text-lg":"hidden"}>&#128680; {message} &#128680;</p>
                   <div  className ="flex flex-col gap-4 p-2">
@@ -244,6 +295,7 @@ console.log("office", office)
                           type="number"
                           label="Quantity *"  
                           name={`quantity-${num}`}
+                          min="1"
                           placeholder="0x"
                           onChange={() => getItems(num)}
                           />
@@ -252,6 +304,7 @@ console.log("office", office)
                           color="primary" 
                           size="lg"
                           type="number"
+                          min="1"
                           label="Unit Price (Baht) *"  
                           name={`unit_price-${num}`}
                           placeholder="0 baht"
@@ -328,7 +381,7 @@ console.log("office", office)
        {needAction && 
        <>
               <div className="my-2">
-                  <label htmlFor="desired_date" className="  text-primary-color text-md font-normal inline-flex gap-1 items-center">5. Your order is more than 6k. Please fill the purchasing action.</label>
+                  <label htmlFor="desired_date" className="  text-primary-color text-md font-normal inline-flex gap-1 items-center">5. Your order is more than 6000 baht. Please fill the purchasing action.</label>
                 </div>
               <Input  bordered fullWidth required
                   color="primary" size="lg"

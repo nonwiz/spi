@@ -4,15 +4,15 @@ import OrderRequestTable from "@/components/customer/tables/OrderRequestTable";
 import ItemListTable from "@/components/customer/tables/ItemListTable";
 
 
-import { useCustomer } from "lib/fetcher";
+import {  useDepartmentHead } from "lib/fetcher";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import LoadingIcon from "@/components/loadingIcon";
 import { EmptyState } from "@/components/EmptyState";
 
-export default function MyItems() {
+export default function DepartmentItems() {
   const { data: session } = useSession();
-  const { data, isLoading } = useCustomer();
+  const { data, isLoading } = useDepartmentHead();
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState("none");
   if (isLoading) return  <LoadingIcon />
@@ -25,6 +25,10 @@ export default function MyItems() {
     setVisible(false);
   };
 
+  const items = data?.department_detail?.locations.map((loc: { items: any; }) => loc.items).flat()
+  console.log({items, data})
+
+
   return (
       <>
        <div className="my-8 flex flex-row gap-6 w-full">
@@ -33,10 +37,9 @@ export default function MyItems() {
 
       <div className="">
         <div className=" rounded-lg ">
-            <h2>List of items</h2>
-            {(data.user.location && data.user.location.items.length>0)? 
-              <ItemListTable items={data.user.location.items}/>
-              : <EmptyState msg={"No items in "} />} 
+            <h2>Department Items</h2>
+            {items ? <ItemListTable items={items} />
+            : <EmptyState msg={"No items in department"} />} 
 
             </div>
       </div>

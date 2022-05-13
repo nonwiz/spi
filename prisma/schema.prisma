@@ -163,10 +163,11 @@ model Item {
 
 model LocationMoveRequest {
   id                Int      @id @default(autoincrement())
-  item             Item?
+  item             Item? 
   previous_location String
   target_location   Location @relation(fields: [location_id], references: [id])
   location_id       Int      @unique
+  approve Int @default(0)
 }
 
 

@@ -28,6 +28,7 @@ export default function LocationList() {
         <SearchBox msg={undefined} />
       </div>
 
+
       <div className="">
         <div className=" rounded-lg ">
             <h2>List of Locations</h2>

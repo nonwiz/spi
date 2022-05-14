@@ -94,15 +94,23 @@ const PendingRequestTable = ({orderRequest, email, pageType}) => {
                   </IconButton>
                 </Tooltip>
               </Col>
-              <Col css={{ d: "flex" }}>
+
+              {(orderRequest.order_status == "Approved" || orderRequest.order_status == "Purchased")?
+                <Col css={{ d: "flex" }}>
                 <Tooltip content="Update Order">
                   <IconButton onClick={() => updateHandler(orderRequest)}>
                     <EditIcon size={20} fill="#979797" />
                   </IconButton>
                 </Tooltip>
               </Col>
+              :
+              ""  
+            }
+              
             </Row>
             );
+
+            
           default:
             return cellValue;
         }

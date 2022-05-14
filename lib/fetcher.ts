@@ -120,3 +120,61 @@ export const convertToCSV = (objArray) => {
 
     return str;
 }
+
+
+export const convertToJson = (data) => {
+  const input_list= data.split("\n").filter(item => item.length > 4).map(item => item.split("\t"));
+  // input_list.forEach(item => item.shift())
+  const props = input_list.shift();
+  const formated = []
+  console.log({input_list, props})
+  input_list.forEach(row => {
+    const tmp = {}
+    row.forEach((col, index) => {
+      tmp[props[index]] = col == "null" ? null : col;
+    })
+    formated.push(tmp)
+  })
+  console.log(formated);
+  return formated;
+
+}
+
+export const processFile = (e, data, inputFileId) => {
+  console.log(e);
+  const input = document.querySelector(data);
+  const inputFile = document.querySelector(inputFileId);
+  const file = inputFile.files[0];
+  console.log(inputFile, file)
+    if (!file) return;
+    const reader = new FileReader();
+      reader.onload = (e) => {
+        // e.target points to the reader
+        const textContent = e.target.result;
+        let temp = textContent.split("\n");
+        let arr = [];
+        temp.forEach((item) => {
+          arr.push(item.split(",").map((i) => i.replaceAll('"', "")));
+        });
+        let formatted = "";
+        arr.forEach((item) => {
+          if (item[0] == "") return;
+          item.forEach((i) => {
+            formatted += `${i}\t`;
+          });
+          formatted += `\t\n`;
+        });
+        input.value = formatted;
+      };
+      reader.onerror = (e) => {
+        const error = e.target.error;
+        console.error(`Error occured while reading ${file.name}`, error);
+      };
+      reader.readAsText(file);
+}
+
+export const returnValue = (list, key, value, prop) => {
+  // Take the parent object's key comparre with the value, if true, return the prop
+  console.log(value);
+  return list.find(item => item[key] == value)[prop];
+}

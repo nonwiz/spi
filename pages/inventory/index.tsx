@@ -12,6 +12,7 @@ import { Input, Tooltip  } from '@nextui-org/react';
 import { useSWRConfig } from "swr";
 import AddGeneralInfoModal from "@/components/inventory/AddGenInfoModal"
 
+
 export default function Page() {
   const { data: session } = useSession()
   const { data, isLoading } = useInventory()
@@ -42,7 +43,7 @@ export default function Page() {
           />
         <StatsCardsInventory items={data.items} />
 
-      
+   
           
           <Tooltip content={"order types, and quantity units"} placement="right" className="mt-6 mb-4">
             <button onClick={createGeneralInfo} className="primary-btn"> Add General Information</button>

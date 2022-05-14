@@ -35,6 +35,7 @@ const PageHeader = ({ page_name }:any) => {
             "/departmentHead/movingRequest":"Moving Requests",
             "/departmentHead/purchaseHistory":"Purchase History",
             "/departmentHead/myItems":"My Items",
+            "/departmentHead/departmentItems":"Department Items",
         },
         purchase:{
             "/purchase":"Home",
@@ -45,8 +46,10 @@ const PageHeader = ({ page_name }:any) => {
         inventory:{
             "/inventory":"Home",
             "/inventory/locationList":"Location List",
-            "/purchase/purchaseHistory":"Purchase History",
-            "/purchase/myItems":"My Items"
+            "/inventory/purchaseHistory":"Purchase History",
+            "/inventory/eventLogList": "Event Log List",
+            "/inventory/myItems":"My Items",
+            "/inventory/codeList": "Code List",
         }
     }
     const handler = () => {

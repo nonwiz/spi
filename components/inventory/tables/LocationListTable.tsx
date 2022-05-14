@@ -71,9 +71,9 @@ const LocationListTable = ({locations}) => {
               <Col css={{  }} className="ml-6">
                 <Tooltip content="Location Details" >
               
-                    <Link href={'/inventory/locationList/' + locations.id} key={locations.id}>
+                    <a href={'/inventory/locationList/' + locations.id} key={locations.id}>
                         <EyeIcon size={20} fill="#979797" />
-                    </Link>
+                    </a>
                  
                 </Tooltip>
               </Col>

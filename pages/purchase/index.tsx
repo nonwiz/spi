@@ -19,7 +19,9 @@ export default function Page() {
   if (isLoading || infoLoading) return  <LoadingIcon />
 
  // pendingOrderRequests 
-  const por = data.orderRequests.filter(oreq => oreq.order_status == "Pending" && oreq.approval_by.length > 1)
+  // const por = data.orderRequests.filter(oreq => oreq.order_status == "Pending" && oreq.approval_by.length > 1)
+  // data?.orderRequests?.filter(oreq => oreq.order_status == "Pending")
+  const por = data?.orderRequests?.filter(oreq => oreq.order_status != "Purchased")
 
   return (
     <>

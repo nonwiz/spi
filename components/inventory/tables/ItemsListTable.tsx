@@ -9,9 +9,9 @@ import StyledStatus from "@/components/customer/StyledStatus";
 import UpdateRegStatus from "../UpdateRegStatus";
 import DateConvert from "@/components/dateConvert";
 import ViewItemModal from "../ViewItemModal";
-
-
-
+import { useSWRConfig } from "swr";
+import { createLog, fetcher } from "lib/fetcher";
+import { DeleteIcon } from "@/components/customer/icons/DeleteIcon";
 
 
 
@@ -21,11 +21,20 @@ const ItemsListTable = ({items, locations}) => {
   const [visible, setVisible] = useState(false);
   const [itemInfo, setItemInfo] = useState([])
   const [itemLocation, setItemLocation] = useState([])
+  const { mutate } = useSWRConfig();
 
   const returnRoom = (location_id) => {
     return locations?.find((loc) => loc.id == location_id)?.short_code
 
   }
+
+  const disposeItem = async ( id : Number) => {
+    fetcher("/api/inventory/removeItem", { item_id: id }).then((d) => {
+      mutate(`/api/inventory`)
+    })
+    createLog("Item", `Dispose depreciated item`, "Remove");
+  }
+
 
 
   const handler = (item) => {
@@ -102,9 +111,12 @@ const ItemsListTable = ({items, locations}) => {
             return (
               <Row justify="center" align="center">
               <Col css={{  }} className="ml-6">
-                <Tooltip content="Item Details" >
-                  <IconButton  onClick={() => handler(items)} >
-                    <EyeIcon size={20} fill="#979797" />
+               
+
+
+                <Tooltip content="Dispose Item" >
+                  <IconButton  onClick={() => disposeItem(items.id)} >
+                  <DeleteIcon size={20} fill="#ef4444" />
                   </IconButton>
                 </Tooltip>
               </Col>

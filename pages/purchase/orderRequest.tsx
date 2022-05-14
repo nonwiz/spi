@@ -17,7 +17,9 @@ export default function OrderRequest() {
   if (isLoading) return  <LoadingIcon />
 
  // Check if there is someone approved yet / someone who approved refer to the dean usually. // and finance to be approved first.
-  const pendingOrderRequests = data?.orderRequests?.filter(oreq => oreq.order_status == "Approved")
+//  const pendingOrderRequests = data?.orderRequests?.filter(oreq => oreq.order_status == "Approved")
+
+  const pendingOrderRequests = data?.orderRequests?.filter(oreq => oreq.order_status != "Purchased")
 
   
  

@@ -1,4 +1,4 @@
-import { useAdmin, useInfo } from "lib/fetcher";
+import { fetcher, getFieldsValues, useAdmin, useInfo } from "lib/fetcher";
 import { useSession } from "next-auth/react";
 import { useState } from 'react'
 import LocationListTable from "@/components/admin/tables/LocationListTable";
@@ -57,7 +57,7 @@ export default function locationList() {
       />
 
       <div className="flex flex-row gap-12 my-6 items-center ">
-        <button onClick={handler} className="flex py-2 px-4 text-sm rounded-lg border border-primary-color gap-x-2.5 bg-primary-color text-white hover:shadow-lg hover:shadow-blue-700/20">Add New Location</button>
+        <button onClick={handler} className="primary-btn">Add New Location</button>
        <div className="w-full lg:w-1/3">
              <div className=" relative text-gray-600">
                 <input className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-full" 

@@ -90,7 +90,7 @@ export default function UpdateRegStatus({type,visible, closeHandler, orderReques
           <div className="flex flex-row gap-2">
             <p className="text-lg font-semibold">Order Status:</p>
             <div className="w-2/3">
-              <StyledStatus status={`${orderRequest.approval_by?.length > 0 && orderRequest.order_status == "Pending"? `Pending (${orderRequest.approval_by.length}/2)` : orderRequest.order_status}`} /> 
+              <StyledStatus status={`${orderRequest?.approval_by?.length > 0 && orderRequest?.order_status == "Pending"? `Pending (${orderRequest?.approval_by.length}/2)` : orderRequest.order_status}`} /> 
             </div>
         
           </div>
@@ -102,7 +102,7 @@ export default function UpdateRegStatus({type,visible, closeHandler, orderReques
       <fieldset className="border-2 rounded-lg mb-4">
         <legend className=" pr-4 font-semibold">Items:</legend> 
           <Collapse.Group divider={true} >
-              {orderRequest.order_items && orderRequest.order_items.map((item, num) =>
+              {orderRequest?.order_items && orderRequest?.order_items.map((item, num) =>
                 <div>
                     <Collapse key={num} title={`${item.name}: ${item.total_price}`}>
                         <div  className ="flex flex-col gap-4 px-2">
@@ -170,8 +170,7 @@ export default function UpdateRegStatus({type,visible, closeHandler, orderReques
               <p className="text-lg font-semibold"> Approved by:<span className="font-normal"> {orderRequest.approval_by && orderRequest.approval_by.map((item, k) =>
                   <span key={k}>{item.role}</span>)} </span></p>
 
-              <p className="text-lg font-semibold"> Rejected by: <span className="font-normal"> {orderRequest.remark && orderRequest.remark.map((item, k) =>
-                  <span key={k}>{item.role}</span>)} </span></p>
+              <p className="text-lg font-semibold"> Remarks: <span className="font-normal"> {orderRequest.remark} </span></p>
          
 
                   <Collapse.Group className="-ml-3" >

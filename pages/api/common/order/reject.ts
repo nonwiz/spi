@@ -22,7 +22,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     const order = await prisma.orderRequest.update({
       where: { id: orderId },
       data: {
-        remark: `Rejected by ${user?.email}`,
+        remark: `Remarks ${user?.email}`,
         order_status: "Rejected"
       },
     })

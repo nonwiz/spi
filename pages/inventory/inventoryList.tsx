@@ -18,16 +18,10 @@ export default function Page() {
 
   
 
-  const returnLocationItems = (location) => {
-
-    const items = location.items.map(item =>
-      <li>{item.name}</li>);
-    return items.length > 0 ? items : "No items within this location!";
-  }
 
   return (
     <>
-        <StatsCardsInventory items={data.items} />
+
         <div className="mt-4">
         <div className="rounded-lg ">
           <h2>Recently Added item </h2>

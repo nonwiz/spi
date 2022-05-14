@@ -53,7 +53,7 @@ const OrderRequestTable = ({ orderRequest }) => {
     columns = [
       { name: "#", uid: "id" },
       { name: "ORDER DESCRIPTION", uid: "order_description" },
-      { name: "ORDER ITEMS", uid: "order_items" },
+      { name: "NUMBER of  ITEMS", uid: "order_items" },
       { name: "ORDER PRICE", uid: "order_price" },
       { name: "ORDER DATE", uid: "order_date" },
       { name: "ORDER STATUS", uid: "order_status" },
@@ -61,13 +61,13 @@ const OrderRequestTable = ({ orderRequest }) => {
     ];
   }
 
-
+  let count =1
   const renderCell = (orderRequest, columnKey) => {
     const cellValue = orderRequest[columnKey];
 
     switch (columnKey) {
       case "id":
-        return <p className="text-lg ">{orderRequest.id}</p>;
+        return <p className="text-lg ">{count++}</p>;
       case "order_description":
         return <p className="text-lg ">{orderRequest.purchase_reason}</p>;
       case "order_items":

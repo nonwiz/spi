@@ -12,69 +12,38 @@ import DateConvert from "@/components/dateConvert";
 
 
 
-const ItemListTable = ({items}) => {
+const CodeListTable = ({codes}) => {
   const router = useRouter()
   const [visible, setVisible] = useState(false);
   const [itemInfo, setItemInfo] = useState([]);
   const [type, setType] = useState("none");
-  
-  const detailHandler = (item) =>{
-    setVisible(true);
-    setItemInfo(item);
-    setType("view_details")
-  }
 
-  const closeHandler = () => {
-    setVisible(false);
-    setItemInfo([])
-    setType("none")
-  };
 
   const columns = [
+    
     { name: "#", uid: "id" },
-    { name: "ITEM NAME", uid: "item_name" },
-    { name: "ITEM DESCRIPTION", uid: "item_description" },
-    { name: "ITEM ORDER DATE", uid: "item_date" },
-    { name: "ITEM DEPRECIATION DATE", uid: "item_depreciation" },
-    { name: "ITEM QUANTITY", uid: "item_quantity" },
-    // { name: "ACTIONS", uid: "actions" },
+    { name: "NAME", uid: "name" },
+    { name: "CODE", uid: "code" },
+    { name: "TYPE", uid: "type" },
   ];
     
     
-      
+  let count =1;
       const renderCell = (items, columnKey) => {
         const cellValue = items[columnKey];
-
+     
         switch (columnKey) {
 
           case "id":
-              return <p className="text-lg ">{items.id}</p>;
-          case "item_name":
+              return <p className="text-lg ">{count++}</p>;
+          
+          case "code":
+            return <p className="text-lg ">{items.code}</p>;
+          case "name":
             return <p className="text-lg ">{items.name}</p>;
-          case "item_description":
-            return <p className="text-lg ">{items.description}</p>;
-          case "item_date":
-            return <p className="text-lg "><DateConvert date={items.order_date} type="date" /></p>;
-          case "item_depreciation":
-            return <p className="text-lg ">{checkDepreciation(items)}</p>;
-          case "item_quantity":
-              return <p className="text-lg ">{items.quantity} {items.quantity_unit}</p>;
-    
-       
+          case "type":
+            return <p className="text-lg ">{items.codeType}</p>;
 
-          case "actions":
-            return (
-              <Row justify="center" align="center">
-              <Col css={{ d: "flex" }}>
-                <Tooltip content="Item Details">
-                  <IconButton  onClick={() => detailHandler(items)}>
-                    <EyeIcon size={20} fill="#979797" />
-                  </IconButton>
-                </Tooltip>
-              </Col>
-             
-            </Row>
-            );
           default:
             return cellValue;
         }
@@ -117,7 +86,7 @@ const ItemListTable = ({items}) => {
                 </Table.Column>
               )}
             </Table.Header>
-            <Table.Body items={items}> 
+            <Table.Body items={codes}> 
               {(item) => ( 
                 <Table.Row >
                 {(columnKey) => (
@@ -139,6 +108,6 @@ const ItemListTable = ({items}) => {
      );
 }
  
-export default ItemListTable;
+export default CodeListTable;
 
 

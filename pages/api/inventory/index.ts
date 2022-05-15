@@ -44,7 +44,12 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     const items = locations.map(item => item.items).flat()
     const code_types = Array.from(new Set(code_list.map(item => item.codeType)))
     const relocate_requests = locations.filter(loc => loc.location_moving_request).map(loc => loc.location_moving_request);
-    return res.status(200).json({ orderRequests, user, allUsers, items, locations, code_list, relocate_requests, code_types, error: false, message: "fetched inventory!" })
+    const order_items = orderRequests.map(or => { 
+      let { order_items } = or;
+      order_items = order_items.map(item => ({...item, order_request: or}))
+      return order_items;
+       }).flat();
+    return res.status(200).json({ orderRequests, order_items, user, allUsers, items, locations, code_list, relocate_requests, code_types, error: false, message: "fetched inventory!" })
   }
   res.status(401).json({ error: true, message: "not authorized" })
 }

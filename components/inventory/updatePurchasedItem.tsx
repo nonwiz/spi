@@ -11,7 +11,7 @@ import DateConvert from "../dateConvert";
 export default function UpdatePurchasedItem({visible, closeHandler, item, location }) {
     const { mutate } = useSWRConfig()
 
-   
+   const date = <DateConvert date={item?.order_request?.order_date} type="date" />
   return (
     <>
       <Modal
@@ -25,29 +25,19 @@ export default function UpdatePurchasedItem({visible, closeHandler, item, locati
           <Text id="modal-title" size={18} className="font-semibold">Purchased Item Information (Update)</Text>
         </Modal.Header>
         <Modal.Body>
-    
-          <p>order date, depreciatioin, a</p>
+
           <div  className ="flex flex-col gap-4 p-2">
                     
                     <div className="flex flex-col gap-4 ">
                       <Input  bordered fullWidth
-                          color="primary" 
+                          readOnly
+        
                           size="lg"
                           type="text"
                           label="Name" 
-                          placeholder="Item Name"
+ 
                           name={"name"}
                           initialValue={item.name}
-                          />
-
-                      <Input  bordered fullWidth
-                          color="primary" 
-                          size="lg"
-                          type="text"
-                          label="Description" 
-                          placeholder="Item Description"
-                          name={"description"}
-                          initialValue={item.description}
                           />
 
 
@@ -55,12 +45,10 @@ export default function UpdatePurchasedItem({visible, closeHandler, item, locati
                       
                       <Input  bordered fullWidth
                             readOnly
-                            color="primary" 
                             size="lg"
                             type="text"
                             label="Order Date"  
-
-                            initialValue={`${<DateConvert date={item.order_date} type="date"/>}`}
+                            initialValue={new Date(item?.order_request?.order_date).toLocaleString('en-us',{dateStyle: 'medium'})}   
                             />
 
                         <Input  bordered fullWidth
@@ -68,16 +56,14 @@ export default function UpdatePurchasedItem({visible, closeHandler, item, locati
                             color="primary" 
                             size="lg"
                             type="Date"
-                            label="Depreciation Date"  
+                            label="Depreciation Date "  
                             name={`depreciation`}
-                       
-
                             />
                         </div>
 
                         <div className="flex flew-row gap-4 items-center">
                           <Input  bordered fullWidth
-                            color="primary" 
+                            readOnly
                             size="lg"
                             type="text"
                             label="Type"  
@@ -87,10 +73,11 @@ export default function UpdatePurchasedItem({visible, closeHandler, item, locati
 
                           <Input  bordered fullWidth
                             required
+                            status="primary" 
                             color="primary" 
                             size="lg"
                             type="text"
-                            label="Item Code"  
+                            label="Asset Code *"  
                             name={`item_code`}
                             placeholder="Item Code"
                             />
@@ -98,7 +85,7 @@ export default function UpdatePurchasedItem({visible, closeHandler, item, locati
 
                         <div className="flex flew-row gap-4 items-center">
                         <Input  bordered fullWidth
-                          color="primary" 
+                          readOnly
                           size="lg"
                           type="number"
                           label={`Quantity (${item.quantity_unit})`} 
@@ -110,32 +97,25 @@ export default function UpdatePurchasedItem({visible, closeHandler, item, locati
                           />
 
                           <Input  bordered fullWidth
-                          color="primary" 
-                          size="lg"
-                          type="number"
-                          min="1"
-                          label="Price (Baht) *"  
-                          name={`price`}
-                          placeholder="0 baht"
-                          initialValue={item.price}
+                            readOnly
+                            size="lg"
+                            type="number"
+                            min="1"
+                            label="Price (Baht)"  
+                            name={`total_price`}
+                            placeholder="0 baht"
+                            initialValue={item.total_price}
                           />
                         </div>
- 
 
-                  
-
-                      
                     </div>
 
 
-                      <Textarea bordered fullWidth
-                          color="primary"
-                          name={`quotation-`}
-                          label="Quotation (Reference Links)"
-                          placeholder="item reference links (shops, e-stores)"
-                          className="font-normal"
-                          initialValue={item.name}
-                        />
+                  
+                  </div>
+
+                  <div className="flex justify-end">
+                    <button className="primary-btn"> Add to Inventory</button>
                   </div>
 
 

@@ -80,7 +80,7 @@ export default function PendingInventory() {
 
         {(data.items && data.items?.length >0)
           ?
-            <PurchasedListTable items={data.items} locations={data.locations} />
+            <PurchasedListTable items={data.order_items} locations={data.locations} />
           :
             <EmptyState msg={"The Inventory is empty"} />}
         </div>

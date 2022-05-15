@@ -76,7 +76,6 @@ const PurchasedListTable = ({items, locations}) => {
         { name: "TYPE", uid: "type" },
         { name: "ORDER DATE", uid: "order_date" },
         { name: "LOCATION", uid: "location"},
-        { name: "DEPRECIATION", uid: "depreciation" },
         { name: "ACTIONS", uid: "actions" },
        
       ];
@@ -91,17 +90,16 @@ const PurchasedListTable = ({items, locations}) => {
           case "name":
             return <p className="text-lg ">{items.name}</p>;
           case "price":
-            return <p className="text-lg ">{items.price}</p>;
+            return <p className="text-lg ">{items.total_price} ฿</p>;
           case "order_date":
-            return <p className="text-lg "><DateConvert date={items.order_date} type={"inventory"} /></p>;
-          case "depreciation":
-              return <p className="text-lg ">{checkDepreciation(items)}</p>;
+            return <p className="text-lg ">{<DateConvert date={items?.order_request?.order_date} type="date" />}</p>;
+    
 
           case "type":
             return <p className="text-lg ">{items.type}</p>;
 
           case "location":
-            return <p className="text-lg">{returnRoom(items.location_id)}</p>
+            return <p className="text-lg">{returnRoom(items.order_request.location_id)}</p>
           case "quantity":
             return <p className="text-lg ">{items.quantity} {items.quantity_unit}</p>;
           case "order_status":

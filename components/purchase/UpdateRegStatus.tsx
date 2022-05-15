@@ -17,27 +17,34 @@ export default function UpdateRegStatus({type,visible, closeHandler, orderReques
   const [comment, setComment] = useState("");
 
 
-  const handlePurchased = async (orderId:Number) => {
+  const handlePurchased = async (order_request: Object, comment: String, orderId:Number) => {
  
     fetcher("/api/common/order/purchased", { orderId }).then((d) => {
       mutate(`/api/${pageType}`)
     })
     closeHandler()
+ let recipient;
+    if (order_request?.location?.users?.length) {
+     recipient = order_request.location?.users?.map(item => item.email).join(", ")
+    } else {
+    }
+    fetcher("/api/common/send_email", {recipient, comment}).then(d => {
+    }) 
   }
 
 
-  const handleApprove = async (order_request: String, comment: String, item: Number) => {
+  const handleApprove = async (order_request: Object, comment: String, item: Number) => {
  
     fetcher("/api/common/order/approve", { orderId: item }).then((d) => {
       mutate(`/api/${pageType}`)
     })
 
+    closeHandler()
     let recipient;
     if (order_request?.location?.users?.length) {
      recipient = order_request.location?.users?.map(item => item.email).join(", ")
     } else {
     }
-    console.log({recipient, order_request, users: order_request.location.users})
     fetcher("/api/common/send_email", {recipient, comment}).then(d => {
     }) 
   }
@@ -58,7 +65,7 @@ export default function UpdateRegStatus({type,visible, closeHandler, orderReques
     })
   }
 
-  const handleComment = async (order_request: String, comment: String, item: Number) => {
+  const handleComment = async (order_request: Object, comment: String, item: Number) => {
 
     fetcher("/api/common/order/comment", { comment, orderId: item }).then((d) => {
       mutate(`/api/${pageType}`)
@@ -206,7 +213,7 @@ export default function UpdateRegStatus({type,visible, closeHandler, orderReques
              : <div >
                 <div className="flex justify-center mb-4 gap-40">
                     <Button auto bordered color="error"onClick={e => handleReject(orderRequest.id)} className="text-red-500">Reject &#128680;</Button>
-                    <Button auto bordered color="primary"  onClick={e => handleApprove(orderRequest.id)}> Approve &#9989;</Button>
+                    <Button auto bordered color="primary"  onClick={e => handleApprove(orderRequest, "Your order request has been approved!", orderRequest.id)}> Approve &#9989;</Button>
                   </div>
                 
                   <Textarea bordered fullWidth

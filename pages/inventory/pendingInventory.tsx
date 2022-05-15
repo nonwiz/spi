@@ -65,7 +65,7 @@ export default function PendingInventory() {
         <div className="mt-4">
         <div className="rounded-lg ">
           <div className="flex flew-row gap-8">
-          <h2>Recently Purchased Items </h2>
+          <h2>Recently Purchased Items (Pending Inventory) </h2>
           {/* <div className=" flex flex-row gap-2 items-center">
               <p className="text-lg font-semibold">Filter By: </p>
               <button  onClick={(e) => changeFilter("")}  className={(codeFilter =="")?" filterSelect bg-primary-color text-white":"filterSelect"}>Show All</button>

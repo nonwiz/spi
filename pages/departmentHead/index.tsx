@@ -20,10 +20,13 @@ export default function Page() {
   if (isLoading) return  <LoadingIcon />
 
 
-  const pendingOrderRequests = data.orderRequests.filter(oreq => oreq.order_status == "Pending")
+  const pendingOrderRequests = (order_req: any[]) =>{
+
+    let filtered_req = order_req?.filter((item) => (item?.location?.department_id == data?.user?.department_id && item.order_status == "Pending"))
+    return filtered_req
+  }
 
 
- 
 
   return (
     <>
@@ -34,7 +37,7 @@ export default function Page() {
           <h2>Pending order Request</h2>
 
         {(pendingOrderRequests.length>0)
-           ? <PendingRequestTable pageType={"departmentHead"} email={data.user.email} orderRequest={pendingOrderRequests} />
+           ? <PendingRequestTable pageType={"departmentHead"} email={data.user.email} orderRequest={pendingOrderRequests(data?.orderRequests)} />
           : <EmptyState msg={"No Pending Order Request"} />}
         </div>
       </div>

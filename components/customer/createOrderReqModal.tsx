@@ -381,7 +381,7 @@ console.log("office", office)
        {needAction && 
        <>
               <div className="my-2">
-                  <label htmlFor="desired_date" className="  text-primary-color text-md font-normal inline-flex gap-1 items-center">5. Your order is more than 6000 baht. Please fill the purchasing action.</label>
+                  <label htmlFor="desired_date" className="  text-primary-color text-md font-normal inline-flex gap-1 items-center">5. Your order is more than 6000 baht. Please fill the ACTION NUMBER.</label>
                 </div>
               <Input  bordered fullWidth required
                   color="primary" size="lg"

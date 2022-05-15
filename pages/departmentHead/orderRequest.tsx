@@ -28,7 +28,6 @@ export default function OrderRequest() {
   };
 
   const pendingRequests = (order_req: any[]) =>{
-
     let filtered_req = order_req.filter((item) => (item?.location?.department_id == data?.user?.department_id && item.order_status != "Purchased"))
     return filtered_req
   }

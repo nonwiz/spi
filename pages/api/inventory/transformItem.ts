@@ -9,7 +9,7 @@ type Data = {
 
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const reqSession = await getSession({ req });
-  const { name, code, type, location_id, description, price, order_date, depreciation, quantity, quantity_unit } = req.body;
+  const { order_id, name, code, type, location_id, description, price, order_date, depreciation, quantity, quantity_unit } = req.body;
   const data = {name, code, type, description, price: Number(price), quantity: Number(quantity), order_date: new Date(order_date), depreciation: new Date(depreciation), quantity_unit }
   if (data.price >= 6000) {
     data["isAsset"] = true;
@@ -23,6 +23,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     // check if the depreciation date is valid or not
     delete data["depreciation"];
   }
+  data["order_reference"] = order_id
 
   if (reqSession) {
     const item = await prisma.item.create({
@@ -35,6 +36,15 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         }
       }
     });
+    const order_item = await prisma.orderItem.update({
+      where: {
+        id: Number(order_id)
+      },
+      data: {
+        added_inventory: true
+      }
+    })
+
     return res.status(200).json({item})
   }
   res.status(500).json({ error: "not authorized" })

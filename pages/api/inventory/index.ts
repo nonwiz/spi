@@ -46,7 +46,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     const relocate_requests = locations.filter(loc => loc.location_moving_request).map(loc => loc.location_moving_request);
     const order_items = orderRequests.map(or => { 
       let { order_items } = or;
-      order_items = order_items.map(item => ({...item, order_request: or}))
+      order_items = order_items.map(item => ({...item, order_request: or})).filter(item => !item.added_inventory)
       return order_items;
        }).flat();
     return res.status(200).json({ orderRequests, order_items, user, allUsers, items, locations, code_list, relocate_requests, code_types, error: false, message: "fetched inventory!" })

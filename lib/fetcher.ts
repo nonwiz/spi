@@ -67,6 +67,7 @@ export const getFieldsValues = (event, fields) => {
     let key = `[name=${item}]`;
     const ele = event.target.querySelector(key);
     
+    console.log({ele, key})
     if (ele.value !== undefined)  {
       data[item] = ele.value;
     } else {

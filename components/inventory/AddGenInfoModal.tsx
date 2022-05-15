@@ -33,7 +33,7 @@ export default function AddGeneralInfoModal({visible, closeHandler, info }) {
         aria-labelledby="modal-title"
         open={visible}
         onClose={closeHandler}
-        width="500px"
+        width="900px"
       >
         <Modal.Header>
           <Text id="modal-title" size={18}>Creating General Information</Text>
@@ -49,13 +49,13 @@ export default function AddGeneralInfoModal({visible, closeHandler, info }) {
 
                 <Collapse.Group>
                     <Collapse key="1" title="List of Quantity Units">
-                      <div className="grid grid-cols-3 gap-4">
+                      <div className="grid grid-cols-5 gap-4">
                         {info?.quantity_unit?.map(item => <ul className="text-sm">{item} </ul>)}
                       </div>
                     </Collapse>
 
                     <Collapse key="2" title="List of Order Types">
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-5 gap-4">
                         {info?.order_type?.map(item => <ul className="text-sm">{item} </ul>)}
                       </div>
                     </Collapse>

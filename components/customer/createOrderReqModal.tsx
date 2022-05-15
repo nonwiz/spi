@@ -379,7 +379,7 @@ console.log("office", office)
                   
                 />
 
-       {needAction && 
+       {needAction ? 
        <>
               <div className="my-2">
                   <label htmlFor="desired_date" className="  text-primary-color text-md font-normal inline-flex gap-1 items-center">5. Your order is more than 6000 baht. Please fill the ACTION NUMBER.</label>
@@ -389,10 +389,11 @@ console.log("office", office)
                   type="text" 
                   name={`action_number`}
                   aria-label="action_number"
-                  initialValue=""
                   
                 />
                 </>
+       :
+       <input type="hidden" name="action_number" />
        }
 
        

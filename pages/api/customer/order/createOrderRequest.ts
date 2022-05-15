@@ -27,7 +27,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     }
   })
 
-  const populatedData = {
+  let populatedData = {
       purchase_reason: fData.purchase_reason,
       total_price: Number(total_price),
       desired_date: new Date(fData.desired_date),
@@ -44,7 +44,15 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       }
   }
 
-  
+  if (user.role == "department_head" || "finance_officer") {
+    populatedData["approval_by"] = {
+      create: [{user: user?.email, role: user.role}]
+    }
+  }
+  if (user.role == "finance_officer") {
+    populatedData["approval_status"] = true
+    populatedData["order_status"] = "Approved"
+  }
 
   
   const orderReq = await prisma.orderRequest.create({

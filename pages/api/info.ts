@@ -16,7 +16,7 @@ type Data = {
 export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const reqSession = await getSession({ req });
   if (!reqSession) {
-    return res.status(401).json({ 'message': "Permission denied", 'error': true })
+    return res.status(200).json({ 'message': "Permission denied", 'error': true })
   }
 
   const [departments, locations, orderTypes, generalInfos] =

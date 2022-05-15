@@ -51,7 +51,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
        }).flat();
     return res.status(200).json({ orderRequests, order_items, user, allUsers, items, locations, code_list, relocate_requests, code_types, error: false, message: "fetched inventory!" })
   }
-  res.status(401).json({ error: true, message: "not authorized" })
+  res.status(200).json({ error: true, message: "Permission denied" })
 }
 
 

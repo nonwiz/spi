@@ -34,7 +34,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     })
     return res.status(200).json({ user })
   }
-  res.status(500).json({ error: "not authorized" })
+  res.status(200).json({ error: true, message: "Permission denied" })
 }
 
 

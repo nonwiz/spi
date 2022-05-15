@@ -14,7 +14,7 @@ export default function MyItems() {
   if (isLoading) return <LoadingIcon />
 
   // Order requests whose status is not pending 
-  const ors = data?.orderRequests.filter(item => item?.order_status == "Purchased")
+  const ors = data?.orderRequests?.filter(item => item?.order_status == "Purchased")
 
 
 
@@ -29,7 +29,7 @@ export default function MyItems() {
       <div className=" rounded-lg ">
         <h2>Recent Purchase</h2>
         {(ors?.length > 0) ?
-          <PendingRequestTable orderRequest={ors} email={data?.user.email} pageType={"purchase"} /> :
+          <PendingRequestTable orderRequest={ors} email={data?.user.email} pageType={"inventory"} /> :
           <EmptyState msg={"No Pending Order Request"} />}
       </div>
     </div>

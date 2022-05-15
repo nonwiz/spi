@@ -49,7 +49,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     const orderTypes = await prisma.orderType.findMany();
     return res.status(200).json({ user, orderTypes, orderRequests, department_detail })
   }
-  res.status(500).json({ error: "not authorized" })
+  res.status(200).json({ error: true, message: "Permission denied" })
 }
 
 

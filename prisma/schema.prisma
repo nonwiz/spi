@@ -111,13 +111,14 @@ model OrderItem {
   name             String
   quotation        String?
   quantity         Float?       @default(1.0)
-  quantity_unit    String? @default("other")
+  quantity_unit    String? @default("other") 
   unit_price       Float?
   vat              Float?
   total_price      Float?
   type             String
   order_request    OrderRequest @relation(fields: [order_request_id], references: [id])
   order_request_id Int
+  added_inventory Boolean @default(false)
 }
 
 model OrderRequest {
@@ -148,9 +149,9 @@ model Item {
   order_date                 DateTime?
   isAsset Boolean @default(false)
   depreciation               DateTime?
-  type                       String?
+  type                       String? 
   quantity                   Float?
-  quantity_unit              String?              @db.VarChar(10)
+  quantity_unit              String?              @db.VarChar(27) 
   location                   Location             @relation(fields: [location_id], references: [id])
 
   location_id                Int

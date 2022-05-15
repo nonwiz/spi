@@ -30,14 +30,15 @@ console.log("office", office)
       return [...all, ...curr]
     }, [])
 
-    const datas = [...flatItems, "purchase_reason", "location_id", "desired_date" ];
+    const datas = [...flatItems, "purchase_reason", "location_id", "desired_date", "action_number"];
  
     const formData = getFieldsValues(event, datas);
     const cleanData = {
       items: [],
       purchase_reason: formData["purchase_reason"],
       desired_date: formData["desired_date"],
-      location_id: formData["location_id"]
+      location_id: formData["location_id"],
+      action_number: formData["action_number"]
     }
     for (let i = 0; i < orderItem.length; i++) {
       const item = {};
@@ -196,9 +197,9 @@ console.log("office", office)
             </div>
             
             <div className="w-full bg-gray-200 ">
-              <div className={(step==1)?"bg-primary-color py-[3px] rounded-y-full w-[33.33%]":
-                              (step==2)?"bg-primary-color py-[3px] rounded-y-full w-[66.6%]":
-                              (step==3)?"bg-primary-color py-[3px] rounded-y-full w-full":""}></div>
+              <div className={(step==1)?"bg-primary-color py-[3px] rounded-y-full w-[33.33%] text-white":
+                              (step==2)?"bg-primary-color py-[3px] rounded-y-full w-[66.6%] text-white":
+                              (step==3)?"bg-primary-color py-[3px] rounded-y-full w-full text-white":""}></div>
             </div>
             
           <div className={(step==1)?"mt-6 mb-4 flex flex-col gap-4":"hidden"}>
@@ -378,19 +379,21 @@ console.log("office", office)
                   
                 />
 
-       {needAction && 
+       {needAction ? 
        <>
               <div className="my-2">
-                  <label htmlFor="desired_date" className="  text-primary-color text-md font-normal inline-flex gap-1 items-center">5. Your order is more than 6000 baht. Please fill the purchasing action.</label>
+                  <label htmlFor="desired_date" className="  text-primary-color text-md font-normal inline-flex gap-1 items-center">5. Your order is more than 6000 baht. Please fill the ACTION NUMBER.</label>
                 </div>
               <Input  bordered fullWidth required
                   color="primary" size="lg"
                   type="text" 
-                  name={`purchase_action`}
-                  aria-label="purchase_action"
+                  name={`action_number`}
+                  aria-label="action_number"
                   
                 />
                 </>
+       :
+       <input type="hidden" name="action_number" />
        }
 
        

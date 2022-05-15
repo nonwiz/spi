@@ -9,9 +9,38 @@ import DateConvert from "../dateConvert";
 
 
 export default function UpdatePurchasedItem({visible, closeHandler, item, location }) {
+  const [ markExpense, setMarkExpense] = useState(false)
     const { mutate } = useSWRConfig()
 
-   
+
+  const handleMarkExpense = async (event) => {
+    event.preventDefault()
+    const formData = getFieldsValues(event, ["code", "type", "name", "location_id", "description", "price", "order_date", "depreciation", "quantity", "quantity_unit", "order_id"])
+    console.log({formData})
+    fetcher("/api/inventory/markExpense", formData).then((d) => {
+      mutate("/api/inventory")
+    })
+
+    createLog("OrderItem", `Update: mark as expense ${formData.order_id} to the inventory`, "Update")
+    closeHandler()
+}
+
+  const handleImportInventory = async (event) => {
+    event.preventDefault()
+    const formData = getFieldsValues(event, ["code", "type", "name", "location_id", "description", "price", "order_date", "depreciation", "quantity", "quantity_unit", "order_id"])
+    
+    console.log({formData})
+    fetcher("/api/inventory/transformItem", formData).then((d) => {
+      
+      mutate("/api/inventory")
+    })
+    createLog("OrderItem", `Change: convert order_item to item (${formData.name}-${formData.type}-${formData.order_date}) to the inventory`, "Create")
+    closeHandler()
+}
+
+
+
+   const date = <DateConvert date={item?.order_request?.order_date} type="date" />
   return (
     <>
       <Modal
@@ -25,29 +54,20 @@ export default function UpdatePurchasedItem({visible, closeHandler, item, locati
           <Text id="modal-title" size={18} className="font-semibold">Purchased Item Information (Update)</Text>
         </Modal.Header>
         <Modal.Body>
-    
-          <p>order date, depreciatioin, a</p>
+          <form onSubmit={!markExpense ? handleImportInventory : handleMarkExpense}>
           <div  className ="flex flex-col gap-4 p-2">
                     
                     <div className="flex flex-col gap-4 ">
+                      <input name="order_id" type="hidden" value={item.id} />
                       <Input  bordered fullWidth
-                          color="primary" 
+                          readOnly
+        
                           size="lg"
                           type="text"
                           label="Name" 
-                          placeholder="Item Name"
+ 
                           name={"name"}
                           initialValue={item.name}
-                          />
-
-                      <Input  bordered fullWidth
-                          color="primary" 
-                          size="lg"
-                          type="text"
-                          label="Description" 
-                          placeholder="Item Description"
-                          name={"description"}
-                          initialValue={item.description}
                           />
 
 
@@ -55,29 +75,25 @@ export default function UpdatePurchasedItem({visible, closeHandler, item, locati
                       
                       <Input  bordered fullWidth
                             readOnly
-                            color="primary" 
                             size="lg"
                             type="text"
                             label="Order Date"  
-
-                            initialValue={`${<DateConvert date={item.order_date} type="date"/>}`}
+                            name="order_date"
+                            initialValue={new Date(item?.order_request?.order_date).toLocaleString('en-us',{dateStyle: 'medium'})}   
                             />
 
                         <Input  bordered fullWidth
-                            required
                             color="primary" 
                             size="lg"
                             type="Date"
-                            label="Depreciation Date"  
+                            label="Depreciation Date "  
                             name={`depreciation`}
-                       
-
                             />
                         </div>
 
                         <div className="flex flew-row gap-4 items-center">
                           <Input  bordered fullWidth
-                            color="primary" 
+                            readOnly
                             size="lg"
                             type="text"
                             label="Type"  
@@ -86,19 +102,20 @@ export default function UpdatePurchasedItem({visible, closeHandler, item, locati
                             />
 
                           <Input  bordered fullWidth
-                            required
+                            required={!markExpense ? true : false}
+                            status="primary" 
                             color="primary" 
                             size="lg"
                             type="text"
-                            label="Item Code"  
-                            name={`item_code`}
+                            label="Asset Code *"  
+                            name={`code`}
                             placeholder="Item Code"
                             />
                         </div>
 
                         <div className="flex flew-row gap-4 items-center">
                         <Input  bordered fullWidth
-                          color="primary" 
+                          readOnly
                           size="lg"
                           type="number"
                           label={`Quantity (${item.quantity_unit})`} 
@@ -108,35 +125,34 @@ export default function UpdatePurchasedItem({visible, closeHandler, item, locati
                           initialValue={item.quantity}
        
                           />
+                          <input type="hidden" name="quantity_unit" value={item?.quantity_unit} />
 
                           <Input  bordered fullWidth
-                          color="primary" 
-                          size="lg"
-                          type="number"
-                          min="1"
-                          label="Price (Baht) *"  
-                          name={`price`}
-                          placeholder="0 baht"
-                          initialValue={item.price}
+                            readOnly
+                            size="lg"
+                            type="number"
+                            min="1"
+                            label="Price (Baht)"  
+                            name={`price`}
+                            placeholder="0 baht"
+                            initialValue={item.total_price}
                           />
+                          <input type="hidden" name="location_id" value={item?.order_request?.location_id} />
+                          <input type="hidden" name="description" value="" />
                         </div>
- 
 
-                  
-
-                      
                     </div>
 
 
-                      <Textarea bordered fullWidth
-                          color="primary"
-                          name={`quotation-`}
-                          label="Quotation (Reference Links)"
-                          placeholder="item reference links (shops, e-stores)"
-                          className="font-normal"
-                          initialValue={item.name}
-                        />
+                  
                   </div>
+
+                  <div className="flex justify-between mt-4">
+                  <button className="secondary-btn" type="submit" onClick={() => setMarkExpense(true)}> Mark as Expense</button>
+                    <button className="primary-btn" type="submit"> Add to Inventory</button>
+                  </div>
+
+                  </form>
 
 
         </Modal.Body>

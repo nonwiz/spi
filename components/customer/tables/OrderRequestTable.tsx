@@ -77,7 +77,7 @@ const OrderRequestTable = ({ orderRequest }) => {
       case "order_date":
         return <p className="text-lg "><DateConvert date={orderRequest.order_date} type="date" /></p>;
       case "order_status":
-        return <StyledStatus status={`${orderRequest.approval_by.length > 0 && orderRequest.order_status == "Pending" ? `Pending (${orderRequest.approval_by.length}/3)` : orderRequest.order_status}`} />
+        return <StyledStatus status={`${orderRequest.approval_by.length > 0 && orderRequest.order_status == "Pending" ? `Pending (${orderRequest.approval_by.length}/2)` : orderRequest.order_status}`} />
 
       case "actions":
         return (

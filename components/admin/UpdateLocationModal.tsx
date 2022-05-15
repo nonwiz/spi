@@ -10,9 +10,6 @@ import { useState } from "react";
 export default function UpdateLocationModal({ type, visible, closeHandler, location, buildings, departments }) {
   const { data: info, isLoading: infoLoading } = useInfo();
 
-
-  if (infoLoading) return "...";
-
   const { mutate } = useSWRConfig();
   const [other, setOther] = useState(false);
   const [building, setBuilding] = useState(location?.building)

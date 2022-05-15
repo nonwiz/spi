@@ -9,7 +9,7 @@ import UpdateLocationModal from "@/components/admin/UpdateLocationModal";
 import DateConvert from "@/components/dateConvert";
 
 
-const LocationListTable = ({location, zones}) => {
+const LocationListTable = ({location}) => {
 
   const [visible, setVisible] = useState(false);
   const [locationInfo, setLocation] = useState([]);
@@ -95,7 +95,7 @@ const LocationListTable = ({location, zones}) => {
           visible={visible} 
           closeHandler={closeHandler} 
           location={locationInfo} 
-          zones={zones}/>
+          />
          
             <Table 
             headerLined

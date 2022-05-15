@@ -15,8 +15,7 @@ export default function departmentList() {
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState("none");
 
-  if (isLoading) return  <LoadingIcon />
-  if (session?.user?.role != "admin") return <p> Unauthorized </p>
+ 
   
   
   const handler = () =>{
@@ -29,6 +28,8 @@ export default function departmentList() {
     setType("none")
   };
 
+  if (isLoading) return  <LoadingIcon />
+  if (session?.user?.role != "admin") return <p> Unauthorized </p>
 
   return (
     <div>
@@ -40,7 +41,7 @@ export default function departmentList() {
           
         <div className="flex flex-row gap-12 my-6 items-center">
         <button onClick={handler} className="primary-btn">Add New Department</button>
-        <SearchBox /> 
+        <SearchBox msg={"search for department"} /> 
 
         </div>
       <div className="">

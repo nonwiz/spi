@@ -11,11 +11,12 @@ import ViewItemModal from "../ViewItemModal";
 import { useSWRConfig } from "swr";
 import { createLog, fetcher } from "lib/fetcher";
 import { DeleteIcon } from "@/components/customer/icons/DeleteIcon";
+import UpdatePurchasedItem from "../updatePurchasedItem";
 
 
 
 
-const ItemsListTable = ({items, locations}) => {
+const PurchasedListTable = ({items, locations}) => {
   const router = useRouter()
   const [visible, setVisible] = useState(false);
   const [itemInfo, setItemInfo] = useState([])
@@ -110,15 +111,15 @@ const ItemsListTable = ({items, locations}) => {
             return (
               <Row justify="center" align="center">
 
-                
-                <Col css={{  }} className="ml-1">
-                  <Tooltip content="Dispose Item" >
-                    <IconButton  onClick={() => disposeItem(items.id)} >
-                    <DeleteIcon size={20} fill="#ef4444" />
-                    </IconButton>
-                  </Tooltip>
-              </Col>
-       
+              <Col css={{  }} className="">
+                <Tooltip content="Edit Item" >
+                  <IconButton  onClick={() => updateItem(items)} >
+                  <EditIcon size={20} fill="#979797" />
+                  </IconButton>
+                </Tooltip>
+                </Col>
+               
+               
                
             
 
@@ -137,12 +138,12 @@ const ItemsListTable = ({items, locations}) => {
 
     return ( 
       <>
-          <ViewItemModal
-          visible={visible}
-          closeHandler={closeHandler}
-          location={itemLocation} 
-          item={itemInfo}      
-      />
+          <UpdatePurchasedItem
+            visible={visible}
+            closeHandler={closeHandler}
+            location={itemLocation} 
+            item={itemInfo}      
+          />
 
 
             <Table 
@@ -191,4 +192,4 @@ const ItemsListTable = ({items, locations}) => {
      );
 }
  
-export default ItemsListTable;
+export default PurchasedListTable;

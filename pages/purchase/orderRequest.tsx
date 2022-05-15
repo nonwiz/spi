@@ -21,9 +21,7 @@ export default function OrderRequest() {
 
   const pendingOrderRequests = data?.orderRequests?.filter(oreq => oreq.order_status != "Purchased")
 
-  
  
-  
   const createOrder = () =>{
     setVisible(true);
   }

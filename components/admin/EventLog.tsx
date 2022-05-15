@@ -12,7 +12,9 @@ const EventLog = ({logs} ) => {
       {logs?.map((log, num) => 
         <div className="flex flex-row items-baseline gap-2 ">
   
-          <div className={(log?.operation=="Update")?"bg-yellow-400 w-3 h-3 rounded-full":"bg-green-400 w-3 h-3 rounded-full"}></div>
+          <div className={(log?.operation=="Update")?"bg-yellow-400 w-3 h-3 rounded-full":log?.operation=="Remove"?
+            "bg-red-400  w-[80%] rounded-full":"bg-green-400 w-3 h-3 rounded-full"}></div>
+          
           <div>
             <p>Date: {formatDate(log.timestamp)} | {log?.operation}</p>
             <p>User: {log?.user}</p>

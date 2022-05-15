@@ -20,9 +20,6 @@ const PendingRequestTable = ({ orderRequest, email, pageType }) => {
   const [orderReq, setOrderRequest] = useState({})
 
 
-
-
-
   const detailHandler = (order) => {
     setVisible(true);
     setType("view_details")
@@ -81,7 +78,7 @@ const PendingRequestTable = ({ orderRequest, email, pageType }) => {
     switch (columnKey) {
 
       case "id":
-        return <p className="text-lg ">{orderRequest.location.short_code}</p>;
+        return <p className="text-lg ">{orderRequest.location?.short_code}</p>;
       case "order_description":
         return <p className="text-lg ">{orderRequest.purchase_reason}</p>;
       case "order_items":
@@ -91,7 +88,7 @@ const PendingRequestTable = ({ orderRequest, email, pageType }) => {
       case "order_date":
         return <p className="text-lg "><DateConvert date={orderRequest.order_date} type="date" /></p>;
       case "order_status":
-        return <StyledStatus status={`${orderRequest.approval_by.length > 0 && orderRequest.order_status == "Pending" ? `Pending (${orderRequest.approval_by.length}/2)` : orderRequest.order_status}`} />
+        return <StyledStatus status={`${orderRequest?.approval_by?.length > 0 && orderRequest.order_status == "Pending" ? `Pending (${orderRequest.approval_by.length}/2)` : orderRequest.order_status}`} />
 
 
       case "actions":
@@ -105,7 +102,8 @@ const PendingRequestTable = ({ orderRequest, email, pageType }) => {
               </Tooltip>
             </Col>
 
-            {(orderRequest.order_status == "Approved" || orderRequest.order_status == "Purchased") ?
+            {/* {(orderRequest.order_status == "Approved" || orderRequest.order_status == "Purchased") ? */}
+
               <Col css={{ d: "flex" }}>
                 <Tooltip content="Update Order">
                   <IconButton onClick={() => updateHandler(orderRequest)}>
@@ -113,9 +111,8 @@ const PendingRequestTable = ({ orderRequest, email, pageType }) => {
                   </IconButton>
                 </Tooltip>
               </Col>
-              :
-              ""
-            }
+              {/* : */}
+            {/* } */}
 
           </Row>
         );

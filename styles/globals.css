@@ -31,6 +31,10 @@ button, textarea {
   .text-label{
     @apply font-semibold text-lg text-primary-color
   }
+
+  .filterSelect{
+    @apply border-0 text-sm text-primary-color py-1
+  }
   
 
 }

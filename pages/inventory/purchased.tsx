@@ -14,7 +14,7 @@ export default function MyItems() {
   if (isLoading) return <LoadingIcon />
 
   // Order requests whose status is not pending 
-  const ors = data?.orderRequests?.filter(item => item?.order_status == "Purchased")
+  const ors = data.orderRequests;
 
 
 

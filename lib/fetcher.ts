@@ -178,3 +178,27 @@ export const returnValue = (list, key, value, prop) => {
   console.log(value);
   return list.find(item => item[key] == value)[prop];
 }
+
+
+export const exportCodes= () => {
+  const ele = document.createElement("a");
+  let items = data.code_list;
+  let d = convertToCSV([[...Object.getOwnPropertyNames(data.code_list[0])], ...items]);
+  const file = new Blob([d], {type:"text/csv"});
+  ele.href = URL.createObjectURL(file);
+  ele.download = `${new Date().toISOString()}-all-codes.csv`
+  document.body.appendChild(ele);
+  ele.click()
+}
+
+export const exportItems = () => {
+  const ele = document.createElement("a");
+  const items = data.items.map(item => ({...item, location: returnValue(data.locations, "id", item.location_id, "short_code")}))
+  let d = convertToCSV([[...Object.getOwnPropertyNames(data.items[0]), "location"], ...items]);
+
+  const file = new Blob([d], {type:"text/csv"});
+  ele.href = URL.createObjectURL(file);
+  ele.download = `${new Date().toISOString()}-all-items.csv`
+  document.body.appendChild(ele);
+  ele.click()
+}

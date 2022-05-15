@@ -20,9 +20,6 @@ export default function Page() {
   const [addItem, setAddItem] = useState(false);
   const [ImportItem, setImportItem] = useState(false);
   const [codeFilter, setCodeFilter] = useState("")
-
-  if (isLoading || infoLoading) return  <LoadingIcon />
-
   
   const handlerAdd = () => {setAddItem(true);}
   const closeAdd = () => {setAddItem(false);};
@@ -34,9 +31,11 @@ export default function Page() {
   const changeFilter = (type) =>{
     setCodeFilter(type)
   }
+
+
   if (isLoading || infoLoading) return  <LoadingIcon />
 
-  const items = data?.items.filter(item => item.isAsset)
+  const items = data?.items.filter(item => !item.isAsset)
 
   return (
     <>
@@ -72,7 +71,7 @@ export default function Page() {
         <div className="mt-4">
         <div className="rounded-lg ">
           <div className="flex flew-row gap-8">
-          <h2>Recently Added item (Assets)</h2>
+          <h2>Recently Added item (Non-Asset)</h2>
           {/* <div className=" flex flex-row gap-2 items-center">
               <p className="text-lg font-semibold">Filter By: </p>
               <button  onClick={(e) => changeFilter("")}  className={(codeFilter =="")?" filterSelect bg-primary-color text-white":"filterSelect"}>Show All</button>

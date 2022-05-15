@@ -184,6 +184,7 @@ export default function UpdateRegStatus({type,visible, closeHandler, orderReques
                   <span key={k}>{item.role}</span>)} </span></p>
 
               <p className="text-lg font-semibold"> Remarks: <span className="font-normal"> {orderRequest.remark} </span></p>
+              <p className="text-lg font-semibold">  {orderRequest.action_number ? `Action: Number ${orderRequest.action_number}` : ""} </p>
          
 
                   <Collapse.Group className="-ml-3" >

@@ -9,8 +9,21 @@ import DateConvert from "../dateConvert";
 
 
 export default function UpdatePurchasedItem({visible, closeHandler, item, location }) {
+  const [ markExpense, setMarkExpense] = useState(false)
     const { mutate } = useSWRConfig()
 
+
+  const handleMarkExpense = async (event) => {
+    event.preventDefault()
+    const formData = getFieldsValues(event, ["code", "type", "name", "location_id", "description", "price", "order_date", "depreciation", "quantity", "quantity_unit", "order_id"])
+    console.log({formData})
+    fetcher("/api/inventory/markExpense", formData).then((d) => {
+      mutate("/api/inventory")
+    })
+
+    createLog("OrderItem", `Update: mark as expense ${formData.order_id} to the inventory`, "Update")
+    closeHandler()
+}
 
   const handleImportInventory = async (event) => {
     event.preventDefault()
@@ -41,7 +54,7 @@ export default function UpdatePurchasedItem({visible, closeHandler, item, locati
           <Text id="modal-title" size={18} className="font-semibold">Purchased Item Information (Update)</Text>
         </Modal.Header>
         <Modal.Body>
-          <form onSubmit={handleImportInventory}>
+          <form onSubmit={!markExpense ? handleImportInventory : handleMarkExpense}>
           <div  className ="flex flex-col gap-4 p-2">
                     
                     <div className="flex flex-col gap-4 ">
@@ -70,7 +83,6 @@ export default function UpdatePurchasedItem({visible, closeHandler, item, locati
                             />
 
                         <Input  bordered fullWidth
-                            required
                             color="primary" 
                             size="lg"
                             type="Date"
@@ -90,7 +102,7 @@ export default function UpdatePurchasedItem({visible, closeHandler, item, locati
                             />
 
                           <Input  bordered fullWidth
-                            required
+                            required={!markExpense ? true : false}
                             status="primary" 
                             color="primary" 
                             size="lg"
@@ -136,7 +148,7 @@ export default function UpdatePurchasedItem({visible, closeHandler, item, locati
                   </div>
 
                   <div className="flex justify-between mt-4">
-                  <button className="secondary-btn"> Mark as Expense</button>
+                  <button className="secondary-btn" type="submit" onClick={() => setMarkExpense(true)}> Mark as Expense</button>
                     <button className="primary-btn" type="submit"> Add to Inventory</button>
                   </div>
 

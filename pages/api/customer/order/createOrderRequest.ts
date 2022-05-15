@@ -15,26 +15,23 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const reqSession = await getSession({ req });
   // if (reqSession) {
   const fData = JSON.parse(req.body);
-  // const purchase_reason = "For 1359 schedule";
-  // let items = [{
-  //   "description": "Radio for ESL111", "size": "sm", "quantity": "25", "type": "electronic", 'unit_price': "42", amount: ""
-  // }, { "description": "Marker", "size": "sm", "quantity": "21", "type": "experiment", amount: "", 'unit_price': "" }]
-
-  // }
-
   const items = fData.items.map(item => {
     const tmp = { ...item, quantity: Number(item.quantity), unit_price: Number(item.unit_price), total_price: Number(item.total_price) }
     return tmp;
   });
   let total_price = items.reduce((sum, item) => sum += item.total_price, 0)
 
+  const user = await prisma.user.findUnique({
+    where: {
+      email: reqSession.user?.email
+    }
+  })
 
-  
-  const orderReq = await prisma.orderRequest.create({
-    data: {
+  const populatedData = {
       purchase_reason: fData.purchase_reason,
       total_price: Number(total_price),
       desired_date: new Date(fData.desired_date),
+      action_number: fData.action_number,
       order_items: {
         createMany: {
           data: [...items]
@@ -45,7 +42,14 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
           id: Number(fData.location_id),
         }
       }
+  }
 
+  
+
+  
+  const orderReq = await prisma.orderRequest.create({
+    data: {
+    ...populatedData,
     },
   })
  

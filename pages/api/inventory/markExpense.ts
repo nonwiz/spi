@@ -12,7 +12,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const { order_id, name, code, type, location_id, description, price, order_date, depreciation, quantity, quantity_unit } = req.body;
   const data = {name, code, type, description, price: Number(price), quantity: Number(quantity), order_date: new Date(order_date), depreciation: new Date(depreciation), quantity_unit }
 
-  data["isAsset"] = true;
+  data["isAsset"] = false;
   if (isNaN(data.order_date)) {
     // check if the order date is invalid or not
     delete data["order_date"];

@@ -20,19 +20,26 @@ export default function UpdateRegStatus({type,visible, closeHandler, orderReques
   const handlePurchased = async (orderId:Number) => {
  
     fetcher("/api/common/order/purchased", { orderId }).then((d) => {
-      
       mutate(`/api/${pageType}`)
     })
     closeHandler()
   }
 
 
-  const handleApprove = async (item: Number) => {
+  const handleApprove = async (order_request: String, comment: String, item: Number) => {
  
     fetcher("/api/common/order/approve", { orderId: item }).then((d) => {
-      
       mutate(`/api/${pageType}`)
     })
+
+    let recipient;
+    if (order_request?.location?.users?.length) {
+     recipient = order_request.location?.users?.map(item => item.email).join(", ")
+    } else {
+    }
+    console.log({recipient, order_request, users: order_request.location.users})
+    fetcher("/api/common/send_email", {recipient, comment}).then(d => {
+    }) 
   }
 
   const handleDeleteComment = async (item: Number) => {
@@ -54,20 +61,19 @@ export default function UpdateRegStatus({type,visible, closeHandler, orderReques
   const handleComment = async (order_request: String, comment: String, item: Number) => {
 
     fetcher("/api/common/order/comment", { comment, orderId: item }).then((d) => {
-      
-
       mutate(`/api/${pageType}`)
     })
 
     closeHandler();
 
-    // let recipient;
-    // if (order_request?.location?.users?.length) {
-    //  recipient = order_request.location?.users?.map(item => item.email).join(", ")
-    // } else {
-    // }
-    // fetcher("/api/common/send_email", {recipient, comment}).then(d => {
-    // }) 
+    let recipient;
+    if (order_request?.location?.users?.length) {
+     recipient = order_request.location?.users?.map(item => item.email).join(", ")
+    } else {
+    }
+    console.log({recipient, order_request, users: order_request.location.users})
+    fetcher("/api/common/send_email", {recipient, comment}).then(d => {
+    }) 
   }
 
 
@@ -195,7 +201,7 @@ export default function UpdateRegStatus({type,visible, closeHandler, orderReques
               </div>
             :(pageType=="purchase")?
                 <div className="flex justify-center mt-4">
-                    <Button auto flat  onClick={() => handlePurchased(orderRequest.id)} className="bg-primary-color text-white">Mark As Purchased</Button>
+                    <Button auto flat  onClick={() => handlePurchased(orderRequest, "Your item has been purchased.", orderRequest.id)} className="bg-primary-color text-white">Mark As Purchased</Button>
               </div>
              : <div >
                 <div className="flex justify-center mb-4 gap-40">

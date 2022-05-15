@@ -39,7 +39,7 @@ export default function Page() {
       <div>
         <h1>Test Upload file</h1>
         <form method="post" action="/api/customer/order/quotation" enctype="multipart/form-data">
-          <input name="quotations" type="file" />
+          <input name="quotations" type="file" multiple/>
           <button> Submit </button>
         </form>
 

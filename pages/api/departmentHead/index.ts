@@ -20,7 +20,11 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         order_items: true,
         approval_by: true,
         comment_by: true,
-        location: true,
+        location: {
+          include: {
+            users: true
+          }
+        }
       }
     })
     const user = await prisma.user.findUnique({

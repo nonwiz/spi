@@ -42,7 +42,7 @@ export default function locationList() {
   }
 
 
-  console.log(shortCode)
+  if (isLoading || infoLoading) return  <LoadingIcon />
 
 
   return (

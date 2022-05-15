@@ -12,9 +12,10 @@ import SearchBox from "@/components/admin/SearchBox"
 import AddItemModal from "@/components/inventory/AddItemModal"
 import { useSWRConfig } from "swr"
 import ImportItemsModal from "@/components/inventory/ImportItemsModal"
+import PurchasedListTable from "@/components/inventory/tables/purchasedListTable"
 
 
-export default function Page() {
+export default function PendingInventory() {
   const { data, isLoading } = useInventory()
   const { data: info, isLoading:infoLoading } = useInfo()
   const [addItem, setAddItem] = useState(false);
@@ -54,23 +55,17 @@ export default function Page() {
         type={"item"}
       />
 
-        <div className="flex flex-row gap-12 my-6 items-center ">
-          <div className="flex flex-row gap-4  w-full">
-            <div><button onClick={handlerAdd} className="primary-btn">Add New Item</button></div>
-            
+
             <SearchBox msg={"search for items"}/>
-            <div className="hidden md:flex md:flex-row gap-4 ">
-              <button onClick={handlerImport} className="secondary-btn">Import Items</button>
-              <button onClick={exportItems} className="secondary-btn">Export Items</button>
-            </div>
-          </div>
+         
+    
          
 
-      </div>
+ 
         <div className="mt-4">
         <div className="rounded-lg ">
           <div className="flex flew-row gap-8">
-          <h2>Recently Added item </h2>
+          <h2>Recently Purchased Items </h2>
           {/* <div className=" flex flex-row gap-2 items-center">
               <p className="text-lg font-semibold">Filter By: </p>
               <button  onClick={(e) => changeFilter("")}  className={(codeFilter =="")?" filterSelect bg-primary-color text-white":"filterSelect"}>Show All</button>
@@ -85,7 +80,7 @@ export default function Page() {
 
         {(data.items && data.items?.length >0)
           ?
-            <ItemsListTable items={data.items} locations={data.locations} />
+            <PurchasedListTable items={data.items} locations={data.locations} />
           :
             <EmptyState msg={"The Inventory is empty"} />}
         </div>

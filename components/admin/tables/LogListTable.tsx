@@ -41,7 +41,7 @@ const LogListTable = ({logs}) => {
 
           case "operation":
             return <div className={(log?.operation=="Update")
-            ?"bg-yellow-400 w-[80%] rounded-full":"Delete"?
+            ?"bg-yellow-400 w-[80%] rounded-full":log?.operation=="Remove"?
             "bg-red-400  w-[80%] rounded-full":"bg-green-400  w-[80%] rounded-full"}><p className="text-lg md:mr-8 text-center w-full">{log.operation }</p></div>;
 
           case "user":

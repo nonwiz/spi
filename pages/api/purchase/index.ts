@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
 import { prisma } from "db"
-import { Role, Zone } from "@prisma/client";
 
 type Data = {
   user: object,
@@ -20,14 +19,17 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         order_items: true,
         approval_by: true,
         comment_by: true,
-        location: true,
+        location: {
+          include: {
+            users: true
+          }
+        }
       }
     }), 
     prisma.user.findUnique({
       where: { email: reqSession.user.email }, include: {
         department: true,
         location: true,
-       
       }
     })
 

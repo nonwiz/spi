@@ -7,7 +7,7 @@ import { useSWRConfig } from "swr";
 import { useEffect, useState } from "react";
 
 
-export default function ImportItemsModal({visible, closeHandler }) {
+export default function ImportItemsModal({visible, closeHandler, type}) {
     const { mutate } = useSWRConfig()
 
     
@@ -33,6 +33,24 @@ export default function ImportItemsModal({visible, closeHandler }) {
       })
     }
 
+    const handleImportCodes = async () => {
+      const input = document.querySelector("#codes").value;
+      const json_input = convertToJson(input);
+      const items = json_input.map(item => ({...item}))
+      const fInput = JSON.stringify(items);
+  
+      fetcher("/api/common/code_name/importCodes", {"items": fInput}).then(d => {
+        console.log(d);
+      })
+    }
+
+    const importFile =() =>{
+      if( type=="item"){
+        handleImportItems()
+      }else{
+        handleImportCodes()
+      }
+    }
   
 
   return (
@@ -46,7 +64,7 @@ export default function ImportItemsModal({visible, closeHandler }) {
         width="500px"
       >
         <Modal.Header>
-          <Text id="modal-title" size={20} className="font-bold">Importing Items</Text>
+          <Text id="modal-title" size={20} className="font-bold">{(type=="item")?"Importing Items":"Importing Code List"}</Text>
         </Modal.Header>
         <Modal.Body>
           <div className="flex flex-col gap-4">
@@ -67,19 +85,24 @@ export default function ImportItemsModal({visible, closeHandler }) {
                         <p className="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
                             Select a file</p>
                     </div>
-                    <input type="file" id="inputFile" onChange={(e) => processFile(e, "#data", "#inputFile")} className="opacity-0" />
+                    {(type=="items"? 
+                      <input type="file" id="inputFile" onChange={(e) => processFile(e, "#data", "#inputFile")} className="opacity-0" />
+                    :
+                      <input type="file" id="inputCodes" onChange={(e) => processFile(e, "#codes", "#inputCodes")} className="opacity-0" />
+                    )}
+
                     
                 </label>
             </div>
 
-            <textarea id="data" rows={10}  className="hidden" name="items" />
+            <textarea id={(type=="items")?"data":"codes"} rows={10}  className="hidden" name={(type=="items")?"items":"codes"} />
         </div>
       
-    
-      
+        
+
       <div className="flex justify-center gap-12 ">
             <Button auto flat  onClick={closeHandler} className="text-error-color " >Close</Button>
-            <button className="primary-btn" type="submit" onClick={() => handleImportItems()} >Import</button>
+            <button className="primary-btn" type="submit" onClick={() => importFile()} >Import</button>
       </div>
 
 

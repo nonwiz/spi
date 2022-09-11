@@ -156,7 +156,7 @@ model Item {
 
   location_id                Int
   target_location_request    LocationMoveRequest? @relation(fields: [target_location_request_id], references: [id])
-  target_location_request_id Int?
+  target_location_request_id Int? @unique
   code                       String?
   action_number              String?
   order_reference String?
